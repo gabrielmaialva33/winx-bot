@@ -2,7 +2,7 @@ import logging
 
 logging.basicConfig(
     level=logging.INFO,
-    format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
+    format="[%(asctime)s - %(levelname)s] - %(module)s - %(filename)s:%(lineno)d - %(message)s",
     datefmt="%d-%b-%y %H:%M:%S",
     handlers=[
         logging.FileHandler("log.txt"),
