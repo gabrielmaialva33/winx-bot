@@ -23,7 +23,7 @@ def AdminRightsCheck(mystic):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
+                    text=f"{app.mention} está 𝗮 𝗽𝗮𝘀𝘀𝗮𝗿 𝗽𝗼𝗿 𝗺𝗮𝗻𝘂𝘁𝗲𝗻çã𝗼, visite <a href={SUPPORT_CHAT}>𝗰𝗵𝗮𝘁 𝗱𝗲 𝘀𝘂𝗽𝗼𝗿𝘁𝗲</a> 🛠️ 𝗽𝗮𝗿𝗮 𝘀𝗮𝗯𝗲𝗿 𝗼 𝗺𝗼𝘁𝗶𝘃𝗼.",
                     disable_web_page_preview=True,
                 )
 
@@ -36,7 +36,7 @@ def AdminRightsCheck(mystic):
             language = await get_lang(message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("en")
+            _ = get_string("pt")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
                 [
@@ -71,11 +71,11 @@ def AdminRightsCheck(mystic):
                     if message.from_user.id not in admins:
                         if await is_skipmode(message.chat.id):
                             upvote = await get_upvote_count(chat_id)
-                            text = f"""<b>ᴀᴅᴍɪɴ ʀɪɢʜᴛs ɴᴇᴇᴅᴇᴅ</b>
+                            text = f"""<b>𝗣𝗲𝗿𝗺𝗶𝘀𝘀õ𝗲𝘀 𝗱𝗲 𝗔𝗱𝗺𝗶𝗻 𝗡𝗲𝗰𝗲𝘀𝘀á𝗿𝗶𝗮𝘀</b> 🔒
 
-ʀᴇғʀᴇsʜ ᴀᴅᴍɪɴ ᴄᴀᴄʜᴇ ᴠɪᴀ : /reload
+𝗔𝘁𝘂𝗮𝗹𝗶𝘇𝗲 𝗮 𝗺𝗲𝗺ó𝗿𝗶𝗮 𝗱𝗼 𝗮𝗱𝗺𝗶𝗻 𝘃𝗶𝗮: /reload 🔄
 
-» {upvote} ᴠᴏᴛᴇs ɴᴇᴇᴅᴇᴅ ғᴏʀ ᴘᴇʀғᴏʀᴍɪɴɢ ᴛʜɪs ᴀᴄᴛɪᴏɴ."""
+➜ {upvote} 𝘃𝗼𝘁𝗼𝘀 𝗻𝗲𝗰𝗲𝘀𝘀á𝗿𝗶𝗼𝘀 𝗽𝗮𝗿𝗮 𝗲𝘅𝗲𝗰𝘂𝘁𝗮𝗿 𝗲𝘀𝘁𝗮 𝗮çã𝗼."""
 
                             command = message.command[0]
                             if command[0] == "c":
@@ -119,7 +119,7 @@ def AdminActual(mystic):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
+                    text=f"{app.mention} 𝗲𝘀𝘁á 𝗲𝗺 𝗺𝗮𝗻𝘂𝘁𝗲𝗻çã𝗼, 𝘃𝗶𝘀𝗶𝘁𝗲 <a href={SUPPORT_CHAT}>𝗰𝗵𝗮𝘁 𝗱𝗲 𝘀𝘂𝗽𝗼𝗿𝘁𝗲</a> 🛠️ 𝗽𝗮𝗿𝗮 𝘀𝗮𝗯𝗲𝗿 𝗼 𝗺𝗼𝘁𝗶𝘃𝗼.",
                     disable_web_page_preview=True,
                 )
 
@@ -132,7 +132,7 @@ def AdminActual(mystic):
             language = await get_lang(message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("en")
+            _ = get_string("pt")
         if message.sender_chat:
             upl = InlineKeyboardMarkup(
                 [
@@ -162,14 +162,14 @@ def ActualAdminCB(mystic):
         if await is_maintenance() is False:
             if CallbackQuery.from_user.id not in SUDOERS:
                 return await CallbackQuery.answer(
-                    f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
+                    f"{app.mention} 𝗲𝘀𝘁á 𝗲𝗺 𝗺𝗮𝗻𝘂𝘁𝗲𝗻çã𝗼 🛠️, 𝘃𝗶𝘀𝗶𝘁𝗲 𝗼 𝗰𝗵𝗮𝘁 𝗱𝗲 𝘀𝘂𝗽𝗼𝗿𝘁𝗲 𝗽𝗮𝗿𝗮 𝘀𝗮𝗯𝗲𝗿 𝗼 𝗺𝗼𝘁𝗶𝘃𝗼.",
                     show_alert=True,
                 )
         try:
             language = await get_lang(CallbackQuery.message.chat.id)
             _ = get_string(language)
         except:
-            _ = get_string("en")
+            _ = get_string("pt")
         if CallbackQuery.message.chat.type == ChatType.PRIVATE:
             return await mystic(client, CallbackQuery, _)
         is_non_admin = await is_nonadmin_chat(CallbackQuery.message.chat.id)

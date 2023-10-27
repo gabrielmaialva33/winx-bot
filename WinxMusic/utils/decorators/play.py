@@ -48,7 +48,7 @@ def PlayWrapper(command):
         if await is_maintenance() is False:
             if message.from_user.id not in SUDOERS:
                 return await message.reply_text(
-                    text=f"{app.mention} ɪs ᴜɴᴅᴇʀ ᴍᴀɪɴᴛᴇɴᴀɴᴄᴇ, ᴠɪsɪᴛ <a href={SUPPORT_CHAT}>sᴜᴘᴘᴏʀᴛ ᴄʜᴀᴛ</a> ғᴏʀ ᴋɴᴏᴡɪɴɢ ᴛʜᴇ ʀᴇᴀsᴏɴ.",
+                    text=f"{app.mention} 𝗲𝘀𝘁á 𝗲𝗺 𝗺𝗮𝗻𝘂𝘁𝗲𝗻çã𝗼, 𝘃𝗶𝘀𝗶𝘁𝗲 <a href={SUPPORT_CHAT}>𝘀𝘂𝗽𝗽𝗼𝗿𝘁 𝗰𝗵𝗮𝘁</a> 𝗽𝗮𝗿𝗮 𝘀𝗮𝗯𝗲𝗿 𝗮 𝗿𝗮𝘇ã𝗼.",
                     disable_web_page_preview=True,
                 )
         if await is_active_chat(message.chat.id):
@@ -56,7 +56,7 @@ def PlayWrapper(command):
 
             if len(check) > QUEUE_LIMIT:
                 return await message.reply_text(
-                    text=f"ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴀʀᴇ ꜱᴘᴀᴍᴍɪɴɢ ᴀʟʀᴇᴀᴅʏ 10 ꜱᴏɴɢꜱ ɪɴ Qᴜᴇᴜᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴛᴏ ꜰɪɴɪꜱʜ ᴛʜᴇᴍ ꜰɪʀꜱᴛ ᴇʟꜱᴇ ᴜꜱᴇ /end.",
+                    text=f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗲𝘀𝘁á 𝗲𝘀𝘁á 𝗳𝗮𝘇𝗲𝗻𝗱𝗼 𝗷𝗮𝗳á 10 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 𝗳𝗶𝗹𝗮. 𝗣𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮 𝗳𝗶𝗻𝗮𝗹𝗶𝘇𝗮𝗿 𝗽𝗮𝗿𝗮 𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗿 𝗲𝘀𝘁𝗮 𝘂𝘁𝗶𝗹𝗶𝘇𝗮𝗿 𝗲𝗹𝗮𝘀 𝘂𝘁𝗶𝗹𝗶𝘇𝗮𝗿 /𝗲𝗻𝗱. 🕒",
                     disable_web_page_preview=True,
                 )
         try:

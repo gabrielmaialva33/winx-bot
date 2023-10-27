@@ -188,7 +188,7 @@ async def play_commnd(
             spotify = True
             if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
                 return await mystic.edit_text(
-                    "» sᴘᴏᴛɪғʏ ɪs ɴᴏᴛ sᴜᴘᴘᴏʀᴛᴇᴅ ʏᴇᴛ.\n\nᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ."
+                    "➜ 𝗦𝗽𝗼𝘁𝗶𝗳𝘆 𝗻ã𝗼 𝗲𝘀𝘁á 𝘀𝘂𝗽𝗼𝗿𝘁𝗮𝗱𝗼 𝗽𝗼𝗿 𝗲𝗻𝗾𝘂𝗮𝗻𝘁𝗼. 🚫🎶\n\n𝗣𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝘁𝗲𝗻𝘁𝗲 𝗻𝗼𝘃𝗮𝗺𝗲𝗻𝘁𝗲 𝗺𝗮𝗶𝘀 𝘁𝗮𝗿𝗱𝗲. ⏳"
                 )
             if "track" in url:
                 try:
@@ -505,7 +505,7 @@ async def play_music(client, CallbackQuery, _):
 async def anonymous_check(client, CallbackQuery):
     try:
         await CallbackQuery.answer(
-            "» ʀᴇᴠᴇʀᴛ ʙᴀᴄᴋ ᴛᴏ ᴜsᴇʀ ᴀᴄᴄᴏᴜɴᴛ :\n\nᴏᴘᴇɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ sᴇᴛᴛɪɴɢs.\n-> ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs\n-> ᴄʟɪᴄᴋ ᴏɴ ʏᴏᴜʀ ɴᴀᴍᴇ\n-> ᴜɴᴄʜᴇᴄᴋ ᴀɴᴏɴʏᴍᴏᴜs ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs.",
+            "» 𝗥𝗲𝘁𝗼𝗿𝗻𝗮𝗿 𝗮𝗼 𝘂𝘀𝘂á𝗿𝗶𝗼 𝗼𝗿𝗶𝗴𝗶𝗻𝗮𝗹 🔄:\n\n𝗔𝗯𝗿𝗮 𝗮𝘀 𝗰𝗼𝗻𝗳𝗶𝗴𝘂𝗿𝗮çõ𝗲𝘀 𝗱𝗼 𝘀𝗲𝘂 𝗴𝗿𝘂𝗽𝗼 📋.\n-> 𝗔𝗱𝗺𝗶𝗻𝗶𝘀𝘁𝗿𝗮𝗱𝗼𝗿𝗲𝘀 ⚙️\n-> 𝗖𝗹𝗶𝗾𝘂𝗲 𝗲𝗺 𝘀𝗲𝘂 𝗻𝗼𝗺𝗲 🖱️\n-> 𝗗𝗲𝘀𝗺𝗮𝗿𝗰𝗮𝗿 𝗽𝗲𝗿𝗺𝗶𝘀𝘀õ𝗲𝘀 𝗱𝗲 𝗮𝗱𝗺𝗶𝗻𝗶𝘀𝘁𝗿𝗮𝗱𝗼𝗿 𝗮𝗻ô𝗻𝗶𝗺𝗼 🚫🎭."            ,
             show_alert=True,
         )
     except:

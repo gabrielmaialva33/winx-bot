@@ -42,7 +42,7 @@ async def edit_or_reply(msg: Message, **kwargs):
 )
 async def executor(client: app, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(message, text="<b>ᴡʜᴀᴛ ʏᴏᴜ ᴡᴀɴɴᴀ ᴇxᴇᴄᴜᴛᴇ ʙᴀʙʏ ?</b>")
+        return await edit_or_reply(message, text="<b>𝗢 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗾𝘂𝗲𝗿 𝗲𝘅𝗲𝗰𝘂𝘁𝗮𝗿, 𝗾𝘂𝗲𝗿𝗶𝗱𝗲?</b>")
     try:
         cmd = message.text.split(" ", maxsplit=1)[1]
     except IndexError:
@@ -127,7 +127,7 @@ async def forceclose_command(_, CallbackQuery):
     if CallbackQuery.from_user.id != int(user_id):
         try:
             return await CallbackQuery.answer(
-                "» ɪᴛ'ʟʟ ʙᴇ ʙᴇᴛᴛᴇʀ ɪғ ʏᴏᴜ sᴛᴀʏ ɪɴ ʏᴏᴜʀ ʟɪᴍɪᴛs ʙᴀʙʏ.", show_alert=True
+                "» 𝗦𝗲𝗿á 𝗺𝗲𝗹𝗵𝗼𝗿 𝘀𝗲 𝘃𝗼𝗰ê 𝘀𝗲 𝗺𝗮𝗻𝘁𝗶𝘃𝗲𝗿 𝗱𝗲𝗻𝘁𝗿𝗼 𝗱𝗼𝘀 𝘀𝗲𝘂𝘀 𝗹𝗶𝗺𝗶𝘁𝗲𝘀, 𝗾𝘂𝗲𝗿𝗶𝗱𝗮. 💅", show_alert=True
             )
         except:
             return
@@ -152,7 +152,7 @@ async def forceclose_command(_, CallbackQuery):
 )
 async def shellrunner(_, message: Message):
     if len(message.command) < 2:
-        return await edit_or_reply(message, text="<b>ᴇxᴀᴍᴩʟᴇ :</b>\n/sh git pull")
+        return await edit_or_reply(message, text="<b>𝗘𝘅𝗲𝗺𝗽𝗹𝗼:</b>\n/sh git pull")
     text = message.text.split(None, 1)[1]
     if "\n" in text:
         code = text.split("\n")

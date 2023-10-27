@@ -42,7 +42,7 @@ async def start_pm(client, message: Message, _):
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
-                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>sᴜᴅᴏʟɪsᴛ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                    text=f"{message.from_user.mention} 𝗮𝗰𝗮𝗯𝗼𝘂 𝗱𝗲 𝗶𝗻𝗶𝗰𝗶𝗮𝗿 𝗼 𝗯𝗼𝘁 𝗽𝗮𝗿𝗮 𝘃𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗿 𝗮 <b>𝗹𝗶𝘀𝘁𝗮 𝗱𝗲 𝘀𝘂𝗱𝗼𝘀</b>🔍.\n\n<b>𝗜𝗗 𝗱𝗼 𝘂𝘀𝘂á𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code>🆔\n<b>𝗨𝘀𝘂á𝗿𝗶𝗼:</b> @{message.from_user.username}👤",
                 )
             return
         if name[0:3] == "inf":
@@ -80,7 +80,7 @@ async def start_pm(client, message: Message, _):
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
-                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                    text=f"{message.from_user.mention} 𝗮𝗰𝗮𝗯𝗼𝘂 𝗱𝗲 𝗶𝗻𝗶𝗰𝗶𝗮𝗿 𝗼 𝗯𝗼𝘁 𝗽𝗮𝗿𝗮 𝘃𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗿 <b>𝗶𝗻𝗳𝗼𝗿𝗺𝗮çõ𝗲𝘀 𝗱𝗮 𝗲𝗻𝗰𝗼𝗺𝗲𝗻𝗱𝗮</b> 📦.\n\n<b>𝗜𝗗 𝗱𝗼 𝘂𝘀𝘂á𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code> 🆔\n<b>𝗨𝘀𝘂á𝗿𝗶𝗼:</b> @{message.from_user.username} 📛",
                 )
     else:
         out = private_panel(_)
@@ -92,7 +92,7 @@ async def start_pm(client, message: Message, _):
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
-                text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                text=f"𝗢 {message.from_user.mention} 𝗮𝗰𝗮𝗯𝗼𝘂 𝗱𝗲 𝗶𝗻𝗶𝗰𝗶𝗮𝗿 𝗼 𝗯𝗼𝘁. 🚀\n\n<b>𝗜𝗗 𝗱𝗼 𝘂𝘀𝘂𝗮́𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code> 🆔\n<b>𝗨𝘀𝘂𝗮́𝗿𝗶𝗼:</b> @{message.from_user.username} 📛",
             )
 
 
