@@ -125,6 +125,8 @@ def PlayWrapper(command):
             userbot = await get_assistant(chat_id)
             try:
                 try:
+                    if userbot is None:
+                        return await message.reply_text("𝗡ã𝗼 𝗳𝗼𝗶 𝗽𝗼𝘀𝘀𝗶́𝘃𝗲𝗹 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗿 𝗼 𝗮𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗽𝗮𝗿𝗮 𝗲𝘀𝘁𝗲 𝗰𝗵𝗮𝘁! 😕")
                     get = await app.get_chat_member(chat_id, userbot.id)
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
