@@ -8,7 +8,7 @@ from config import LOGGER_ID
 async def play_logs(message, streamtype):
     if await is_on_off(2):
         logger_text = f"""
-<b>{app.mention} 𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗼 𝗱𝗲 𝗷𝗼𝗴𝗼 𝗱𝗼 𝗽𝗹𝗮𝘆𝗯𝗮𝗰𝗸</b>
+<b>{app.mention} 𝗥𝗲𝗴𝗶𝘀𝘁𝗿𝗼 𝗱𝗲 𝗽𝗹𝗮𝘆</b>
 
 <b>𝗜𝗗 𝗱𝗼 𝗰𝗵𝗮𝘁 :</b> <code>{message.chat.id}</code>
 <b>𝗡𝗼𝗺𝗲 𝗱𝗼 𝗰𝗵𝗮𝘁 :</b> {message.chat.title}
