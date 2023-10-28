@@ -72,7 +72,7 @@ async def get_thumb(videoid):
         draw = ImageDraw.Draw(background)
         arial = ImageFont.truetype("WinxMusic/assets/font2.ttf", 30)
         font = ImageFont.truetype("WinxMusic/assets/font.ttf", 30)
-        draw.text((1110, 8), unidecode(f"@clubdaswinxcanal"), fill="white", font=arial)
+        draw.text((5, 5), unidecode(f"@clubdaswinxcanal"), fill="white", font=arial)
         draw.text(
             (55, 560),
             f"{channel} | {views[:23]}",
