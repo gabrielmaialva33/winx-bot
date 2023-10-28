@@ -57,7 +57,7 @@ async def stream(
                 check = db.get(chat_id)
                 if len(check) > config.QUEUE_LIMIT:
                     return await app.send_message(chat_id,
-                                                  "ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴀʀᴇ ꜱᴘᴀᴍᴍɪɴɢ ᴀʟʀᴇᴀᴅʏ 10 ꜱᴏɴɢꜱ ɪɴ Qᴜᴇᴜᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴛᴏ ꜰɪɴɪꜱʜ ᴛʜᴇᴍ ꜰɪʀꜱᴛ ᴇʟꜱᴇ ᴜꜱᴇ /end.")
+                                                  f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗷á 𝗮𝗱𝗶𝗰𝗶𝗼𝗻𝗼𝘂 {config.QUEUE_LIMIT} 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 𝗳𝗶𝗹𝗮, 𝗽𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮𝘁é 𝗾𝘂𝗲 𝘁𝗲𝗿𝗺𝗶𝗻𝗲𝗺 𝗱𝗲 𝘁𝗼𝗰𝗮𝗿 🎵. 𝗖𝗮𝘀𝗼 𝗰𝗼𝗻𝘁𝗿á𝗿𝗶𝗼, 𝘂𝘀𝗲 /end ⛔.")
                 await put_queue(
                     chat_id,
                     original_chat_id,
@@ -151,7 +151,7 @@ async def stream(
             check = db.get(chat_id)
             if len(check) > config.QUEUE_LIMIT:
                 return await app.send_message(chat_id,
-                                              "ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴀʀᴇ ꜱᴘᴀᴍᴍɪɴɢ ᴀʟʀᴇᴀᴅʏ 10 ꜱᴏɴɢꜱ ɪɴ Qᴜᴇᴜᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴛᴏ ꜰɪɴɪꜱʜ ᴛʜᴇᴍ ꜰɪʀꜱᴛ ᴇʟꜱᴇ ᴜꜱᴇ /end.")
+                                              f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗷á 𝗮𝗱𝗶𝗰𝗶𝗼𝗻𝗼𝘂 {config.QUEUE_LIMIT} 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 𝗳𝗶𝗹𝗮, 𝗽𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮𝘁é 𝗾𝘂𝗲 𝘁𝗲𝗿𝗺𝗶𝗻𝗲𝗺 𝗱𝗲 𝘁𝗼𝗰𝗮𝗿 🎵. 𝗖𝗮𝘀𝗼 𝗰𝗼𝗻𝘁𝗿á𝗿𝗶𝗼, 𝘂𝘀𝗲 /end ⛔.")
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -215,7 +215,7 @@ async def stream(
             check = db.get(chat_id)
             if len(check) > config.QUEUE_LIMIT:
                 return await app.send_message(chat_id,
-                                              "ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴀʀᴇ ꜱᴘᴀᴍᴍɪɴɢ ᴀʟʀᴇᴀᴅʏ 10 ꜱᴏɴɢꜱ ɪɴ Qᴜᴇᴜᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴛᴏ ꜰɪɴɪꜱʜ ᴛʜᴇᴍ ꜰɪʀꜱᴛ ᴇʟꜱᴇ ᴜꜱᴇ /end.")
+                                              f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗷á 𝗮𝗱𝗶𝗰𝗶𝗼𝗻𝗼𝘂 {config.QUEUE_LIMIT} 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 𝗳𝗶𝗹𝗮, 𝗽𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮𝘁é 𝗾𝘂𝗲 𝘁𝗲𝗿𝗺𝗶𝗻𝗲𝗺 𝗱𝗲 𝘁𝗼𝗰𝗮𝗿 🎵. 𝗖𝗮𝘀𝗼 𝗰𝗼𝗻𝘁𝗿á𝗿𝗶𝗼, 𝘂𝘀𝗲 /end ⛔.")
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -271,7 +271,7 @@ async def stream(
             check = db.get(chat_id)
             if len(check) > config.QUEUE_LIMIT:
                 return await app.send_message(chat_id,
-                                              "ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴀʀᴇ ꜱᴘᴀᴍᴍɪɴɢ ᴀʟʀᴇᴀᴅʏ 10 ꜱᴏɴɢꜱ ɪɴ Qᴜᴇᴜᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴛᴏ ꜰɪɴɪꜱʜ ᴛʜᴇᴍ ꜰɪʀꜱᴛ ᴇʟꜱᴇ ᴜꜱᴇ /end.")
+                                              f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗷á 𝗮𝗱𝗶𝗰𝗶𝗼𝗻𝗼𝘂 {config.QUEUE_LIMIT} 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 𝗳𝗶𝗹𝗮, 𝗽𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮𝘁é 𝗾𝘂𝗲 𝘁𝗲𝗿𝗺𝗶𝗻𝗲𝗺 𝗱𝗲 𝘁𝗼𝗰𝗮𝗿 🎵. 𝗖𝗮𝘀𝗼 𝗰𝗼𝗻𝘁𝗿á𝗿𝗶𝗼, 𝘂𝘀𝗲 /end ⛔.")
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -328,7 +328,7 @@ async def stream(
             check = db.get(chat_id)
             if len(check) > config.QUEUE_LIMIT:
                 return await app.send_message(chat_id,
-                                              "ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴀʀᴇ ꜱᴘᴀᴍᴍɪɴɢ ᴀʟʀᴇᴀᴅʏ 10 ꜱᴏɴɢꜱ ɪɴ Qᴜᴇᴜᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴛᴏ ꜰɪɴɪꜱʜ ᴛʜᴇᴍ ꜰɪʀꜱᴛ ᴇʟꜱᴇ ᴜꜱᴇ /end.")
+                                              f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗷á 𝗮𝗱𝗶𝗰𝗶𝗼𝗻𝗼𝘂 {config.QUEUE_LIMIT} 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 𝗳𝗶𝗹𝗮, 𝗽𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮𝘁é 𝗾𝘂𝗲 𝘁𝗲𝗿𝗺𝗶𝗻𝗲𝗺 𝗱𝗲 𝘁𝗼𝗰𝗮𝗿 🎵. 𝗖𝗮𝘀𝗼 𝗰𝗼𝗻𝘁𝗿á𝗿𝗶𝗼, 𝘂𝘀𝗲 /end ⛔.")
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -395,7 +395,7 @@ async def stream(
             check = db.get(chat_id)
             if len(check) > config.QUEUE_LIMIT:
                 return await app.send_message(chat_id,
-                                              "ʟᴏᴏᴋꜱ ʟɪᴋᴇ ʏᴏᴜ ᴀʀᴇ ꜱᴘᴀᴍᴍɪɴɢ ᴀʟʀᴇᴀᴅʏ 10 ꜱᴏɴɢꜱ ɪɴ Qᴜᴇᴜᴇ ᴘʟᴇᴀꜱᴇ ᴡᴀɪᴛ ᴛᴏ ꜰɪɴɪꜱʜ ᴛʜᴇᴍ ꜰɪʀꜱᴛ ᴇʟꜱᴇ ᴜꜱᴇ /end.")
+                                              f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗷á 𝗮𝗱𝗶𝗰𝗶𝗼𝗻𝗼𝘂 {config.QUEUE_LIMIT} 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 𝗳𝗶𝗹𝗮, 𝗽𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮𝘁é 𝗾𝘂𝗲 𝘁𝗲𝗿𝗺𝗶𝗻𝗲𝗺 𝗱𝗲 𝘁𝗼𝗰𝗮𝗿 🎵. 𝗖𝗮𝘀𝗼 𝗰𝗼𝗻𝘁𝗿á𝗿𝗶𝗼, 𝘂𝘀𝗲 /end ⛔.")
             await put_queue_index(
                 chat_id,
                 original_chat_id,
