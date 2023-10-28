@@ -37,7 +37,7 @@ def PlayWrapper(command):
                 [
                     [
                         InlineKeyboardButton(
-                            text="ʜᴏᴡ ᴛᴏ ғɪx ?",
+                            text="𝗖𝗼𝗺𝗼 𝗰𝗼𝗿𝗿𝗶𝗴𝗶𝗿? 🛠️",
                             callback_data="AnonymousAdmin",
                         ),
                     ]

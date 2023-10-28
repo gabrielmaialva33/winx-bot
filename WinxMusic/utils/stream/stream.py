@@ -389,7 +389,7 @@ async def stream(
             db[chat_id][0]["markup"] = "tg"
     elif streamtype == "index":
         link = result
-        title = "ɪɴᴅᴇx ᴏʀ ᴍ3ᴜ8 ʟɪɴᴋ"
+        title = "𝗜𝗻𝗱𝗲𝘅 𝗼𝘂 𝗹𝗶𝗻𝗸 𝗠𝟯𝗨𝟴 📝🔗"
         duration_min = "00:00"
         if await is_active_chat(chat_id):
             check = db.get(chat_id)

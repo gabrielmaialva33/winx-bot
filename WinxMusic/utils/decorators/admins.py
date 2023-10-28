@@ -42,7 +42,7 @@ def AdminRightsCheck(mystic):
                 [
                     [
                         InlineKeyboardButton(
-                            text="ʜᴏᴡ ᴛᴏ ғɪx ?",
+                            text="𝗖𝗼𝗺𝗼 𝗰𝗼𝗻𝘀𝗲𝗿𝘁𝗮𝗿? 🔧",
                             callback_data="AnonymousAdmin",
                         ),
                     ]
@@ -87,8 +87,8 @@ def AdminRightsCheck(mystic):
                                 [
                                     [
                                         InlineKeyboardButton(
-                                            text="ᴠᴏᴛᴇ",
-                                            callback_data=f"ADMIN  UpVote|{chat_id}_{MODE}",
+                                            text="𝘃𝗼𝘁𝗲 🗳️",
+                                            callback_data=f"𝗔𝗗𝗠𝗜𝗡 𝘂𝗽𝘃𝗼𝘁𝗲𝘀|{chat_id}_{MODE}",
                                         ),
                                     ]
                                 ]
@@ -138,7 +138,7 @@ def AdminActual(mystic):
                 [
                     [
                         InlineKeyboardButton(
-                            text="ʜᴏᴡ ᴛᴏ ғɪx ?",
+                            text="𝗖𝗼𝗺𝗼 𝗰𝗼𝗻𝘀𝗲𝗿𝘁𝗮𝗿? 🔧",
                             callback_data="AnonymousAdmin",
                         ),
                     ]

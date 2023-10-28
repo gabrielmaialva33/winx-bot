@@ -37,9 +37,9 @@ class TeleAPI:
         try:
             file_name = file.file_name
             if file_name is None:
-                file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ"
+                file_name = "𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗔𝘂𝗱𝗶𝗼 🎵" if audio else "𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗩𝗶́𝗱𝗲𝗼 🎥"
         except:
-            file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ"
+            file_name = "𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗔𝘂𝗱𝗶𝗼 🎵" if audio else "𝗧𝗲𝗹𝗲𝗴𝗿𝗮𝗺 𝗩𝗶́𝗱𝗲𝗼 🎥"
         return file_name
 
     async def get_duration(self, file):
@@ -110,7 +110,7 @@ class TeleAPI:
                     [
                         [
                             InlineKeyboardButton(
-                                text="ᴄᴀɴᴄᴇʟ",
+                                text="𝗖𝗮𝗻𝗰𝗲𝗹𝗮𝗿 ❌",
                                 callback_data="stop_downloading",
                             ),
                         ]
@@ -122,7 +122,7 @@ class TeleAPI:
                 eta = int((total - current) / speed)
                 eta = get_readable_time(eta)
                 if not eta:
-                    eta = "0 sᴇᴄᴏɴᴅs"
+                    eta = "𝟬 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀 ⏲️"
                 total_size = convert_bytes(total)
                 completed_size = convert_bytes(current)
                 speed = convert_bytes(speed)
@@ -161,7 +161,7 @@ class TeleAPI:
                         int(int(time.time()) - int(speed_counter[message.id]))
                     )
                 except:
-                    elapsed = "0 sᴇᴄᴏɴᴅs"
+                    elapsed = "𝟬 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀 ⏲️"
                 await mystic.edit_text(_["tg_2"].format(elapsed))
             except:
                 await mystic.edit_text(_["tg_3"])

@@ -97,7 +97,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 pass
             command = counter
-            mention = "ᴜᴘᴠᴏᴛᴇs"
+            mention = "𝘂𝗽𝘃𝗼𝘁𝗲𝘀"
         else:
             if (
                     CallbackQuery.from_user.id
@@ -111,7 +111,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     [
                         InlineKeyboardButton(
                             text=f"👍 {get_upvotes}",
-                            callback_data=f"ADMIN  UpVote|{chat_id}_{counter}",
+                            callback_data=f"𝗔𝗗𝗠𝗜𝗡 𝘂𝗽𝘃𝗼𝘁𝗲𝘀|{chat_id}_{counter}",
                         )
                     ]
                 ]
@@ -159,7 +159,7 @@ async def del_back_playlist(client, CallbackQuery, _):
     elif command == "Skip" or command == "Replay":
         check = db.get(chat_id)
         if command == "Skip":
-            txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🥀"
             popped = None
             try:
                 popped = check.pop(0)
@@ -167,7 +167,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
                 if not check:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -182,7 +182,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 try:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🥀"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -194,7 +194,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     return
         else:
-            txt = f"➻ sᴛʀᴇᴀᴍ ʀᴇ-ᴘʟᴀʏᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"➜ 𝗧𝗼𝗰𝗮𝗿 𝗻𝗼𝘃𝗮𝗺𝗲𝗻𝘁𝗲 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🌹"
         await CallbackQuery.answer()
         queued = check[0]["file"]
         title = (check[0]["title"]).title()

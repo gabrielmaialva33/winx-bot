@@ -50,7 +50,7 @@ async def inline_query_handler(client, query):
 🎥 <b>𝗖𝗮𝗻𝗮𝗹:</b> <a href={channellink}>{channel}</a>
 ⏰ <b>𝗣𝘂𝗯𝗹𝗶𝗰𝗮𝗱𝗼 𝗲𝗺:</b> {published}
 
-<u><b>➻ 𝗠𝗼𝗱𝗼 𝗱𝗲 𝗕𝘂𝘀𝗰𝗮 𝗲𝗺 𝗟𝗶𝗻𝗵𝗮 𝗽𝗼𝗿 {app.name}</b></u>
+<u><b>➜ 𝗠𝗼𝗱𝗼 𝗱𝗲 𝗕𝘂𝘀𝗰𝗮 𝗲𝗺 𝗟𝗶𝗻𝗵𝗮 𝗽𝗼𝗿 {app.name}</b></u>
 """
             answers.append(
                 InlineQueryResultPhoto(
