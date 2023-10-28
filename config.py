@@ -29,6 +29,8 @@ QUEUE_LIMIT = int(getenv("QUEUE_LIMIT", "10"))
 
 LEAVE_TIME = int(getenv("LEAVE_TIME", "3600"))
 
+SET_CMDS = getenv("SET_CMDS", "False")
+
 ## Fill these variables if you're deploying on heroku.
 # Your heroku app name
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
