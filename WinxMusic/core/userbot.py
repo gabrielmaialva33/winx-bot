@@ -87,7 +87,8 @@ class Userbot(Client):
             assistants.append(1)
             try:
                 await self.one.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.one.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.one.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 1 has failed to access the log Group. Make sure that you have added your "
@@ -105,7 +106,8 @@ class Userbot(Client):
             assistants.append(2)
             try:
                 await self.two.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.two.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.two.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 2 has failed to access the log Group. Make sure that you have added your "
@@ -123,7 +125,8 @@ class Userbot(Client):
             assistants.append(3)
             try:
                 await self.three.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.three.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.three.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 3 has failed to access the log Group. Make sure that you have added your "
@@ -141,7 +144,8 @@ class Userbot(Client):
             assistants.append(4)
             try:
                 await self.four.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.four.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.four.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 4 has failed to access the log Group. Make sure that you have added your "
@@ -159,7 +163,8 @@ class Userbot(Client):
             assistants.append(5)
             try:
                 await self.five.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.five.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.five.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 5 has failed to access the log Group. Make sure that you have added your "
@@ -177,7 +182,8 @@ class Userbot(Client):
             assistants.append(6)
             try:
                 await self.six.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.six.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.six.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 6 has failed to access the log Group. Make sure that you have added your "
@@ -195,7 +201,8 @@ class Userbot(Client):
             assistants.append(7)
             try:
                 await self.seven.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.seven.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.seven.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 7 has failed to access the log Group. Make sure that you have added your "
@@ -213,7 +220,8 @@ class Userbot(Client):
             assistants.append(8)
             try:
                 await self.eight.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.eight.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.eight.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 8 has failed to access the log Group. Make sure that you have added your "
@@ -231,7 +239,8 @@ class Userbot(Client):
             assistants.append(9)
             try:
                 await self.nine.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.nine.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.nine.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 9 has failed to access the log Group. Make sure that you have added your "
@@ -249,7 +258,8 @@ class Userbot(Client):
             assistants.append(10)
             try:
                 await self.ten.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
-                await self.ten.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                if config.MASTER_GROUP_ID:
+                    await self.ten.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 10 has failed to access the log Group. Make sure that you have added your "
