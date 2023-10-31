@@ -91,9 +91,9 @@ async def close_menu(_, CallbackQuery):
     try:
         await CallbackQuery.answer()
         await CallbackQuery.message.delete()
-        await CallbackQuery.message.reply_text(
-            f"𝗙𝗲𝗰𝗵𝗮𝗱𝗼 𝗽𝗼𝗿: {CallbackQuery.from_user.mention}"
-        )
+        # await CallbackQuery.message.reply_text(
+        #     f"𝗙𝗲𝗰𝗵𝗮𝗱𝗼 𝗽𝗼𝗿: {CallbackQuery.from_user.mention}"
+        # )
     except:
         pass
 
