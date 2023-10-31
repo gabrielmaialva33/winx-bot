@@ -87,9 +87,11 @@ class Userbot(Client):
             assistants.append(1)
             try:
                 await self.one.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.one.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
+                    "Assistant Account 1 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.one.id = self.one.me.id
@@ -103,9 +105,11 @@ class Userbot(Client):
             assistants.append(2)
             try:
                 await self.two.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.two.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
+                    "Assistant Account 2 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.two.id = self.two.me.id
@@ -119,9 +123,11 @@ class Userbot(Client):
             assistants.append(3)
             try:
                 await self.three.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.three.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 3 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 3 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.three.id = self.three.me.id
@@ -135,9 +141,11 @@ class Userbot(Client):
             assistants.append(4)
             try:
                 await self.four.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.four.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 4 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 4 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.four.id = self.four.me.id
@@ -151,9 +159,11 @@ class Userbot(Client):
             assistants.append(5)
             try:
                 await self.five.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.five.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 5 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 5 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.five.id = self.five.me.id
@@ -167,9 +177,11 @@ class Userbot(Client):
             assistants.append(6)
             try:
                 await self.six.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.six.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 6 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 6 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.six.id = self.six.me.id
@@ -183,9 +195,11 @@ class Userbot(Client):
             assistants.append(7)
             try:
                 await self.seven.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.seven.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 7 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 7 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.seven.id = self.seven.me.id
@@ -199,9 +213,11 @@ class Userbot(Client):
             assistants.append(8)
             try:
                 await self.eight.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.eight.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 8 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 8 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.eight.id = self.eight.me.id
@@ -215,9 +231,11 @@ class Userbot(Client):
             assistants.append(9)
             try:
                 await self.nine.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.nine.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 9 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 9 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.nine.id = self.nine.me.id
@@ -231,9 +249,11 @@ class Userbot(Client):
             assistants.append(10)
             try:
                 await self.ten.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.ten.send_message(config.MASTER_GROUP_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
             except:
                 LOGGER(__name__).error(
-                    "Assistant Account 10 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                    "Assistant Account 10 has failed to access the log Group. Make sure that you have added your "
+                    "assistant to your log group and promoted as admin!"
                 )
                 exit()
             self.ten.id = self.ten.me.id
