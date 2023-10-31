@@ -11,5 +11,6 @@ async def monitor_chats(_client: Client, message: Message):
     if message.chat.id not in served_chats:
         await add_served_chat(message.chat.id)
         LOGGER(__name__).info(f"Added {message.chat.id} to served chats list.")
+        pass
     else:
         pass
