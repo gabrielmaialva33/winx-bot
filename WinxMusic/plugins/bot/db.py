@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 
 from WinxMusic import app, LOGGER
-from WinxMusic.utils.database import get_lang, add_served_chat, get_served_chats
+from WinxMusic.utils.database import add_served_chat, get_served_chats
 
 
 @app.on_message(filters.group)
