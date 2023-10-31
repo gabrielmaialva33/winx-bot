@@ -76,6 +76,10 @@ STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
 STRING5 = getenv("STRING_SESSION5", None)
 STRING6 = getenv("STRING_SESSION6", None)
+STRING7 = getenv("STRING_SESSION7", None)
+STRING8 = getenv("STRING_SESSION8", None)
+STRING9 = getenv("STRING_SESSION9", None)
+STRING10 = getenv("STRING_SESSION10", None)
 
 BANNED_USERS = filters.user()
 adminlist = {}

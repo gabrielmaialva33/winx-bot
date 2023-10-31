@@ -115,6 +115,46 @@ class Call(PyTgCalls):
             self.userbot6,
             cache_duration=100,
         )
+        self.userbot7 = Client(
+            name="WinxAssistant7",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING7),
+        )
+        self.seven = PyTgCalls(
+            self.userbot7,
+            cache_duration=100,
+        )
+        self.userbot8 = Client(
+            name="WinxAssistant8",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING8),
+        )
+        self.eight = PyTgCalls(
+            self.userbot8,
+            cache_duration=100,
+        )
+        self.userbot9 = Client(
+            name="WinxAssistant9",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING9),
+        )
+        self.nine = PyTgCalls(
+            self.userbot9,
+            cache_duration=100,
+        )
+        self.userbot10 = Client(
+            name="WinxAssistant10",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING10),
+        )
+        self.ten = PyTgCalls(
+            self.userbot10,
+            cache_duration=100,
+        )
 
     async def pause_stream(self, chat_id: int):
         assistant = await group_assistant(self, chat_id)
@@ -161,6 +201,26 @@ class Call(PyTgCalls):
         try:
             if config.STRING6:
                 await self.six.leave_group_call(chat_id)
+        except:
+            pass
+        try:
+            if config.STRING7:
+                await self.seven.leave_group_call(chat_id)
+        except:
+            pass
+        try:
+            if config.STRING8:
+                await self.eight.leave_group_call(chat_id)
+        except:
+            pass
+        try:
+            if config.STRING9:
+                await self.nine.leave_group_call(chat_id)
+        except:
+            pass
+        try:
+            if config.STRING10:
+                await self.ten.leave_group_call(chat_id)
         except:
             pass
         try:
@@ -582,6 +642,14 @@ class Call(PyTgCalls):
             pings.append(await self.five.ping)
         if config.STRING6:
             pings.append(await self.six.ping)
+        if config.STRING7:
+            pings.append(await self.seven.ping)
+        if config.STRING8:
+            pings.append(await self.eight.ping)
+        if config.STRING9:
+            pings.append(await self.nine.ping)
+        if config.STRING10:
+            pings.append(await self.ten.ping)
         return str(round(sum(pings) / len(pings), 3))
 
     async def start(self):
@@ -598,6 +666,14 @@ class Call(PyTgCalls):
             await self.five.start()
         if config.STRING6:
             await self.six.start()
+        if config.STRING7:
+            await self.seven.start()
+        if config.STRING8:
+            await self.eight.start()
+        if config.STRING9:
+            await self.nine.start()
+        if config.STRING10:
+            await self.ten.start()
 
     async def decorators(self):
         @self.one.on_kicked()
@@ -606,18 +682,30 @@ class Call(PyTgCalls):
         @self.four.on_kicked()
         @self.five.on_kicked()
         @self.six.on_kicked()
+        @self.seven.on_kicked()
+        @self.eight.on_kicked()
+        @self.nine.on_kicked()
+        @self.ten.on_kicked()
         @self.one.on_closed_voice_chat()
         @self.two.on_closed_voice_chat()
         @self.three.on_closed_voice_chat()
         @self.four.on_closed_voice_chat()
         @self.five.on_closed_voice_chat()
         @self.six.on_closed_voice_chat()
+        @self.seven.on_closed_voice_chat()
+        @self.eight.on_closed_voice_chat()
+        @self.nine.on_closed_voice_chat()
+        @self.ten.on_closed_voice_chat()
         @self.one.on_left()
         @self.two.on_left()
         @self.three.on_left()
         @self.four.on_left()
         @self.five.on_left()
         @self.six.on_left()
+        @self.seven.on_left()
+        @self.eight.on_left()
+        @self.nine.on_left()
+        @self.ten.on_left()
         async def stream_services_handler(_, chat_id: int):
             await self.stop_stream(chat_id)
 
@@ -627,6 +715,10 @@ class Call(PyTgCalls):
         @self.four.on_stream_end()
         @self.five.on_stream_end()
         @self.six.on_stream_end()
+        @self.seven.on_stream_end()
+        @self.eight.on_stream_end()
+        @self.nine.on_stream_end()
+        @self.ten.on_stream_end()
         async def stream_end_handler(client, update: Update):
             if not isinstance(update, StreamAudioEnded):
                 return

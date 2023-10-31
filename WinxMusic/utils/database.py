@@ -58,6 +58,14 @@ async def get_client(assistant: int):
         return userbot.five
     elif int(assistant) == 6:
         return userbot.six
+    elif int(assistant) == 7:
+        return userbot.seven
+    elif int(assistant) == 8:
+        return userbot.eight
+    elif int(assistant) == 9:
+        return userbot.nine
+    elif int(assistant) == 10:
+        return userbot.ten
 
 
 async def set_assistant_new(chat_id, number):
@@ -155,6 +163,14 @@ async def group_assistant(self, chat_id: int) -> int:
         return self.five
     elif int(assis) == 6:
         return self.six
+    elif int(assis) == 7:
+        return self.seven
+    elif int(assis) == 8:
+        return self.eight
+    elif int(assis) == 9:
+        return self.nine
+    elif int(assis) == 10:
+        return self.ten
 
 
 async def is_skipmode(chat_id: int) -> bool:

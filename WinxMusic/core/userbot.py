@@ -51,6 +51,34 @@ class Userbot(Client):
             session_string=str(config.STRING6),
             no_updates=True,
         )
+        self.seven = Client(
+            name="WinxAssistant7",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING7),
+            no_updates=True,
+        )
+        self.eight = Client(
+            name="WinxAssistant8",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING8),
+            no_updates=True,
+        )
+        self.nine = Client(
+            name="WinxAssistant9",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING9),
+            no_updates=True,
+        )
+        self.ten = Client(
+            name="WinxAssistant10",
+            api_id=config.API_ID,
+            api_hash=config.API_HASH,
+            session_string=str(config.STRING10),
+            no_updates=True,
+        )
 
     async def start(self):
         LOGGER(__name__).info(f"Starting Assistants...")
@@ -150,6 +178,70 @@ class Userbot(Client):
             assistantids.append(self.six.id)
             LOGGER(__name__).info(f"Assistant Six Started as {self.six.name}")
 
+        if config.STRING7:
+            await self.seven.start()
+            assistants.append(7)
+            try:
+                await self.seven.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+            except:
+                LOGGER(__name__).error(
+                    "Assistant Account 7 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                )
+                exit()
+            self.seven.id = self.seven.me.id
+            self.seven.name = self.seven.me.mention
+            self.seven.username = self.seven.me.username
+            assistantids.append(self.seven.id)
+            LOGGER(__name__).info(f"Assistant Seven Started as {self.seven.name}")
+
+        if config.STRING8:
+            await self.eight.start()
+            assistants.append(8)
+            try:
+                await self.eight.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+            except:
+                LOGGER(__name__).error(
+                    "Assistant Account 8 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                )
+                exit()
+            self.eight.id = self.eight.me.id
+            self.eight.name = self.eight.me.mention
+            self.eight.username = self.eight.me.username
+            assistantids.append(self.eight.id)
+            LOGGER(__name__).info(f"Assistant Eight Started as {self.eight.name}")
+
+        if config.STRING9:
+            await self.nine.start()
+            assistants.append(9)
+            try:
+                await self.nine.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+            except:
+                LOGGER(__name__).error(
+                    "Assistant Account 9 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                )
+                exit()
+            self.nine.id = self.nine.me.id
+            self.nine.name = self.nine.me.mention
+            self.nine.username = self.nine.me.username
+            assistantids.append(self.nine.id)
+            LOGGER(__name__).info(f"Assistant Nine Started as {self.nine.name}")
+
+        if config.STRING10:
+            await self.ten.start()
+            assistants.append(10)
+            try:
+                await self.ten.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+            except:
+                LOGGER(__name__).error(
+                    "Assistant Account 10 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
+                )
+                exit()
+            self.ten.id = self.ten.me.id
+            self.ten.name = self.ten.me.mention
+            self.ten.username = self.ten.me.username
+            assistantids.append(self.ten.id)
+            LOGGER(__name__).info(f"Assistant Ten Started as {self.ten.name}")
+
     async def stop(self):
         LOGGER(__name__).info(f"Stopping Assistants...")
         try:
@@ -165,5 +257,13 @@ class Userbot(Client):
                 await self.five.stop()
             if config.STRING6:
                 await self.six.stop()
+            if config.STRING7:
+                await self.seven.stop()
+            if config.STRING8:
+                await self.eight.stop()
+            if config.STRING9:
+                await self.nine.stop()
+            if config.STRING10:
+                await self.ten.stop()
         except:
             pass

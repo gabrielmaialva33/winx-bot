@@ -21,6 +21,10 @@ async def init():
             and not config.STRING4
             and not config.STRING5
             and not config.STRING6
+            and not config.STRING7
+            and not config.STRING8
+            and not config.STRING9
+            and not config.STRING10
     ):
         LOGGER(__name__).error("Assistant client variables not defined, exiting...")
         exit()

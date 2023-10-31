@@ -1,3 +1,5 @@
+from youtubesearchpython.__future__ import VideosSearch
+
 import os
 import re
 
@@ -5,7 +7,6 @@ import aiofiles
 import aiohttp
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter, ImageFont
 from unidecode import unidecode
-from youtubesearchpython.__future__ import VideosSearch
 
 from config import YOUTUBE_IMG_URL
 
@@ -70,8 +71,8 @@ async def get_thumb(videoid):
         enhancer = ImageEnhance.Brightness(background)
         background = enhancer.enhance(0.5)
         draw = ImageDraw.Draw(background)
-        arial = ImageFont.truetype("WinxMusic/assets/font2.ttf", 30)
-        font = ImageFont.truetype("WinxMusic/assets/font.ttf", 30)
+        arial = ImageFont.truetype("WinxMusic/assets/font2.ttf", 40)
+        font = ImageFont.truetype("WinxMusic/assets/font.ttf", 70)
         draw.text((5, 5), unidecode(f"@clubdaswinxcanal"), fill="white", font=arial, align="center")
         draw.text(
             (55, 560),
