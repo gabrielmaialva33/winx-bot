@@ -71,9 +71,10 @@ async def get_thumb(videoid):
         enhancer = ImageEnhance.Brightness(background)
         background = enhancer.enhance(0.5)
         draw = ImageDraw.Draw(background)
-        arial = ImageFont.truetype("WinxMusic/assets/font2.ttf", 40)
-        font = ImageFont.truetype("WinxMusic/assets/font.ttf", 70)
-        draw.text((5, 5), unidecode(f"@clubdaswinxcanal"), fill="white", font=arial, align="center")
+        arial = ImageFont.truetype("WinxMusic/assets/font2.ttf", 30)
+        font = ImageFont.truetype("WinxMusic/assets/font.ttf", 40)
+        logo = ImageFont.truetype("WinxMusic/assets/font.ttf", 70)
+        draw.text((10, 5), unidecode(f"@clubdaswinxcanal"), fill="white", font=logo, align="center")
         draw.text(
             (55, 560),
             f"{channel} | {views[:23]}",
