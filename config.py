@@ -89,8 +89,10 @@ autoclean = []
 confirmer = {}
 
 # Images
-START_IMG_URL = getenv("START_IMG_URL",
-                       "https://64.media.tumblr.com/b20a9df719f8420ac7aa02ece2cb1774/5f8ef1a042cf9e6b-7f/s540x810/eba21bbdb525e72f84be27d439c156b4dfa6b31a.gifv")
+START_IMG_URL = getenv(
+    "START_IMG_URL",
+    "https://64.media.tumblr.com/b20a9df719f8420ac7aa02ece2cb1774/5f8ef1a042cf9e6b-7f/s540x810/eba21bbdb525e72f84be27d439c156b4dfa6b31a.gifv",
+)
 
 PING_IMG_URL = getenv(
     "PING_IMG_URL",
@@ -155,7 +157,7 @@ SPOTIFY_PLAYLIST_IMG_URL = getenv(
 
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
+    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))

@@ -4,6 +4,7 @@ from pyrogram import filters
 from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils import get_readable_time
@@ -17,7 +18,6 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.extraction import extract_user
-from config import BANNED_USERS
 
 
 @app.on_message(filters.command(["gban", "globalban"]) & SUDOERS)

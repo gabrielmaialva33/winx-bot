@@ -8,6 +8,7 @@ from pyrogram.types import (
     Message,
 )
 
+from config import BANNED_USERS, OWNER_ID
 from WinxMusic import app
 from WinxMusic.utils.database import (
     add_nonadmin_chat,
@@ -34,7 +35,6 @@ from WinxMusic.utils.inline.settings import (
     vote_mode_markup,
 )
 from WinxMusic.utils.inline.start import private_panel
-from config import BANNED_USERS, OWNER_ID
 
 
 @app.on_message(
