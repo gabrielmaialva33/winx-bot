@@ -9,21 +9,20 @@ from pyrogram.errors import (
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from config import PLAYLIST_IMG_URL, QUEUE_LIMIT, SUPPORT_CHAT, adminlist
+from strings import get_string
 from WinxMusic import YouTube, app
-from WinxMusic.misc import SUDOERS
-from WinxMusic.misc import db
+from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils.database import (
     get_assistant,
     get_cmode,
     get_lang,
     get_playmode,
     get_playtype,
+    is_active_chat,
     is_maintenance,
 )
-from WinxMusic.utils.database import is_active_chat
 from WinxMusic.utils.inline import botplaylist_markup
-from config import PLAYLIST_IMG_URL, SUPPORT_CHAT, adminlist, QUEUE_LIMIT
-from strings import get_string
 
 links = {}
 
@@ -128,13 +127,14 @@ def PlayWrapper(command):
                     if userbot is None:
                         return await message.reply_text(
                             f"𝗡ã𝗼 𝗳𝗼𝗶 𝗽𝗼𝘀𝘀𝗶́𝘃𝗲𝗹 𝗲𝗻𝗰𝗼𝗻𝘁𝗿𝗮𝗿 𝗼 𝗮𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗽𝗮𝗿𝗮 "
-                            f"𝗲𝘀𝘁𝗲 𝗰𝗵𝗮𝘁! 😕 𝗧𝗲𝗻𝘁𝗲 𝗱𝗮𝗿 𝗮𝗱𝗺𝗶𝗻 𝗽𝗿𝗮 𝗪𝗶𝗻𝘅 👑 𝗲 𝘁𝗲𝗻𝘁𝗲 𝗻𝗼𝘃𝗮𝗺𝗲𝗻𝘁𝗲 🔁")
+                            f"𝗲𝘀𝘁𝗲 𝗰𝗵𝗮𝘁! 😕 𝗧𝗲𝗻𝘁𝗲 𝗱𝗮𝗿 𝗮𝗱𝗺𝗶𝗻 𝗽𝗿𝗮 𝗪𝗶𝗻𝘅 👑 𝗲 𝘁𝗲𝗻𝘁𝗲 𝗻𝗼𝘃𝗮𝗺𝗲𝗻𝘁𝗲 🔁"
+                        )
                     get = await app.get_chat_member(chat_id, userbot.id)
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
                 if (
-                        get.status == ChatMemberStatus.BANNED
-                        or get.status == ChatMemberStatus.RESTRICTED
+                    get.status == ChatMemberStatus.BANNED
+                    or get.status == ChatMemberStatus.RESTRICTED
                 ):
                     return await message.reply_text(
                         _["call_2"].format(

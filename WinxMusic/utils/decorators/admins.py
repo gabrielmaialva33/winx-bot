@@ -1,6 +1,8 @@
-from pyrogram.enums import ChatType, ChatMemberStatus
+from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+from config import SUPPORT_CHAT, adminlist, confirmer
+from strings import get_string
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils.database import (
@@ -13,8 +15,7 @@ from WinxMusic.utils.database import (
     is_nonadmin_chat,
     is_skipmode,
 )
-from config import SUPPORT_CHAT, adminlist, confirmer
-from strings import get_string
+
 from ..formatters import int_to_alpha
 
 
@@ -147,7 +148,9 @@ def AdminActual(mystic):
             return await message.reply_text(_["general_3"], reply_markup=upl)
         if message.from_user.id not in SUDOERS:
             try:
-                member = await app.get_chat_member(message.chat.id, message.from_user.id)
+                member = await app.get_chat_member(
+                    message.chat.id, message.from_user.id
+                )
             except:
                 return
             if not member.status == ChatMemberStatus.ADMINISTRATOR:

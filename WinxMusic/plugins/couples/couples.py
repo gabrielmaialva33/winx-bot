@@ -17,11 +17,11 @@ def dt():
 
 def dt_tom():
     a = (
-            str(int(dt()[0].split("/")[0]) + 1)
-            + "/"
-            + dt()[0].split("/")[1]
-            + "/"
-            + dt()[0].split("/")[2]
+        str(int(dt()[0].split("/")[0]) + 1)
+        + "/"
+        + dt()[0].split("/")[1]
+        + "/"
+        + dt()[0].split("/")[2]
     )
     return a
 
@@ -48,7 +48,9 @@ async def couple(_, message):
             if not i.user.is_bot:
                 list_of_users.append(i.user.id)
         if len(list_of_users) < 2:
-            return await message.reply_text("Não há membros suficientes para escolher um casal")
+            return await message.reply_text(
+                "Não há membros suficientes para escolher um casal"
+            )
         c1_id = random.choice(list_of_users)
         c2_id = random.choice(list_of_users)
         while c1_id == c2_id:
@@ -60,8 +62,11 @@ async def couple(_, message):
 
 {c1_mention} + {c2_mention} = ❤️‍🔥
 Novos casais serão escolhidos amanhã às 12h {tomorrow}"""
-        await app.send_photo(message.chat.id, photo="https://telegra.ph/file/908be770f3a34834379f1.png",
-                             caption=couple_selection_message)
+        await app.send_photo(
+            message.chat.id,
+            photo="https://telegra.ph/file/908be770f3a34834379f1.png",
+            caption=couple_selection_message,
+        )
         couple = {"c1_id": c1_id, "c2_id": c2_id}
         await save_couple(chat_id, today, couple)
 
@@ -74,5 +79,8 @@ Novos casais serão escolhidos amanhã às 12h {tomorrow}"""
 
 {c1_name} + {c2_name} = ❤️‍🔥
 Novo casais serão escolhidos amanhã às 12h {tomorrow}"""
-        await app.send_photo(message.chat.id, photo="https://telegra.ph/file/908be770f3a34834379f1.png",
-                             caption=couple_selection_message)
+        await app.send_photo(
+            message.chat.id,
+            photo="https://telegra.ph/file/908be770f3a34834379f1.png",
+            caption=couple_selection_message,
+        )
