@@ -29,11 +29,13 @@ class Winx(Client):
         try:
             await self.send_message(
                 chat_id=config.LOGGER_ID,
-                text=f"🚀<u><b>➜ {self.mention} 𝗕𝗼𝘁 𝗶𝗻𝗶𝗰𝗶𝗮𝗱𝗼:</b></u>🚀\n\n𝗜𝗗: <code>{self.id}</code>\n𝗡𝗼𝗺𝗲: {self.name}\n𝗨𝘀𝘂𝗮́𝗿𝗶𝗼: @{self.username}",
+                text=f"🚀<u><b>➜ {self.mention} 𝗕𝗼𝘁 𝗶𝗻𝗶𝗰𝗶𝗮𝗱𝗼:</b></u>🚀\n\n𝗜𝗗: <code>{self.id}</code>\n"
+                     f"𝗡𝗼𝗺𝗲: {self.name}\n𝗨𝘀𝘂𝗮́𝗿𝗶𝗼: @{self.username}",
             )
         except (errors.ChannelInvalid, errors.PeerIdInvalid):
             LOGGER(__name__).error(
-                "Bot has failed to access the log group/channel. Make sure that you have added your bot to your log group/channel."
+                "Bot has failed to access the log group/channel. Make sure that you have added your bot to your log "
+                "group/channel."
             )
             exit()
         except Exception as ex:
