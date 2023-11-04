@@ -1,6 +1,5 @@
 from pyrogram import filters
 from pyrogram.types import Message
-from unidecode import unidecode
 
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
@@ -27,10 +26,10 @@ async def activevc(_, message: Message):
         try:
             if (await app.get_chat(x)).username:
                 user = (await app.get_chat(x)).username
-                text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{unidecode(title).upper()}</a> [<code>{x}</code>]\n"
+                text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
             else:
                 text += (
-                    f"<b>{j + 1}.</b> {unidecode(title).upper()} [<code>{x}</code>]\n"
+                    f"<b>{j + 1}.</b> {title} [<code>{x}</code>]\n"
                 )
             j += 1
         except:
@@ -60,10 +59,10 @@ async def activevi_(_, message: Message):
         try:
             if (await app.get_chat(x)).username:
                 user = (await app.get_chat(x)).username
-                text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{unidecode(title).upper()}</a> [<code>{x}</code>]\n"
+                text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
             else:
                 text += (
-                    f"<b>{j + 1}.</b> {unidecode(title).upper()} [<code>{x}</code>]\n"
+                    f"<b>{j + 1}.</b> {title} [<code>{x}</code>]\n"
                 )
             j += 1
         except:
