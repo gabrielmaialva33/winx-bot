@@ -19,7 +19,7 @@ TRANSLATOR_COMMAND = ["translate", "traduzir", "tr"]
 async def translate(_, message) -> None:
     reply_msg = message.reply_to_message
     if not reply_msg:
-        await message.reply_text("**Responda a uma mensagem para traduzir!**")
+        await message.reply_text("𝗥𝗲𝘀𝗽𝗼𝗻𝗱𝗮 𝗮 𝘂𝗺𝗮 𝗺𝗲𝗻𝘀𝗮𝗴𝗲𝗺 𝗽𝗮𝗿𝗮 𝘁𝗿𝗮𝗱𝘂𝘇𝗶𝗿 🌐")
         return
     if reply_msg.caption:
         to_translate = reply_msg.caption
@@ -37,7 +37,7 @@ async def translate(_, message) -> None:
         source = await trans.detect(to_translate)
         dest = "pt"
     translation = await trans(to_translate, sourcelang=source, targetlang=dest)
-    reply = f"**Traduzido de {source} para {dest}**:\n" f"`{translation.text}`"
+    reply = f"𝗧𝗿𝗮𝗱𝘂𝘇𝗶𝗱𝗼 𝗱𝗲 {source} 🌐 𝗽𝗮𝗿𝗮  {dest}:\n" f"`{translation.text}`"
     await message.reply_text(reply)
 
 
