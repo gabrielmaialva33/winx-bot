@@ -138,9 +138,7 @@ def stare(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/stare").json()
         url = api["results"][0]["url"]
-        m.reply_animation(
-            animation=url, caption=f"{m.from_user.first_name}𝗢𝗹𝗵𝗮𝗻𝗱𝘂 👀"
-        )
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name}𝗢𝗹𝗵𝗮𝗻𝗱𝘂 👀")
 
 
 # --------------------------------------------------------------------------------- #
@@ -159,9 +157,7 @@ def pout(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/pout").json()
         url = api["results"][0]["url"]
-        m.reply_animation(
-            animation=url, caption=f"{m.from_user.first_name}  𝗕𝗶𝗰𝗼 🐦👄"
-        )
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name}  𝗕𝗶𝗰𝗼 🐦👄")
 
 
 # --------------------------------------------------------------------------------- #
@@ -314,9 +310,7 @@ def laugh(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/laugh").json()
         url = api["results"][0]["url"]
-        m.reply_animation(
-            animation=url, caption=f"{m.from_user.first_name} 𝗿𝗶 𝗵𝗶𝗵𝗶 🤭"
-        )
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} 𝗿𝗶 𝗵𝗶𝗵𝗶 🤭")
 
 
 # --------------------------------------------------------------------------------- #
@@ -335,9 +329,7 @@ def smug(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/smug").json()
         url = api["results"][0]["url"]
-        m.reply_animation(
-            animation=url, caption=f"{m.from_user.first_name} 𝗦𝗲 𝗮𝗰𝗵𝗮 🤔💭"
-        )
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} 𝗦𝗲 𝗮𝗰𝗵𝗮 🤔💭")
 
 
 # --------------------------------------------------------------------------------- #
@@ -377,9 +369,7 @@ def shoot(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/shoot").json()
         url = api["results"][0]["url"]
-        m.reply_animation(
-            animation=url, caption=f"𝗔𝘁𝗶𝗿𝗮 🔫 {m.from_user.first_name}"
-        )
+        m.reply_animation(animation=url, caption=f"𝗔𝘁𝗶𝗿𝗮 🔫 {m.from_user.first_name}")
 
 
 # --------------------------------------------------------------------------------- #
@@ -496,9 +486,7 @@ def punch(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/punch").json()
         url = api["results"][0]["url"]
-        m.reply_animation(
-            animation=url, caption=f"{m.from_user.first_name} ಠ‿ಠ 𝗦𝗼𝗰𝗮 👊"
-        )
+        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} ಠ‿ಠ 𝗦𝗼𝗰𝗮 👊")
 
 
 # --------------------------------------------------------------------------------- #
@@ -631,9 +619,7 @@ def pat(_, m: Message):
     else:
         api = requests.get("https://waifu.pics/api/sfw/pat").json()
         url = api["url"]
-        m.reply_animation(
-            animation=url, caption=f"𝗔𝗺𝗼𝗲𝘀 💖🌹 {m.from_user.first_name}"
-        )
+        m.reply_animation(animation=url, caption=f"𝗔𝗺𝗼𝗲𝘀 💖🌹 {m.from_user.first_name}")
 
 
 # --------------------------------------------------------------------------------- #
@@ -732,9 +718,7 @@ def mamada(_, m: Message):
     else:
         api = requests.get("https://waifu.pics/api/nsfw/blowjob").json()
         url = api["url"]
-        m.reply_animation(
-            animation=url, caption=f"𝗠𝗮𝗺𝗮𝗻𝗱𝗼 🍼 {m.from_user.first_name}"
-        )
+        m.reply_animation(animation=url, caption=f"𝗠𝗮𝗺𝗮𝗻𝗱𝗼 🍼 {m.from_user.first_name}")
 
 
 @app.on_message(filters.command("neko_xxx") & filters.private)
