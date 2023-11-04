@@ -669,7 +669,8 @@ async def get_palm_response(session, api_params):
             return f"Error: Request failed with status code {response.status}."
 
 
-@app.on_message(filters.regex(r"^winx", re.IGNORECASE))
+# --------------------------------------------------------------------------------- #
+@app.on_message(filters.regex(r"^winx"))
 async def palm_chatbot(_client, message):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
