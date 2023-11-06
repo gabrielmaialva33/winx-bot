@@ -18,6 +18,7 @@ from WinxMusic.utils.database import (
     remove_active_video_chat,
 )
 from WinxMusic.utils.decorators.language import language
+from WinxMusic.utils.logger import restart_logs
 from WinxMusic.utils.pastebin import WinxBin
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
@@ -113,6 +114,7 @@ async def update_(client, message, _):
 @app.on_message(filters.command(["restart"]) & SUDOERS)
 async def restart_(_, message):
     response = await message.reply_text("𝗿𝗲𝗶𝗻𝗶𝗰𝗶𝗮𝗻𝗱𝗼... 🔄")
+    await restart_logs(message)
     ac_chats = await get_active_chats()
     for x in ac_chats:
         try:
