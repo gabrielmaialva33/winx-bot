@@ -48,13 +48,15 @@ async def activevc(_, message: Message):
                 is_fake = (await app.get_chat(x)).is_fake
                 linked_chat = (await app.get_chat(x)).linked_chat.title
                 linked_chat_count = (await app.get_chat(x)).linked_chat.members_count
-                text += (f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
-                         f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
-                         f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
-                         f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
-                         f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> {linked_chat}\n"
-                         f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀 𝗱𝗼 𝗖𝗵𝗮𝘁 𝗟𝗶𝗻𝗸𝗲𝗮𝗱𝗼:</b> <code>{linked_chat_count}</code>\n"
-                         f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n")
+                text += (
+                    f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
+                    f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
+                    f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
+                    f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
+                    f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> {linked_chat}\n"
+                    f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀 𝗱𝗼 𝗖𝗵𝗮𝘁 𝗟𝗶𝗻𝗸𝗲𝗮𝗱𝗼:</b> <code>{linked_chat_count}</code>\n"
+                    f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
+                )
             j += 1
         except:
             continue
