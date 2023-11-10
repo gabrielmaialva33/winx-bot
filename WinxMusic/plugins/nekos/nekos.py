@@ -655,7 +655,7 @@ async def get_palm_response(session, api_params):
 
 
 # --------------------------------------------------------------------------------- #
-@app.on_message(filters.regex(r"^winx"))
+@app.on_message(filters.regex(r"^wix"))
 async def palm_chatbot(_client, message):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
@@ -692,7 +692,7 @@ async def palm_chatbot(_client, message):
 
 
 # only for pv chat
-@app.on_message(filters.command("trap") & filters.private)
+@app.on_message(filters.command("trap"))
 def trap(_, m: Message):
     reply = m.reply_to_message
     if reply:
@@ -705,7 +705,7 @@ def trap(_, m: Message):
         m.reply_photo(photo=url, caption=f"𝗧𝗿𝗮𝗽 🪤🚫 {m.from_user.first_name}")
 
 
-@app.on_message(filters.command("mamada") & filters.private)
+@app.on_message(filters.command("mamada"))
 def mamada(_, m: Message):
     reply = m.reply_to_message
     if reply:
@@ -720,7 +720,7 @@ def mamada(_, m: Message):
         m.reply_animation(animation=url, caption=f"𝗠𝗮𝗺𝗮𝗻𝗱𝗼 🍼 {m.from_user.first_name}")
 
 
-@app.on_message(filters.command("neko_xxx") & filters.private)
+@app.on_message(filters.command("neko_xxx"))
 def neko_xxx(_, m: Message):
     reply = m.reply_to_message
     if reply:
@@ -733,7 +733,7 @@ def neko_xxx(_, m: Message):
         m.reply_photo(photo=url, caption=f"𝗡𝗲𝗸𝗼 {m.from_user.first_name}")
 
 
-@app.on_message(filters.command("wifu_xxx") & filters.private)
+@app.on_message(filters.command("wifu_xxx"))
 def wifu_xxx(_, m: Message):
     reply = m.reply_to_message
     if reply:
