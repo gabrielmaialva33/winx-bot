@@ -16,6 +16,7 @@ async def activevc(_, message: Message):
     mystic = await message.reply_text("➜ 𝗢𝗯𝘁𝗲𝗻𝗱𝗼 𝗹𝗶𝘀𝘁𝗮 𝗱𝗲 𝗰𝗵𝗮𝘁𝘀 𝗱𝗲 𝘃𝗼𝘇 𝗮𝘁𝗶𝘃𝗼𝘀... 🎤🔄")
     served_chats = await get_active_chats()
     text = ""
+    count = 0
     j = 0
     for x in served_chats:
         try:
@@ -26,7 +27,10 @@ async def activevc(_, message: Message):
         try:
             if (await app.get_chat(x)).username:
                 user = (await app.get_chat(x)).username
-                text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
+                count = (await app.get_chat(x)).members_count
+                invite = await app.export_chat_invite_link(x)
+                text += (f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
+                         f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n <b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n")
             else:
                 text += f"<b>{j + 1}.</b> {title} [<code>{x}</code>]\n"
             j += 1
