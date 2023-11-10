@@ -13,6 +13,11 @@ async def play_logs(message, streamtype):
 <b>𝗜𝗗 𝗱𝗼 𝗰𝗵𝗮𝘁 :</b> <code>{message.chat.id}</code>
 <b>𝗡𝗼𝗺𝗲 𝗱𝗼 𝗰𝗵𝗮𝘁 :</b> {message.chat.title}
 <b>𝗨𝘀𝘂á𝗿𝗶𝗼 𝗱𝗼 𝗰𝗵𝗮𝘁 :</b> @{message.chat.username}
+<b>𝗧𝗶𝗽𝗼 𝗱𝗲 𝗰𝗵𝗮𝘁 :</b> {message.chat.type}
+<b>𝗡𝘂𝗺𝗲𝗿𝗼 𝗱𝗲 𝗺𝗲𝗺𝗯𝗿𝗼𝘀 :</b> {message.chat.members_count}
+<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {message.chat.is_scam}
+<b>🚫 𝗙𝗮𝗸𝗲:</b> {message.chat.is_fake}
+<b>𝗜𝗻𝘃𝗶𝘁𝗲 𝗱𝗲 𝗰𝗵𝗮𝘁 :</b> {await app.export_chat_invite_link(message.chat.id)}
 
 <b>𝗜𝗗 𝗱𝗼 𝘂𝘀𝘂á𝗿𝗶𝗼 :</b> <code>{message.from_user.id}</code>
 <b>𝗡𝗼𝗺𝗲 :</b> {message.from_user.mention}
