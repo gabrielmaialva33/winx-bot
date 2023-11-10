@@ -29,8 +29,10 @@ async def activevc(_, message: Message):
                 user = (await app.get_chat(x)).username
                 count = (await app.get_chat(x)).members_count
                 invite = await app.export_chat_invite_link(x)
-                text += (f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
-                         f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n <b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n")
+                text += (
+                    f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
+                    f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n <b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
+                )
             else:
                 count = (await app.get_chat(x)).members_count
                 invite = await app.export_chat_invite_link(x)
