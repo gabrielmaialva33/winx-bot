@@ -32,7 +32,10 @@ async def activevc(_, message: Message):
                 text += (f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
                          f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n <b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n")
             else:
-                text += f"<b>{j + 1}.</b> {title} [<code>{x}</code>]\n"
+                count = (await app.get_chat(x)).members_count
+                invite = await app.export_chat_invite_link(x)
+                text += (f"<b>{j + 1}.</b> {title} [<code>{x}</code>]\n<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n\n"
+                         f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n")
             j += 1
         except:
             continue
