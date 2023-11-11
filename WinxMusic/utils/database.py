@@ -1,5 +1,5 @@
 import random
-from typing import Dict, List, Union, Tuple, Any
+from typing import Any, Dict, List, Union
 
 from WinxMusic import userbot
 from WinxMusic.core.mongo import mongodb
@@ -671,6 +671,7 @@ async def remove_banned_user(user_id: int):
 # --------------------------------------------------------------------------------- #
 # couples methods
 # --------------------------------------------------------------------------------- #
+
 
 async def _get_lovers(chat_id: int):
     lovers = await couplesdb.find_one({"chat_id": chat_id})
