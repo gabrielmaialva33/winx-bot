@@ -50,7 +50,7 @@ async def activevc(_, message: Message):
                 linked_chat_text = ""
                 if chat.linked_chat:
                     linked_chat = await app.get_chat(chat.linked_chat.id)
-                    linked_chat_text = f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.title}</a>\n"
+                    linked_chat_text = f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.username}</a>\n"
 
                 text += (
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
