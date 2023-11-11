@@ -4,12 +4,15 @@ asyncio
 beautifulsoup4
 dnspython
 ffmpeg-python
+git+https://github.com/AsmSafone/SafoneAPI
 gitpython
 gpytranslate
 hachoir
 heroku3
+lexica-api
 motor
 ntgcalls
+openai
 pillow
 psutil
 py-tgcalls
@@ -22,6 +25,6 @@ speedtest-cli
 spotipy
 tgcrypto
 unidecode
-yt-dlp
 youtube-search
 youtube-search-python
+yt-dlp

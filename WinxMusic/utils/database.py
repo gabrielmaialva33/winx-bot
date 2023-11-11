@@ -692,3 +692,10 @@ async def save_couple(chat_id: int, date: str, couple: dict):
         {"$set": {"couple": lovers}},
         upsert=True,
     )
+
+
+async def remove_served_user(user_id: int):
+    is_served = await is_served_user(user_id)
+    if not is_served:
+        return
+    return await usersdb.delete_one({"user_id": user_id})

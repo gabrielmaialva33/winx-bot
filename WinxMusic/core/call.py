@@ -22,7 +22,6 @@ from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
-from strings import get_string
 from WinxMusic import LOGGER, YouTube, app
 from WinxMusic.misc import db
 from WinxMusic.utils.database import (
@@ -42,6 +41,7 @@ from WinxMusic.utils.formatters import check_duration, seconds_to_min, speed_con
 from WinxMusic.utils.inline.play import stream_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import get_thumb
+from strings import get_string
 
 autoend = {}
 counter = {}
@@ -312,11 +312,11 @@ class Call(PyTgCalls):
             pass
 
     async def skip_stream(
-        self,
-        chat_id: int,
-        link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            link: str,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         if video:
@@ -363,12 +363,12 @@ class Call(PyTgCalls):
         await assistant.leave_group_call(config.LOGGER_ID)
 
     async def join_call(
-        self,
-        chat_id: int,
-        original_chat_id: int,
-        link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            original_chat_id: int,
+            link,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         language = await get_lang(chat_id)

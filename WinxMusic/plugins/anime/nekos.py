@@ -1,6 +1,3 @@
-import asyncio
-
-import aiohttp
 import requests
 from pyrogram import filters
 from pyrogram.types import Message
@@ -181,7 +178,6 @@ def handhold(_, m: Message):
 
 
 # --------------------------------------------------------------------------------- #
-
 
 @app.on_message(filters.command(NEKO_WAVE_COMMAND))
 def wave(_, m: Message):
@@ -640,57 +636,6 @@ def waifu(_, m: Message):
 # --------------------------------------------------------------------------------- #
 
 
-PALM_API_URL = "https://api.qewertyy.me/models"
-MODEL_ID = 0
-API_TIMEOUT = 10
-
-
-async def get_palm_response(session, api_params):
-    async with session.post(PALM_API_URL, params=api_params) as response:
-        if response.status == 200:
-            data = await response.json()
-            return data.get("content", "Error: Resposta vazia recebida da API PALM.")
-        else:
-            return f"Error: Request failed with status code {response.status}."
-
-
-# --------------------------------------------------------------------------------- #
-@app.on_message(filters.regex(r"^wix"))
-async def palm_chatbot(_client, message):
-    args = message.text.split(maxsplit=1)
-    if len(args) < 2:
-        await message.reply("𝗮𝗺𝗼𝗲.. 𝗺𝗮𝗻𝗮 💖👭🌈")
-        return
-
-    input_text = args[1]
-
-    try:
-        async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
-        ) as session:
-            result_msg = await message.reply("...")
-
-            api_params = {"model_id": MODEL_ID, "prompt": input_text}
-            api_response = await asyncio.gather(get_palm_response(session, api_params))
-
-            await result_msg.delete()
-
-    except aiohttp.ClientError as e:
-        api_response = f"Error: Uma exceção ocorreu ao chamar a API.\n\n{e}"
-    except asyncio.TimeoutError:
-        api_response = "Error: API WinxMusic timeout."
-
-    reply = message.reply_to_message
-    if reply:
-        await reply.reply(api_response[0])
-    else:
-        await message.reply(api_response[0])
-
-
-# --------------------------------------------------------------------------------- #
-# NSFW NEKOS
-
-
 # only for pv chat
 @app.on_message(filters.command("trap"))
 def trap(_, m: Message):
@@ -744,3 +689,9 @@ def wifu_xxx(_, m: Message):
         api = requests.get("https://waifu.pics/api/nsfw/waifu").json()
         url = api["url"]
         m.reply_photo(photo=url, caption=f"𝗪𝗶𝗳𝘂 𝗱𝗲 {m.from_user.first_name}")
+
+
+# --------------------------------------------------------------------------------- #
+@app.on_message(filters.regex(r"^amoe"))
+async def love(_, message):
+    await message.reply("𝗮𝗺𝗼𝗲.. 𝗺𝗮𝗻𝗮 💖👭🌈")

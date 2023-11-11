@@ -5,13 +5,13 @@ from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter, ChatMemberStatus
 from pyrogram.types import CallbackQuery, Message
 
-from config import BANNED_USERS, adminlist, lyrical
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils.database import get_assistant, get_authuser_names, get_cmode
 from WinxMusic.utils.decorators import ActualAdminCB, AdminActual, language
 from WinxMusic.utils.formatters import alpha_to_int, get_readable_time
+from config import BANNED_USERS, adminlist, lyrical
 
 rel = {}
 
@@ -31,7 +31,7 @@ async def reload_admin_cache(client, message: Message, _):
                 return await message.reply_text(_["reload_1"].format(left))
         adminlist[message.chat.id] = []
         async for user in app.get_chat_members(
-            message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
+                message.chat.id, filter=ChatMembersFilter.ADMINISTRATORS
         ):
             if user.status == ChatMemberStatus.ADMINISTRATOR:
                 adminlist[message.chat.id].append(user.user.id)

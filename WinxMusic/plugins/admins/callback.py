@@ -3,17 +3,6 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import (
-    BANNED_USERS,
-    SOUNCLOUD_IMG_URL,
-    STREAM_IMG_URL,
-    TELEGRAM_AUDIO_URL,
-    TELEGRAM_VIDEO_URL,
-    adminlist,
-    confirmer,
-    votemode,
-)
-from strings import get_string
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import SUDOERS, db
@@ -33,6 +22,17 @@ from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline import close_markup, stream_markup, stream_markup_timer
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import get_thumb
+from config import (
+    BANNED_USERS,
+    SOUNCLOUD_IMG_URL,
+    STREAM_IMG_URL,
+    TELEGRAM_AUDIO_URL,
+    TELEGRAM_VIDEO_URL,
+    adminlist,
+    confirmer,
+    votemode,
+)
+from strings import get_string
 
 checker = {}
 upvoters = {}
@@ -100,8 +100,8 @@ async def del_back_playlist(client, CallbackQuery, _):
             mention = "𝘂𝗽𝘃𝗼𝘁𝗲𝘀"
         else:
             if (
-                CallbackQuery.from_user.id
-                in upvoters[chat_id][CallbackQuery.message.id]
+                    CallbackQuery.from_user.id
+                    in upvoters[chat_id][CallbackQuery.message.id]
             ):
                 await CallbackQuery.answer(_["admin_38"], show_alert=True)
             else:
