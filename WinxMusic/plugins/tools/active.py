@@ -86,7 +86,8 @@ async def activevi_(_, message: Message):
             else:
                 text += f"<b>{j + 1}.</b> {title} [<code>{x}</code>]\n"
             j += 1
-        except:
+        except Exception as e:
+            LOGGER(__name__).error(e)
             continue
     if not text:
         await mystic.edit_text(f"➜ 🚫 𝗡ã𝗼 𝗵á 𝗰𝗵𝗮𝘁𝘀 𝗱𝗲 𝘃𝗶́𝗱𝗲𝗼 𝗮𝘁𝗶𝘃𝗼𝘀 𝗲𝗺 {app.mention}.")
