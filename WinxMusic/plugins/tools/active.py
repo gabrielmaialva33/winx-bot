@@ -1,5 +1,4 @@
 from pyrogram import filters
-from pyrogram.enums import ChatType
 from pyrogram.types import Message
 
 from WinxMusic import LOGGER, app
