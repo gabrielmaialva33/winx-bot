@@ -2,11 +2,13 @@ import asyncio
 
 from lexica import AsyncClient
 
+from WinxMusic import LOGGER
 from WinxMusic.helpers.misc import ImageModels
 
 
 async def ImageGeneration(model, prompt):
     try:
+        LOGGER(__name__).info(f"Generating image with model {model}")
         if model not in list(ImageModels.values()):
             return 1
         client = AsyncClient()
@@ -14,7 +16,7 @@ async def ImageGeneration(model, prompt):
         if output["code"] != 1:
             return 2
         task_id, request_id = output["task_id"], output["request_id"]
-        await asyncio.sleep(20)
+        await asyncio.sleep(30)
         tries = 0
         image_url = None
         resp = await client.getImages(task_id, request_id)
@@ -24,12 +26,13 @@ async def ImageGeneration(model, prompt):
                 break
             if tries > 15:
                 break
-            await asyncio.sleep(5)
+            await asyncio.sleep(10)
             resp = await client.getImages(task_id, request_id)
             tries += 1
             continue
         return image_url
     except Exception as e:
+        LOGGER(__name__).error(e)
         raise Exception(f"Failed to generate the image: {e}")
 
 
