@@ -20,6 +20,7 @@ async def activevc(_, message: Message):
     for x in served_chats:
         try:
             title = (await app.get_chat(x)).title
+            count = (await app.get_chat(x)).members_count
         except:
             await remove_active_chat(x)
             continue
@@ -59,6 +60,8 @@ async def activevc(_, message: Message):
                 )
             j += 1
         except:
+            text += (f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
+                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n\n")
             continue
     if not text:
         await mystic.edit_text(f"➜ 🚫 𝗡ã𝗼 𝗵á 𝗰𝗵𝗮𝘁𝘀 𝗱𝗲 𝘃𝗼𝘇 𝗮𝘁𝗶𝘃𝗼𝘀 𝗲𝗺 {app.mention}.")
