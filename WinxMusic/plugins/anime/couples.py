@@ -31,7 +31,7 @@ tomorrow = str(dt_tom())
 
 # --------------------------------------------------------------------------------- #
 
-COUPLE_COMMAND = ["couple", "casal"]
+COUPLE_COMMAND = ["couple", "casal", "winxers"]
 
 
 # --------------------------------------------------------------------------------- #
@@ -61,6 +61,7 @@ async def couple(_, message):
         couple_selection_message = f"""**⚜ 🌈 Casal do dia 🎡**
 
 {c1_mention} + {c2_mention} = ❤️‍🔥
+
 Novos casais serão escolhidos amanhã às 12h {tomorrow}"""
         await app.send_photo(
             message.chat.id,
@@ -78,6 +79,7 @@ Novos casais serão escolhidos amanhã às 12h {tomorrow}"""
         couple_selection_message = f"""⚜ **Casal do dia :**
 
 {c1_name} + {c2_name} = ❤️‍🔥
+
 Novo casais serão escolhidos amanhã às 12h {tomorrow}"""
         await app.send_photo(
             message.chat.id,

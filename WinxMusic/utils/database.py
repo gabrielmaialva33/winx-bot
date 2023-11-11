@@ -1,5 +1,5 @@
 import random
-from typing import Dict, List, Union
+from typing import Dict, List, Union, Tuple, Any
 
 from WinxMusic import userbot
 from WinxMusic.core.mongo import mongodb
@@ -22,6 +22,7 @@ playtypedb = mongodb.playtypedb
 skipdb = mongodb.skipmode
 sudoersdb = mongodb.sudoers
 usersdb = mongodb.tgusersdb
+impdb = mongodb.imposter
 
 # Shifting to memory [mongo sucks often]
 active = []
@@ -667,10 +668,23 @@ async def remove_banned_user(user_id: int):
     return await blockeddb.delete_one({"user_id": user_id})
 
 
+# --------------------------------------------------------------------------------- #
+# couples methods
+# --------------------------------------------------------------------------------- #
+
 async def _get_lovers(chat_id: int):
     lovers = await couplesdb.find_one({"chat_id": chat_id})
     if lovers and "couple" in lovers:
         lovers = lovers["couple"]
+    else:
+        lovers = {}
+    return lovers
+
+
+async def _get_image(cid: int):
+    lovers = await couplesdb.find_one({"chat_id": cid})
+    if lovers:
+        lovers = lovers["img"]
     else:
         lovers = {}
     return lovers
@@ -699,3 +713,43 @@ async def remove_served_user(user_id: int):
     if not is_served:
         return
     return await usersdb.delete_one({"user_id": user_id})
+
+
+# --------------------------------------------------------------------------------- #
+# imposter methods
+# --------------------------------------------------------------------------------- #
+async def usr_data(user_id: int) -> bool:
+    user = await impdb.find_one({"user_id": user_id})
+    return bool(user)
+
+
+async def get_userdata(user_id: int) -> tuple[Any, Any, Any]:
+    user = await impdb.find_one({"user_id": user_id})
+    return user["username"], user["first_name"], user["last_name"]
+
+
+async def add_userdata(user_id: int, username, first_name, last_name):
+    await impdb.update_one(
+        {"user_id": user_id},
+        {
+            "$set": {
+                "username": username,
+                "first_name": first_name,
+                "last_name": last_name,
+            }
+        },
+        upsert=True,
+    )
+
+
+async def check_imposter(chat_id: int) -> bool:
+    chat = await impdb.find_one({"chat_id_toggle": chat_id})
+    return bool(chat)
+
+
+async def impo_on(chat_id: int) -> bool:
+    await impdb.insert_one({"chat_id_toggle": chat_id})
+
+
+async def impo_off(chat_id: int):
+    await impdb.delete_one({"chat_id_toggle": chat_id})
