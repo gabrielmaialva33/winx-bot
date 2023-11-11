@@ -45,15 +45,19 @@ async def activevc(_, message: Message):
                 is_fake = chat.is_fake
                 linked_chat = chat.linked_chat
 
-                invite = await app.export_chat_invite_link(chat.id)
+                invite_chat = await app.export_chat_invite_link(chat.id)
+                invite_linked_chat = linked_chat.invite_link
+
+                if linked_chat is not None:
+                    invite_linked_chat = await app.get_chat(linked_chat.id)
 
                 text += (
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
                     f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
                     f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
-                    f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> <a href={linked_chat.invite_link}>{linked_chat.title}</a>\n"
-                    f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite.invite_link}\n\n"
+                    f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> {invite_chat.invite_link}\n"
+                    f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite_linked_chat.invite_link}\n\n"
                 )
             j += 1
         except Exception as e:
