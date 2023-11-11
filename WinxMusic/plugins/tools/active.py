@@ -26,7 +26,7 @@ async def activevc(_, message: Message):
             continue
         try:
             chat = await app.get_chat(x)
-            if chat.type == ChatType.PRIVATE:
+            if chat.username:
                 user = chat.username
                 count = chat.members_count
                 invite = await app.export_chat_invite_link(chat.id)
