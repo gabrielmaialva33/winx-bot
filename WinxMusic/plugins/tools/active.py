@@ -26,7 +26,6 @@ async def activevc(_, message: Message):
         try:
             chat = await app.get_chat(x)
             if chat.username is not None:
-                print('if', chat.type, chat.username)
                 user = chat.username
                 count = chat.members_count
                 is_scam = chat.is_scam
@@ -41,7 +40,6 @@ async def activevc(_, message: Message):
                     f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
                 )
             else:
-                print('else', chat.type, chat.username)
                 count = chat.members_count
                 is_scam = chat.is_scam
                 is_fake = chat.is_fake
