@@ -1,5 +1,5 @@
 # Copyright 2023 Qewertyy, MIT License
-
+import logging
 import os
 from pyrogram import filters
 
@@ -56,4 +56,5 @@ async def draw(_, query):
             reply_to_message_id=promptdata['reply_to_id']
         )
     except Exception as e:
-        return query.message.edit_text(f"algo deu errado, tente novamente mais tarde\n\n{e}")
+        logging.exception(str(e))
+        await query.message.delete()
