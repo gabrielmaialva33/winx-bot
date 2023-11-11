@@ -8,7 +8,6 @@ from WinxMusic import app
 # --------------------------------------------------------------------------------- #
 
 PALM_API_URL = "https://api.qewertyy.me/models"
-MODEL_ID = 5
 API_TIMEOUT = 30
 
 
@@ -24,7 +23,7 @@ async def get_gpt_response(session, api_params):
             return f"error: api retornou {response.status} status."
 
 
-@app.on_message(filters.command(["gpt", "ai"], prefixes=["/", "!"]))
+@app.on_message(filters.command(["gpt"], prefixes=["/", "!"]))
 async def gpt_chatbot(_client, message):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
@@ -35,11 +34,11 @@ async def gpt_chatbot(_client, message):
 
     try:
         async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             result_msg = await message.reply("...")
 
-            api_params = {"model_id": MODEL_ID, "prompt": input_text}
+            api_params = {"model_id": 5, "prompt": input_text}
             api_response = await asyncio.gather(get_gpt_response(session, api_params))
 
             await result_msg.delete()
