@@ -1,4 +1,5 @@
 import asyncio
+
 from lexica import AsyncClient
 
 from WinxMusic.helpers.misc import ImageModels
@@ -10,16 +11,16 @@ async def ImageGeneration(model, prompt):
             return 1
         client = AsyncClient()
         output = await client.generate(model, prompt, "")
-        if output['code'] != 1:
+        if output["code"] != 1:
             return 2
-        task_id, request_id = output['task_id'], output['request_id']
+        task_id, request_id = output["task_id"], output["request_id"]
         await asyncio.sleep(20)
         tries = 0
         image_url = None
         resp = await client.getImages(task_id, request_id)
         while True:
-            if resp['code'] == 2:
-                image_url = resp['img_urls']
+            if resp["code"] == 2:
+                image_url = resp["img_urls"]
                 break
             if tries > 15:
                 break
@@ -53,6 +54,6 @@ async def gpt(prompt) -> str:
         client = AsyncClient()
         output = await client.gpt(prompt)
         await client.close()
-        return output['content']
+        return output["content"]
     except Exception as e:
         raise Exception(f"Failed to upscale the image: {e}")
