@@ -72,11 +72,11 @@ def AdminRightsCheck(mystic):
                     if message.from_user.id not in admins:
                         if await is_skipmode(message.chat.id):
                             upvote = await get_upvote_count(chat_id)
-                            text = f"""<b>𝗣𝗲𝗿𝗺𝗶𝘀𝘀õ𝗲𝘀 𝗱𝗲 𝗔𝗱𝗺𝗶𝗻 𝗡𝗲𝗰𝗲𝘀𝘀á𝗿𝗶𝗮𝘀</b> 🔒
+                            text = f"""<b>Permissões de Admin Necessárias</b> 🔒
 
-𝗔𝘁𝘂𝗮𝗹𝗶𝘇𝗲 𝗮 𝗺𝗲𝗺ó𝗿𝗶𝗮 𝗱𝗼 𝗮𝗱𝗺𝗶𝗻 𝘃𝗶𝗮: /reload 🔄
+Atualize a memória do admin via: /reload 🔄
 
-➜ {upvote} 𝘃𝗼𝘁𝗼𝘀 𝗻𝗲𝗰𝗲𝘀𝘀á𝗿𝗶𝗼𝘀 𝗽𝗮𝗿𝗮 𝗲𝘅𝗲𝗰𝘂𝘁𝗮𝗿 𝗲𝘀𝘁𝗮 𝗮çã𝗼."""
+➜ {upvote} votos necessários para executar esta ação."""
 
                             command = message.command[0]
                             if command[0] == "c":
