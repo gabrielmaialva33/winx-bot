@@ -5,8 +5,14 @@ import time
 
 from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter
-from pyrogram.errors import FloodWait, InputUserDeactivated, UserIsBlocked, PeerIdInvalid
+from pyrogram.errors import (
+    FloodWait,
+    InputUserDeactivated,
+    PeerIdInvalid,
+    UserIsBlocked,
+)
 
+from config import OWNER_ID, adminlist
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (
@@ -19,7 +25,6 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.formatters import alpha_to_int
-from config import adminlist, OWNER_ID
 
 IS_BROADCASTING = False
 
@@ -187,7 +192,7 @@ async def broadcast_to_all(_bot, message):
     success = 0
 
     for user in users:
-        success, reason = await broadcast_messages(int(user['user_id']), b_msg)
+        success, reason = await broadcast_messages(int(user["user_id"]), b_msg)
         if success:
             success += 1
         elif success is False:
@@ -201,11 +206,13 @@ async def broadcast_to_all(_bot, message):
 
         if not done % 20:
             await status.edit(
-                f"Broadcast in progress:\n\nTotal Users: {len(users)}\nCompleted: {done}/{len(users)}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}")
+                f"Broadcast in progress:\n\nTotal Users: {len(users)}\nCompleted: {done}/{len(users)}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}"
+            )
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
     await status.edit(
-        f"Broadcast completed:\n\nTotal Users: {len(users)}\nCompleted: {done}/{len(users)}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}\n\nTime taken: {time_taken}")
+        f"Broadcast completed:\n\nTotal Users: {len(users)}\nCompleted: {done}/{len(users)}\nSuccess: {success}\nBlocked: {blocked}\nDeleted: {deleted}\n\nTime taken: {time_taken}"
+    )
 
 
 @app.on_message(filters.command("gc") & filters.user(OWNER_ID) & filters.reply)
@@ -221,7 +228,7 @@ async def group_cast(_bot, message):
     success = 0
 
     for chat in chats:
-        success, reason = await broadcast_messages(int(chat['chat_id']), b_msg)
+        success, reason = await broadcast_messages(int(chat["chat_id"]), b_msg)
         if success:
             success += 1
         elif success is False:
@@ -231,11 +238,13 @@ async def group_cast(_bot, message):
         await asyncio.sleep(2)
         if not done % 20:
             await status.edit(
-                f"Broadcast in progress:\n\nTotal Chats: {len(chats)}\nCompleted: {done}/{len(chats)}\nSuccess: {success}\nFailed: {failed}")
+                f"Broadcast in progress:\n\nTotal Chats: {len(chats)}\nCompleted: {done}/{len(chats)}\nSuccess: {success}\nFailed: {failed}"
+            )
 
     time_taken = datetime.timedelta(seconds=int(time.time() - start_time))
     await status.edit(
-        f"Broadcast completed:\n\nTotal Chats: {len(chats)}\nCompleted: {done}/{len(chats)}\nSuccess: {success}\nFailed: {failed}\n\nTime taken: {time_taken}")
+        f"Broadcast completed:\n\nTotal Chats: {len(chats)}\nCompleted: {done}/{len(chats)}\nSuccess: {success}\nFailed: {failed}\n\nTime taken: {time_taken}"
+    )
 
 
 async def auto_clean():
@@ -246,7 +255,7 @@ async def auto_clean():
                 if chat_id not in adminlist:
                     adminlist[chat_id] = []
                     async for user in app.get_chat_members(
-                            chat_id, filter=ChatMembersFilter.ADMINISTRATORS
+                        chat_id, filter=ChatMembersFilter.ADMINISTRATORS
                     ):
                         if user.privileges.can_manage_video_chats:
                             adminlist[chat_id].append(user.user.id)

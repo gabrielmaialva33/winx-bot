@@ -1,5 +1,5 @@
-from SafoneAPI import api
 from pyrogram import *
+from SafoneAPI import api
 
 from ... import *
 
@@ -21,7 +21,8 @@ async def check_ccbin(_client, message):
         return await aux.edit("<b>❌ BIN inválido!</b>")
     try:
         resp = await api.SafoneAPI.bininfo(bin)
-        await aux.edit(f"""
+        await aux.edit(
+            f"""
 <b>💠 Bin Full Details:</b>
 
 <b>🏦 Bank:</b> <tt>{resp.bank}</tt>
@@ -33,7 +34,9 @@ async def check_ccbin(_client, message):
 <b>🔴 Prepaid:</b> <tt>{resp.prepaid}</tt>
 <b>🆔 Type:</b> <tt>{resp.type}</tt>
 <b>ℹ️ Vendor:</b> <tt>{resp.vendor}</tt>"""
-                       )
+        )
     except:
-        return await aux.edit(f"""
-🚫 BIN não encontrada! Por favor, insira um BIN válido para verificar.""")
+        return await aux.edit(
+            f"""
+🚫 BIN não encontrada! Por favor, insira um BIN válido para verificar."""
+        )

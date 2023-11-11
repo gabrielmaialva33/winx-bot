@@ -1,5 +1,6 @@
-from WinxMusic import app
 from pyrogram import filters
+
+from WinxMusic import app
 
 
 @app.on_message(filters.command("id"))
@@ -11,6 +12,4 @@ def ids(_, message):
             f"𝗖𝗵𝗮𝘁 𝗜𝗗: {message.chat.id}"
         )
     else:
-        message.reply(
-            f"➜ 𝗦𝗲𝘂 𝗜𝗗: {message.from_user.id}\n➜ 𝗖𝗵𝗮𝘁 𝗜𝗗: {message.chat.id}"
-        )
+        message.reply(f"➜ 𝗦𝗲𝘂 𝗜𝗗: {message.from_user.id}\n➜ 𝗖𝗵𝗮𝘁 𝗜𝗗: {message.chat.id}")

@@ -14,6 +14,7 @@ API_TIMEOUT = 30
 
 # --------------------------------------------------------------------------------- #
 
+
 async def get_gpt_response(session, api_params):
     async with session.post(PALM_API_URL, params=api_params) as response:
         if response.status == 200:
@@ -23,7 +24,7 @@ async def get_gpt_response(session, api_params):
             return f"error: api retornou {response.status} status."
 
 
-@app.on_message(filters.command(['gpt', 'ai'], prefixes=['/', '!']))
+@app.on_message(filters.command(["gpt", "ai"], prefixes=["/", "!"]))
 async def gpt_chatbot(_client, message):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
@@ -34,7 +35,7 @@ async def gpt_chatbot(_client, message):
 
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             result_msg = await message.reply("...")
 
