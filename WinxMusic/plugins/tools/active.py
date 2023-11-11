@@ -33,9 +33,12 @@ async def activevc(_, message: Message):
                 invite = await app.export_chat_invite_link(chat.id)
 
                 linked_chat_text = ""
+                linked_chat_count = ""
                 if chat.linked_chat:
                     linked_chat = await app.get_chat(chat.linked_chat.id)
+                    linked_count = linked_chat.members_count
                     linked_chat_text = f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.username}</a>\n"
+                    linked_chat_count = f"<b>👥 𝗟𝗶𝗻𝗸𝗲𝗱 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{linked_count}</code>\n"
 
                 text += (
                     f"<b>{j + 1} ➜ </b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
@@ -43,6 +46,7 @@ async def activevc(_, message: Message):
                     f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
                     f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
                     f"{linked_chat_text}"
+                    f"{linked_chat_count}"
                     f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
                 )
             else:
@@ -52,9 +56,12 @@ async def activevc(_, message: Message):
                 invite = await app.export_chat_invite_link(chat.id)
 
                 linked_chat_text = ""
+                linked_chat_count = ""
                 if chat.linked_chat:
                     linked_chat = await app.get_chat(chat.linked_chat.id)
                     linked_chat_text = f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.username}</a>\n"
+                    linked_count = linked_chat.members_count
+                    linked_chat_count = f"<b>👥 𝗟𝗶𝗻𝗸𝗲𝗱 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{linked_count}</code>\n"
 
                 text += (
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
@@ -62,6 +69,7 @@ async def activevc(_, message: Message):
                     f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
                     f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
                     f"{linked_chat_text}"
+                    f"{linked_chat_count}"
                     f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
                 )
             j += 1
