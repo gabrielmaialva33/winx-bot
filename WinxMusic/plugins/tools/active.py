@@ -1,4 +1,5 @@
 from pyrogram import filters
+from pyrogram.enums import ChatType
 from pyrogram.types import Message
 
 from WinxMusic import LOGGER, app
@@ -24,13 +25,13 @@ async def activevc(_, message: Message):
             await remove_active_chat(x)
             continue
         try:
-            # if chat is private
-            if (await app.get_chat(x)).username:
-                user = (await app.get_chat(x)).username
-                count = (await app.get_chat(x)).members_count
-                invite = await app.export_chat_invite_link(x)
-                is_scam = (await app.get_chat(x)).is_scam
-                is_fake = (await app.get_chat(x)).is_fake
+            chat = await app.get_chat(x)
+            if chat.type == ChatType.PRIVATE:
+                user = chat.username
+                count = chat.members_count
+                invite = await app.export_chat_invite_link(chat.id)
+                is_scam = chat.is_scam
+                is_fake = chat.is_fake
                 text += (
                     f"<b>{j + 1} ➜ </b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
@@ -38,13 +39,12 @@ async def activevc(_, message: Message):
                     f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
                     f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
                 )
-            # if chat is public
             else:
-                count = (await app.get_chat(x)).members_count
-                invite = await app.export_chat_invite_link(x)
-                is_scam = (await app.get_chat(x)).is_scam
-                is_fake = (await app.get_chat(x)).is_fake
-                linked_chat = (await app.get_chat(x)).linked_chat
+                count = chat.members_count
+                invite = await app.export_chat_invite_link(chat.id)
+                is_scam = chat.is_scam
+                is_fake = chat.is_fake
+                linked_chat = chat.linked_chat
                 text += (
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
@@ -79,8 +79,9 @@ async def activevi_(_, message: Message):
             await remove_active_video_chat(x)
             continue
         try:
-            if (await app.get_chat(x)).username:
-                user = (await app.get_chat(x)).username
+            chat = await app.get_chat(x)
+            if chat.username:
+                user = chat.username
                 text += f"<b>{j + 1}.</b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
             else:
                 text += f"<b>{j + 1}.</b> {title} [<code>{x}</code>]\n"
