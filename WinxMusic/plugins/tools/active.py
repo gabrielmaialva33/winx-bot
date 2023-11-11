@@ -38,7 +38,9 @@ async def activevc(_, message: Message):
                     linked_chat = await app.get_chat(chat.linked_chat.id)
                     linked_count = linked_chat.members_count
                     linked_chat_text = f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.username}</a>\n"
-                    linked_chat_count = f"<b>👥 𝗟𝗶𝗻𝗸𝗲𝗱 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{linked_count}</code>\n"
+                    linked_chat_count = (
+                        f"<b>👥 𝗟𝗶𝗻𝗸𝗲𝗱 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{linked_count}</code>\n"
+                    )
 
                 text += (
                     f"<b>{j + 1} ➜ </b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
@@ -61,7 +63,9 @@ async def activevc(_, message: Message):
                     linked_chat = await app.get_chat(chat.linked_chat.id)
                     linked_chat_text = f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.username}</a>\n"
                     linked_count = linked_chat.members_count
-                    linked_chat_count = f"<b>👥 𝗟𝗶𝗻𝗸𝗲𝗱 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{linked_count}</code>\n"
+                    linked_chat_count = (
+                        f"<b>👥 𝗟𝗶𝗻𝗸𝗲𝗱 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{linked_count}</code>\n"
+                    )
 
                 text += (
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
