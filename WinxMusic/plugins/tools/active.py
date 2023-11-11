@@ -26,6 +26,7 @@ async def activevc(_, message: Message):
         try:
             chat = await app.get_chat(x)
             if chat.username is not None:
+                print('if', chat.type, chat.username)
                 user = chat.username
                 count = chat.members_count
                 is_scam = chat.is_scam
@@ -37,22 +38,27 @@ async def activevc(_, message: Message):
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
                     f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
                     f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
-                    f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite.invite_link}\n\n"
+                    f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
                 )
             else:
+                print('else', chat.type, chat.username)
                 count = chat.members_count
                 is_scam = chat.is_scam
                 is_fake = chat.is_fake
                 invite = await app.export_chat_invite_link(chat.id)
-                linked_chat = await app.get_chat(chat.linked_chat.id)
+
+                linked_chat_text = ""
+                if chat.linked_chat:
+                    linked_chat = await app.get_chat(chat.linked_chat.id)
+                    linked_chat_text = f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.title}</a>\n"
 
                 text += (
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
                     f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
                     f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
-                    f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.title}</a>\n"
-                    f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite.invite_link}\n\n"
+                    f"{linked_chat_text}"
+                    f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite}\n\n"
                 )
             j += 1
         except Exception as e:
