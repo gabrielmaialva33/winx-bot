@@ -52,7 +52,7 @@ async def activevc(_, message: Message):
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
                     f"<b>🚫 𝗘𝘀𝗰𝗮𝗺𝗼𝘀𝗼:</b> {is_scam}\n"
                     f"<b>🚫 𝗙𝗮𝗸𝗲:</b> {is_fake}\n"
-                    f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> <a href=https://t.me/{linked_chat.username}>{linked_chat.title}</a>\n"
+                    f"<b>🔗 𝗟𝗶𝗻𝗸𝗲𝗱 𝗖𝗵𝗮𝘁:</b> <a href={linked_chat.invite_link}>{linked_chat.title}</a>\n"
                     f"<b>🔗 𝗜𝗻𝘃𝗶𝘁𝗲:</b> {invite.invite_link}\n\n"
                 )
             j += 1
