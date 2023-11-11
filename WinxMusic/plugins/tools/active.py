@@ -25,16 +25,12 @@ async def activevc(_, message: Message):
             continue
         try:
             chat = await app.get_chat(x)
-            # if exists to prevent 'NoneType' object has no attribute 'username'
             if chat.username is not None:
                 user = chat.username
                 count = chat.members_count
                 is_scam = chat.is_scam
                 is_fake = chat.is_fake
-
                 invite = await app.export_chat_invite_link(chat.id)
-                if invite.is_revoked:
-                    invite = await app.export_chat_invite_link(chat.id)
 
                 text += (
                     f"<b>{j + 1} ➜ </b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
@@ -50,8 +46,6 @@ async def activevc(_, message: Message):
                 linked_chat = chat.linked_chat
 
                 invite = await app.export_chat_invite_link(chat.id)
-                if invite.is_revoked:
-                    invite = await app.export_chat_invite_link(chat.id)
 
                 text += (
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
