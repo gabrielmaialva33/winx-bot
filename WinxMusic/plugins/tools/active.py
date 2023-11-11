@@ -75,8 +75,7 @@ async def activevc(_, message: Message):
 
 @app.on_message(filters.command(["activev", "activevideo"]) & SUDOERS)
 async def activevi_(_, message: Message):
-    mystic = await message.reply_text(
-        "➜ 🔄 𝗕𝘂𝘀𝗰𝗮𝗻𝗱𝗼 𝗹𝗶𝘀𝘁𝗮 𝗱𝗲 𝗰𝗵𝗮𝘁𝘀 𝗱𝗲 𝘃𝗶́𝗱𝗲𝗼 𝗮𝘁𝗶𝘃𝗼𝘀...")
+    mystic = await message.reply_text("➜ 🔄 𝗕𝘂𝘀𝗰𝗮𝗻𝗱𝗼 𝗹𝗶𝘀𝘁𝗮 𝗱𝗲 𝗰𝗵𝗮𝘁𝘀 𝗱𝗲 𝘃𝗶́𝗱𝗲𝗼 𝗮𝘁𝗶𝘃𝗼𝘀...")
     served_chats = await get_active_video_chats()
     text = ""
     j = 0
