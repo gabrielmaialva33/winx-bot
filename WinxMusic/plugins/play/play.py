@@ -6,7 +6,6 @@ from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
-from config import BANNED_USERS, lyrical
 from WinxMusic import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.utils import seconds_to_min, time_to_seconds
@@ -23,6 +22,7 @@ from WinxMusic.utils.inline import (
 )
 from WinxMusic.utils.logger import play_logs
 from WinxMusic.utils.stream.stream import stream
+from config import BANNED_USERS, lyrical
 
 
 @app.on_message(
@@ -43,15 +43,15 @@ from WinxMusic.utils.stream.stream import stream
 )
 @PlayWrapper
 async def play_commnd(
-    client,
-    message: Message,
-    _,
-    chat_id,
-    video,
-    channel,
-    playmode,
-    url,
-    fplay,
+        client,
+        message: Message,
+        _,
+        chat_id,
+        video,
+        channel,
+        playmode,
+        url,
+        fplay,
 ):
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]

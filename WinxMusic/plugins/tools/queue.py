@@ -6,13 +6,13 @@ from pyrogram.errors import FloodWait
 from pyrogram.types import CallbackQuery, InputMediaPhoto, Message
 
 import config
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.misc import db
 from WinxMusic.utils import WinxBin, get_channeplayCB, seconds_to_min
 from WinxMusic.utils.database import get_cmode, is_active_chat, is_music_playing
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline import queue_back_markup, queue_markup
+from config import BANNED_USERS
 
 basic = {}
 

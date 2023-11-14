@@ -1,8 +1,6 @@
 from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import SUPPORT_CHAT, adminlist, confirmer
-from strings import get_string
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils.database import (
@@ -15,7 +13,8 @@ from WinxMusic.utils.database import (
     is_nonadmin_chat,
     is_skipmode,
 )
-
+from config import SUPPORT_CHAT, adminlist, confirmer
+from strings import get_string
 from ..formatters import int_to_alpha
 
 
@@ -72,11 +71,8 @@ def AdminRightsCheck(mystic):
                     if message.from_user.id not in admins:
                         if await is_skipmode(message.chat.id):
                             upvote = await get_upvote_count(chat_id)
-                            text = f"""<b>Permissões de Admin Necessárias</b> 🔒
-
-Atualize a memória do admin via: /reload 🔄
-
-➜ {upvote} votos necessários para executar esta ação."""
+                            text = f"""🗳️ <b>Modo de votação ativado!</b> 🗳️ ➜ {upvote} votos necessários para 
+                            executar esta ação."""
 
                             command = message.command[0]
                             if command[0] == "c":
@@ -88,8 +84,8 @@ Atualize a memória do admin via: /reload 🔄
                                 [
                                     [
                                         InlineKeyboardButton(
-                                            text="𝘃𝗼𝘁𝗲 🗳️",
-                                            callback_data=f"𝗔𝗗𝗠𝗜𝗡 𝘂𝗽𝘃𝗼𝘁𝗲𝘀|{chat_id}_{MODE}",
+                                            text="votar 👍",
+                                            callback_data=f"ADMIN  UpVote|{chat_id}_{MODE}",
                                         ),
                                     ]
                                 ]

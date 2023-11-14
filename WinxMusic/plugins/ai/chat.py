@@ -34,7 +34,7 @@ async def gpt_chatbot(_client, message):
 
     try:
         async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             result_msg = await message.reply("...")
 

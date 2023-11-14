@@ -10,8 +10,8 @@ from time import time
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from config import OWNER_ID
 from WinxMusic import app
+from config import OWNER_ID
 
 
 async def aexec(code, client, message):
@@ -184,7 +184,6 @@ async def shellrunner(_, message: Message):
                 stderr=subprocess.PIPE,
             )
         except Exception as err:
-            print(err)
             exc_type, exc_obj, exc_tb = sys.exc_info()
             errors = traceback.format_exception(
                 etype=exc_type,

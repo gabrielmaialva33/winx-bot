@@ -8,7 +8,6 @@ from pyrogram.types import (
     Message,
 )
 
-from config import BANNED_USERS, OWNER_ID
 from WinxMusic import app
 from WinxMusic.utils.database import (
     add_nonadmin_chat,
@@ -35,6 +34,7 @@ from WinxMusic.utils.inline.settings import (
     vote_mode_markup,
 )
 from WinxMusic.utils.inline.start import private_panel
+from config import BANNED_USERS, OWNER_ID
 
 
 @app.on_message(
@@ -51,7 +51,7 @@ async def settings_mar(client, message: Message, _):
 
 @app.on_callback_query(filters.regex("settings_helper") & ~BANNED_USERS)
 @languageCB
-async def settings_cb(client, CallbackQuery, _):
+async def settings_cb(_client, CallbackQuery, _):
     try:
         await CallbackQuery.answer(_["set_cb_5"])
     except:
@@ -76,7 +76,6 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
         pass
     if CallbackQuery.message.chat.type == ChatType.PRIVATE:
         await app.resolve_peer(OWNER_ID)
-        OWNER = OWNER_ID
         buttons = private_panel(_)
         return await CallbackQuery.edit_message_text(
             _["start_2"].format(CallbackQuery.from_user.mention, app.mention),
@@ -96,7 +95,7 @@ async def settings_back_markup(client, CallbackQuery: CallbackQuery, _):
     & ~BANNED_USERS
 )
 @languageCB
-async def without_Admin_rights(client, CallbackQuery, _):
+async def without_Admin_rights(_client, CallbackQuery, _):
     command = CallbackQuery.matches[0].group(1)
     if command == "SEARCHANSWER":
         try:
@@ -188,7 +187,6 @@ async def addition(client, CallbackQuery, _):
     current = await get_upvote_count(CallbackQuery.message.chat.id)
     if mode == "M":
         final = current - 2
-        print(final)
         if final == 0:
             return await CallbackQuery.answer(
                 _["setting_11"],
@@ -199,7 +197,6 @@ async def addition(client, CallbackQuery, _):
         await set_upvotes(CallbackQuery.message.chat.id, final)
     else:
         final = current + 2
-        print(final)
         if final == 17:
             return await CallbackQuery.answer(
                 _["setting_12"],
@@ -368,8 +365,7 @@ async def authusers_mar(client, CallbackQuery, _):
 
 @app.on_callback_query(filters.regex("VOMODECHANGE") & ~BANNED_USERS)
 @ActualAdminCB
-async def vote_change(client, CallbackQuery, _):
-    command = CallbackQuery.matches[0].group(1)
+async def vote_change(_client, CallbackQuery, _):
     try:
         await CallbackQuery.answer(_["set_cb_3"], show_alert=True)
     except:

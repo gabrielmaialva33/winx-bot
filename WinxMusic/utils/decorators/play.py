@@ -9,8 +9,6 @@ from pyrogram.errors import (
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import PLAYLIST_IMG_URL, QUEUE_LIMIT, SUPPORT_CHAT, adminlist
-from strings import get_string
 from WinxMusic import YouTube, app
 from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils.database import (
@@ -23,6 +21,8 @@ from WinxMusic.utils.database import (
     is_maintenance,
 )
 from WinxMusic.utils.inline import botplaylist_markup
+from config import PLAYLIST_IMG_URL, QUEUE_LIMIT, SUPPORT_CHAT, adminlist
+from strings import get_string
 
 links = {}
 
@@ -133,8 +133,8 @@ def PlayWrapper(command):
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
                 if (
-                    get.status == ChatMemberStatus.BANNED
-                    or get.status == ChatMemberStatus.RESTRICTED
+                        get.status == ChatMemberStatus.BANNED
+                        or get.status == ChatMemberStatus.RESTRICTED
                 ):
                     return await message.reply_text(
                         _["call_2"].format(

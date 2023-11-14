@@ -3,17 +3,6 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import (
-    BANNED_USERS,
-    SOUNCLOUD_IMG_URL,
-    STREAM_IMG_URL,
-    TELEGRAM_AUDIO_URL,
-    TELEGRAM_VIDEO_URL,
-    adminlist,
-    confirmer,
-    votemode,
-)
-from strings import get_string
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import SUDOERS, db
@@ -33,6 +22,17 @@ from WinxMusic.utils.formatters import seconds_to_min
 from WinxMusic.utils.inline import close_markup, stream_markup, stream_markup_timer
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import get_thumb
+from config import (
+    BANNED_USERS,
+    SOUNCLOUD_IMG_URL,
+    STREAM_IMG_URL,
+    TELEGRAM_AUDIO_URL,
+    TELEGRAM_VIDEO_URL,
+    adminlist,
+    confirmer,
+    votemode,
+)
+from strings import get_string
 
 checker = {}
 upvoters = {}
@@ -100,8 +100,8 @@ async def del_back_playlist(client, CallbackQuery, _):
             mention = "𝘂𝗽𝘃𝗼𝘁𝗲𝘀"
         else:
             if (
-                CallbackQuery.from_user.id
-                in upvoters[chat_id][CallbackQuery.message.id]
+                    CallbackQuery.from_user.id
+                    in upvoters[chat_id][CallbackQuery.message.id]
             ):
                 await CallbackQuery.answer(_["admin_38"], show_alert=True)
             else:
@@ -111,7 +111,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     [
                         InlineKeyboardButton(
                             text=f"👍 {get_upvotes}",
-                            callback_data=f"𝗔𝗗𝗠𝗜𝗡 𝘂𝗽𝘃𝗼𝘁𝗲𝘀|{chat_id}_{counter}",
+                            callback_data=f"ADMIN  UpVote|{chat_id}_{counter}",
                         )
                     ]
                 ]
@@ -159,7 +159,7 @@ async def del_back_playlist(client, CallbackQuery, _):
     elif command == "Skip" or command == "Replay":
         check = db.get(chat_id)
         if command == "Skip":
-            txt = f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🥀"
+            txt = f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 ⏭️\n𝗽𝗼𝗿: {mention}"
             popped = None
             try:
                 popped = check.pop(0)
@@ -167,7 +167,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
                 if not check:
                     await CallbackQuery.edit_message_text(
-                        f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🥀"
+                        f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 ⏭️\n𝗽𝗼𝗿: {mention}"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -182,7 +182,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 try:
                     await CallbackQuery.edit_message_text(
-                        f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🥀"
+                        f"➜ 𝗧𝗿𝗮𝗻𝘀𝗺𝗶𝘀𝘀ã𝗼 𝗽𝘂𝗹𝗮𝗱𝗮 ⏭️\n𝗽𝗼𝗿: {mention}"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
