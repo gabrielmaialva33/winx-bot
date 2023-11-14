@@ -6,6 +6,8 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 from youtubesearchpython.__future__ import VideosSearch
 
 import config
+from config import BANNED_USERS
+from strings import get_string
 from WinxMusic import app
 from WinxMusic.misc import _boot_
 from WinxMusic.plugins.sudo.sudoers import sudoers_list
@@ -20,8 +22,6 @@ from WinxMusic.utils.database import (
 from WinxMusic.utils.decorators.language import LanguageStart
 from WinxMusic.utils.formatters import get_readable_time
 from WinxMusic.utils.inline import help_pannel, private_panel, start_panel
-from config import BANNED_USERS
-from strings import get_string
 
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
@@ -43,9 +43,9 @@ async def start_pm(client, message: Message, _):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
                     text=f"{message.from_user.mention} 𝗮𝗰𝗮𝗯𝗼𝘂 𝗱𝗲 𝗶𝗻𝗶𝗰𝗶𝗮𝗿 𝗼 𝗯𝗼𝘁 𝗽𝗮𝗿𝗮 "
-                         f"𝘃𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗿 𝗮 <b>𝗹𝗶𝘀𝘁𝗮 𝗱𝗲 𝘀𝘂𝗱𝗼𝘀</b>🔍.\n\n<b>𝗜𝗗 𝗱𝗼 "
-                         f"𝘂𝘀𝘂á𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code>🆔\n<b>𝗨𝘀𝘂á𝗿𝗶𝗼:</b> @"
-                         f"{message.from_user.username}👤",
+                    f"𝘃𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗿 𝗮 <b>𝗹𝗶𝘀𝘁𝗮 𝗱𝗲 𝘀𝘂𝗱𝗼𝘀</b>🔍.\n\n<b>𝗜𝗗 𝗱𝗼 "
+                    f"𝘂𝘀𝘂á𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code>🆔\n<b>𝗨𝘀𝘂á𝗿𝗶𝗼:</b> @"
+                    f"{message.from_user.username}👤",
                 )
             return
         if name[0:3] == "inf":
@@ -84,9 +84,9 @@ async def start_pm(client, message: Message, _):
                 return await app.send_message(
                     chat_id=config.LOGGER_ID,
                     text=f"{message.from_user.mention} 𝗮𝗰𝗮𝗯𝗼𝘂 𝗱𝗲 𝗶𝗻𝗶𝗰𝗶𝗮𝗿 𝗼 𝗯𝗼𝘁 𝗽𝗮𝗿𝗮 "
-                         f"𝘃𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗿 <b>𝗶𝗻𝗳𝗼𝗿𝗺𝗮çõ𝗲𝘀 𝗱𝗮 𝗲𝗻𝗰𝗼𝗺𝗲𝗻𝗱𝗮</b> 📦.\n\n<b>𝗜𝗗 𝗱𝗼 "
-                         f"𝘂𝘀𝘂á𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code> 🆔\n<b>𝗨𝘀𝘂á𝗿𝗶𝗼:</b> @"
-                         f"{message.from_user.username} 📛",
+                    f"𝘃𝗲𝗿𝗶𝗳𝗶𝗰𝗮𝗿 <b>𝗶𝗻𝗳𝗼𝗿𝗺𝗮çõ𝗲𝘀 𝗱𝗮 𝗲𝗻𝗰𝗼𝗺𝗲𝗻𝗱𝗮</b> 📦.\n\n<b>𝗜𝗗 𝗱𝗼 "
+                    f"𝘂𝘀𝘂á𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code> 🆔\n<b>𝗨𝘀𝘂á𝗿𝗶𝗼:</b> @"
+                    f"{message.from_user.username} 📛",
                 )
     else:
         out = private_panel(_)
@@ -99,8 +99,8 @@ async def start_pm(client, message: Message, _):
             return await app.send_message(
                 chat_id=config.LOGGER_ID,
                 text=f"𝗢 {message.from_user.mention} 𝗮𝗰𝗮𝗯𝗼𝘂 𝗱𝗲 𝗶𝗻𝗶𝗰𝗶𝗮𝗿 𝗼 𝗯𝗼𝘁. 🚀\n\n<b>𝗜𝗗 𝗱𝗼 "
-                     f"𝘂𝘀𝘂𝗮́𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code> 🆔\n<b>𝗨𝘀𝘂𝗮́𝗿𝗶𝗼:<"
-                     f"/b> @{message.from_user.username} 📛",
+                f"𝘂𝘀𝘂𝗮́𝗿𝗶𝗼:</b> <code>{message.from_user.id}</code> 🆔\n<b>𝗨𝘀𝘂𝗮́𝗿𝗶𝗼:<"
+                f"/b> @{message.from_user.username} 📛",
             )
 
 

@@ -2,8 +2,8 @@ import openai
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 
-from WinxMusic import app
 from config import OPEN_AI_API_KEY
+from WinxMusic import app
 
 openai.api_key = OPEN_AI_API_KEY
 

@@ -1,13 +1,13 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
+from config import BANNED_USERS, OWNER_ID
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import add_sudo, remove_sudo
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.extraction import extract_user
 from WinxMusic.utils.inline import close_markup
-from config import BANNED_USERS, OWNER_ID
 
 
 @app.on_message(filters.command(["addsudo"]) & filters.user(OWNER_ID))

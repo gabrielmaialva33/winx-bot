@@ -1,11 +1,11 @@
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import get_playmode, get_playtype, is_nonadmin_chat
 from WinxMusic.utils.decorators import language
 from WinxMusic.utils.inline.settings import playmode_users_markup
-from config import BANNED_USERS
 
 
 @app.on_message(filters.command(["playmode", "mode"]) & filters.group & ~BANNED_USERS)
