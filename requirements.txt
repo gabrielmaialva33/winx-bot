@@ -9,7 +9,7 @@ gitpython
 gpytranslate
 hachoir
 heroku3
-lexica-api
+git+https://github.com/Qewertyy/LexicaAPI
 motor
 ntgcalls
 openai

@@ -194,7 +194,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     return
         else:
-            txt = f"➜ 𝗧𝗼𝗰𝗮𝗿 𝗻𝗼𝘃𝗮𝗺𝗲𝗻𝘁𝗲 🎄\n│ \n└𝗽𝗼𝗿 : {mention} 🌹"
+            txt = f"➜ 𝗧𝗼𝗰𝗮𝗿 𝗻𝗼𝘃𝗮𝗺𝗲𝗻𝘁𝗲 🎄\n𝗽𝗼𝗿 : {mention}"
         await CallbackQuery.answer()
         queued = check[0]["file"]
         title = (check[0]["title"]).title()

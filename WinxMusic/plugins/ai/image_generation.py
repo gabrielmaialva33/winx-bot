@@ -83,3 +83,4 @@ async def draw(_, query):
     except Exception as e:
         LOGGER(__name__).error(e)
         await query.message.delete()
+        await query.message.reply_text("algo deu errado, tente mais tarde 🤷‍♂️")
