@@ -10,7 +10,7 @@ from WinxMusic.utils.database import get_client, is_active_chat, is_autoend
 
 
 async def auto_leave():
-    if config.AUTO_LEAVING_ASSISTANT is True:
+    if config.AUTO_LEAVING_ASSISTANT:
         while not await asyncio.sleep(config.LEAVE_TIME):
             from WinxMusic.core.userbot import assistants
 
@@ -40,7 +40,7 @@ async def auto_leave():
                     pass
 
 
-# asyncio.create_task(auto_leave())
+asyncio.create_task(auto_leave())
 
 
 async def auto_end():
