@@ -7,7 +7,7 @@ from WinxMusic import app
 
 # --------------------------------------------------------------------------------- #
 
-PALM_API_URL = "https://api.qewertyy.me/models"
+API_URL = "https://api.qewertyy.me/models"
 API_TIMEOUT = 30
 
 
@@ -15,7 +15,7 @@ API_TIMEOUT = 30
 
 
 async def get_gpt_response(session, api_params):
-    async with session.post(PALM_API_URL, params=api_params) as response:
+    async with session.post(API_URL, params=api_params) as response:
         if response.status == 200:
             data = await response.json()
             return data.get("content", "error: api retornou um valor nulo.")
@@ -34,7 +34,7 @@ async def gpt_chatbot(_client, message):
 
     try:
         async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             result_msg = await message.reply("...")
 
