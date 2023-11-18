@@ -673,6 +673,7 @@ async def remove_banned_user(user_id: int):
 # private served chats
 # --------------------------------------------------------------------------------- #
 
+
 async def get_private_served_chats() -> list:
     chats_list = []
     async for chat in privatedb.find({"chat_id": {"$lt": 0}}):

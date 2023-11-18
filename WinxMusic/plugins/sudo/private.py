@@ -4,10 +4,12 @@ from pyrogram.types import Message
 import config
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
-from WinxMusic.utils.database import (add_private_chat,
-                                      get_private_served_chats,
-                                      is_served_private_chat,
-                                      remove_private_chat)
+from WinxMusic.utils.database import (
+    add_private_chat,
+    get_private_served_chats,
+    is_served_private_chat,
+    remove_private_chat,
+)
 from WinxMusic.utils.decorators.language import language
 
 AUTHORIZE_COMMAND = ["authorize"]
