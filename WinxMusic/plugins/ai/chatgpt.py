@@ -10,7 +10,7 @@ openai.api_key = OPEN_AI_API_KEY
 
 @app.on_message(
     filters.command(
-        ["chatgpt", "gpt3", "ask"], prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]
+        ["chatgpt", "gpt4", "ask"], prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]
     )
 )
 async def chat(bot, message):
@@ -18,11 +18,11 @@ async def chat(bot, message):
         await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
         if len(message.command) < 2:
             await message.reply_text(
-                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !gpt3 𝗖𝗼𝗺𝗼 𝗰𝗼𝗻𝘀𝗲𝗴𝘂𝗶𝗿 𝘂𝗺𝗮 𝗻𝗮𝗺𝗼𝗿𝗮𝗱𝗮?"
+                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !gpt4 𝗖𝗼𝗺𝗼 𝗰𝗼𝗻𝘀𝗲𝗴𝘂𝗶𝗿 𝘂𝗺𝗮 𝗻𝗮𝗺𝗼𝗿𝗮𝗱𝗮?"
             )
         else:
             a = message.text.split(" ", 1)[1]
-            MODEL = "gpt-3.5-turbo"
+            MODEL = "gpt-4-1106-preview"
             resp = openai.ChatCompletion.create(
                 model=MODEL, messages=[{"role": "user", "content": a}], temperature=0.2
             )
