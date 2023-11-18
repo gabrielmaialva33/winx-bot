@@ -43,12 +43,10 @@ async def activevc(_, message: Message):
                     f"<b>{j + 1} ➜ </b> <a href=https://t.me/{user}>{title}</a> [<code>{x}</code>]\n"
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
                     f"{linked_chat_text}"
-                    f"{linked_chat_count}"
+                    f"{linked_chat_count}\n"
                 )
             else:
                 count = chat.members_count
-                is_scam = chat.is_scam
-                is_fake = chat.is_fake
 
                 linked_chat_text = ""
                 linked_chat_count = ""
@@ -64,7 +62,7 @@ async def activevc(_, message: Message):
                     f"<b>{j + 1} ➜ </b> {title} [<code>{x}</code>]\n"
                     f"<b>👥 𝗠𝗲𝗺𝗯𝗿𝗼𝘀:</b> <code>{count}</code>\n"
                     f"{linked_chat_text}"
-                    f"{linked_chat_count}\n\n"
+                    f"{linked_chat_count}\n"
                 )
             j += 1
         except Exception as e:
