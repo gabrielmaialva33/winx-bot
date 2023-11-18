@@ -1,5 +1,4 @@
 from openai import OpenAI
-
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 
@@ -24,8 +23,9 @@ async def chat(bot, message):
         else:
             a = message.text.split(" ", 1)[1]
             MODEL = "gpt-4"
-            resp = client.chat.completions.create(model=MODEL, messages=[{"role": "user", "content": a}],
-                                                  temperature=0.2)
+            resp = client.chat.completions.create(
+                model=MODEL, messages=[{"role": "user", "content": a}], temperature=0.2
+            )
             x = resp["choices"][0]["message"]["content"]
             await message.reply_text(f"{x}")
     except Exception as e:
