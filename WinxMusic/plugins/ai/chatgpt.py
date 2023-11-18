@@ -22,7 +22,7 @@ async def chat(bot, message):
             )
         else:
             a = message.text.split(" ", 1)[1]
-            MODEL = "gpt-4-1106-preview"
+            MODEL = "gpt-4"
             response = client.chat.completions.create(
                 model=MODEL,
                 messages=[
