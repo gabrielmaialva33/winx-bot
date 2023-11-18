@@ -1,16 +1,17 @@
-import openai
+from openai import OpenAI
+
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 
 from config import OPEN_AI_API_KEY
 from WinxMusic import app
 
-openai.api_key = OPEN_AI_API_KEY
+client = OpenAI(api_key=OPEN_AI_API_KEY)
 
 
 @app.on_message(
     filters.command(
-        ["chatgpt", "gpt4", "ask"], prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]
+        ["chatgpt", "gpt4"], prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]
     )
 )
 async def chat(bot, message):
@@ -22,10 +23,9 @@ async def chat(bot, message):
             )
         else:
             a = message.text.split(" ", 1)[1]
-            MODEL = "gpt-4-1106-preview"
-            resp = openai.ChatCompletion.create(
-                model=MODEL, messages=[{"role": "user", "content": a}], temperature=0.2
-            )
+            MODEL = "gpt-4"
+            resp = client.chat.completions.create(model=MODEL, messages=[{"role": "user", "content": a}],
+                                                  temperature=0.2)
             x = resp["choices"][0]["message"]["content"]
             await message.reply_text(f"{x}")
     except Exception as e:
