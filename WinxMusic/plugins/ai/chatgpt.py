@@ -59,7 +59,8 @@ async def dall_e(bot, message: Message):
     except Exception as e:
         if "content_policy_violation" in str(e):
             return await message.reply_text(
-                "O seu prompt pode conter texto que não é permitido pelo nosso sistema de segurança.")
+                "O seu prompt pode conter texto que não é permitido pelo nosso sistema de segurança."
+            )
         if "Error code" in str(e):
             return await message.reply_text(
                 "Ocorreu um erro. Por favor, tente novamente mais tarde."
