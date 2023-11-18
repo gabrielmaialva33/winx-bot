@@ -22,12 +22,19 @@ async def chat(bot, message):
         else:
             a = message.text.split(" ", 1)[1]
             MODEL = "gpt-4-1106-preview"
-            response = client.chat.completions.create(model=MODEL, messages=[
-                {"role": "system", "content": "A seguir, uma conversa entre um usuário e a Winx uma assistente virtual "
-                                              "que usa a tecnologia GPT-4 para responder perguntas e conversar com "
-                                              "você."},
-                {"role": "assistant", "content": "Olá, eu sou a Winx 🌈"},
-                {"role": "user", "content": a}])
+            response = client.chat.completions.create(
+                model=MODEL,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "A seguir, uma conversa entre um usuário e a Winx uma assistente virtual "
+                        "que usa a tecnologia GPT-4 para responder perguntas e conversar com "
+                        "você.",
+                    },
+                    {"role": "assistant", "content": "Olá, eu sou a Winx 🌈"},
+                    {"role": "user", "content": a},
+                ],
+            )
 
             x = response.choices[0].message.content
             await message.reply_text(f"{x}", parse_mode="md", quote=True)
