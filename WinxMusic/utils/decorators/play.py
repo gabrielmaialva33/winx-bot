@@ -9,7 +9,7 @@ from pyrogram.errors import (
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import PLAYLIST_IMG_URL, QUEUE_LIMIT, SUPPORT_CHAT, adminlist
+from config import PLAYLIST_IMG_URL, QUEUE_LIMIT, SUPPORT_CHAT, adminlist, PRIVATE_BOT_MODE
 from strings import get_string
 from WinxMusic import YouTube, app
 from WinxMusic.misc import SUDOERS, db
@@ -20,7 +20,7 @@ from WinxMusic.utils.database import (
     get_playmode,
     get_playtype,
     is_active_chat,
-    is_maintenance,
+    is_maintenance, is_served_private_chat,
 )
 from WinxMusic.utils.inline import botplaylist_markup
 
@@ -50,6 +50,14 @@ def PlayWrapper(command):
                     text=f"{app.mention} 𝗲𝘀𝘁á 𝗲𝗺 𝗺𝗮𝗻𝘂𝘁𝗲𝗻çã𝗼, 𝘃𝗶𝘀𝗶𝘁𝗲 <a href={SUPPORT_CHAT}>𝘀𝘂𝗽𝗽𝗼𝗿𝘁 𝗰𝗵𝗮𝘁</a> 𝗽𝗮𝗿𝗮 𝘀𝗮𝗯𝗲𝗿 𝗮 𝗿𝗮𝘇ã𝗼.",
                     disable_web_page_preview=True,
                 )
+
+        if PRIVATE_BOT_MODE == str(True):
+            if not await is_served_private_chat(message.chat.id):
+                await message.reply_text(
+                    "🚫 𝗕𝗼𝘁 𝗣𝗿𝗶𝘃𝗮𝗱𝗼 🚫\n\n➜𝗔𝗽𝗲𝗻𝗮𝘀 𝗽𝗮𝗿𝗮 𝗰𝗵𝗮𝘁𝘀 𝗮𝘂𝘁𝗼𝗿𝗶𝘇𝗮𝗱𝗼𝘀 𝗽𝗲𝗹𝗮 𝗪𝗶𝗻𝘅."
+                )
+                return await app.leave_chat(message.chat.id)
+
         if await is_active_chat(message.chat.id):
             check = db.get(message.chat.id)
 

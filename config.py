@@ -48,6 +48,8 @@ GIT_TOKEN = getenv(
     "GIT_TOKEN", None
 )  # Fill this variable if your upstream repository is private
 
+PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", False)
+
 SUPPORT_CHANNEL = getenv(
     "SUPPORT_CHANNEL", "https://t.me/clubdaswinxcanal"
 )  # Example:- https://t.me/politicament
@@ -159,7 +161,7 @@ SPOTIFY_PLAYLIST_IMG_URL = getenv(
 
 def time_to_seconds(time):
     stringt = str(time)
-    return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
+    return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
 
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
