@@ -27,6 +27,7 @@ async def chat(bot, message):
             resp = client.chat.completions.create(model=MODEL, messages=[
                 {"role": "system", "text": "A seguir, uma conversa entre um usuário e a Winx uma assistente virtual "
                                            "que usa a tecnologia GPT-4 para responder perguntas e conversar com você."},
+                {"role": "assistant", "text": "Olá, eu sou a Winx 🌈"},
                 {"role": "user", "content": a}],
                                                   temperature=0.2)
             x = resp["choices"][0]["message"]["content"]
