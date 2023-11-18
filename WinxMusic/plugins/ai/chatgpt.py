@@ -40,7 +40,7 @@ async def chat(bot, message):
 
 
 @app.on_message(
-    filters.command(["dall-e-3", "dall-e", "generation", "gerar"], prefixes=["!", "/"])
+    filters.command(["dall-e-3", "dall-e", "generation", "img"], prefixes=["!", "/"])
 )
 async def dall_e(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
@@ -59,7 +59,7 @@ async def dall_e(bot, message: Message):
     except Exception as e:
         if "content_policy_violation" in str(e):
             return await message.reply_text(
-                "O seu prompt pode conter texto que não é permitido pelo nosso sistema de segurança."
+                "O seu prompt contém conteúdo inapropriado."
             )
         if "Error code" in str(e):
             return await message.reply_text(
