@@ -30,6 +30,6 @@ async def chat(bot, message):
                 {"role": "user", "content": a}])
 
             x = response.choices[0].message.content
-            await message.reply_text(f"{x}", parse_mode="md", quote=True)
+            await message.reply_text(f"{x}")
     except Exception as e:
         await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
