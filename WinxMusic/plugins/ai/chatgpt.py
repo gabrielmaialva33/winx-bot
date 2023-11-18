@@ -9,7 +9,7 @@ from WinxMusic import app
 
 @app.on_message(
     filters.command(
-        ["chatgpt", "gpt4"], prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]
+        ["chatgpt", "gpt4"], prefixes=["!", "/"]
     )
 )
 async def chat(bot, message):
@@ -45,7 +45,7 @@ async def chat(bot, message):
 
 @app.on_message(
     filters.command(
-        ["dall-e-3", "dall-e", "generation", "gerar"], prefixes=["+", ".", "/", "-", "?", "$", "#", "&"]
+        ["dall-e-3", "dall-e", "generation", "gerar"], prefixes=["!", "/"]
     )
 )
 async def dall_e(bot, message: Message):
