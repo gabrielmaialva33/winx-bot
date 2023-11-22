@@ -56,7 +56,9 @@ async def chat(bot, message):
     & AUTHORIZED_CHATS
 )
 async def generation(bot, message: Message):
-    LOGGER(__name__).info( "command: /generation used by %s", message.from_user.first_name)
+    LOGGER(__name__).info(
+        "command: /generation used by %s", message.from_user.first_name
+    )
 
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
@@ -88,7 +90,9 @@ async def generation(bot, message: Message):
     & AUTHORIZED_CHATS
 )
 async def variation(bot, message: Message):
-    LOGGER(__name__).info("command: /variation used by %s", message.from_user.first_name)
+    LOGGER(__name__).info(
+        "command: /variation used by %s", message.from_user.first_name
+    )
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
         # Get the image
