@@ -166,6 +166,7 @@ async def edit_image(bot, message: Message):
             # Send the image to OpenAI
             response = client.images.edit(
                 image=open("./downloads/edit.png", "rb"),
+                mask=open("./downloads/edit.png", "rb"),
                 n=1,
                 size="1024x1024",
                 prompt=txt,
