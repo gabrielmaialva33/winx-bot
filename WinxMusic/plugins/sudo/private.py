@@ -1,7 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-import config
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (

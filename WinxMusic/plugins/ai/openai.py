@@ -1,19 +1,23 @@
 import os
 
-import config
-from WinxMusic.misc import AUTHORIZED_CHATS
 from openai import OpenAI
+from PIL import Image
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
-from PIL import Image
 
+import config
 from config import OPEN_AI_API_KEY
-from WinxMusic import app, LOGGER
+from WinxMusic import LOGGER, app
+from WinxMusic.misc import AUTHORIZED_CHATS
 
 
 @app.on_message(
-    filters.command(["chatgpt", "gpt4"], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
+    filters.command(["chatgpt", "gpt4"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
+)
 async def chat(bot, message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
@@ -31,8 +35,8 @@ async def chat(bot, message):
                     {
                         "role": "system",
                         "content": "A seguir, uma conversa entre um usuário e a Winx uma assistente virtual "
-                                   "que usa a tecnologia GPT-4 para responder perguntas e conversar com "
-                                   "você.",
+                        "que usa a tecnologia GPT-4 para responder perguntas e conversar com "
+                        "você.",
                     },
                     {"role": "assistant", "content": "Olá, eu sou a Winx 🌈"},
                     {"role": "user", "content": a},
@@ -46,9 +50,10 @@ async def chat(bot, message):
 
 
 @app.on_message(
-    filters.command(
-        ["dall-e-3", "dall-e", "generation", "gerar"], prefixes=["!", "/"]
-    ) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS
+    filters.command(["dall-e-3", "dall-e", "generation", "gerar"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
 )
 async def generation(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
@@ -75,19 +80,19 @@ async def generation(bot, message: Message):
 
 
 @app.on_message(
-    filters.command(["variation", "variar"],
-                    prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
+    filters.command(["variation", "variar"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
+)
 async def variation(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
         # Get the image
         reply = message.reply_to_message
         if not reply.photo:
-            await message.reply_text(
-                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !variar [imagem]"
-            )
+            await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !variar [imagem]")
         else:
-
             if os.path.exists("./downloads/variation.png"):
                 os.remove("./downloads/variation.png")
 
@@ -101,9 +106,9 @@ async def variation(bot, message: Message):
 
             # Send the image to OpenAI
             MODEL = "dall-e-3"
-            response = client.images.create_variation(image=open("./downloads/variation.png", "rb"),
-                                                      n=1,
-                                                      size="1024x1024")
+            response = client.images.create_variation(
+                image=open("./downloads/variation.png", "rb"), n=1, size="1024x1024"
+            )
             # Get the image url
             x = response.data[0].url
             # Send the image
@@ -113,8 +118,11 @@ async def variation(bot, message: Message):
 
 
 @app.on_message(
-    filters.command(["edit", "editar"],
-                    prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
+    filters.command(["edit", "editar"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
+)
 async def edit_image(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
@@ -148,10 +156,12 @@ async def edit_image(bot, message: Message):
             await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
             # Send the image to OpenAI
-            response = client.images.edit(image=open("./downloads/edit.png", "rb"),
-                                          n=1,
-                                          size="1024x1024",
-                                          prompt=txt)
+            response = client.images.edit(
+                image=open("./downloads/edit.png", "rb"),
+                n=1,
+                size="1024x1024",
+                prompt=txt,
+            )
             # Get the image url
             x = response.data[0].url
             # Send the image
@@ -161,7 +171,10 @@ async def edit_image(bot, message: Message):
 
 
 @app.on_message(
-    filters.command(["tts", 'fale'], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS)
+    filters.command(["tts", "fale"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+)
 async def tts(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
@@ -171,24 +184,21 @@ async def tts(bot, message: Message):
             await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts 𝘂𝗺𝗮 𝗳𝗿𝗮𝘀𝗲")
         else:
             a = message.text.split(" ", 1)[1]
-            MODEL = 'tts-1'
-            VOICE = 'nova'
-            response = client.audio.speech.create(
-                model=MODEL,
-                voice=VOICE,
-                input=a)
+            MODEL = "tts-1"
+            VOICE = "nova"
+            response = client.audio.speech.create(model=MODEL, voice=VOICE, input=a)
 
             print(response)
             # <openai._base_client.HttpxBinaryResponseContent object at 0x1218fe610>
             # convert to bytes
             bt = response.read()
 
-            if os.path.exists('./downloads/tts.ogg'):
-                os.remove('./downloads/tts.ogg')
+            if os.path.exists("./downloads/tts.ogg"):
+                os.remove("./downloads/tts.ogg")
 
             # tts.ogg in ./downloads/tts.ogg
-            with open('./downloads/tts.ogg', 'wb') as f:
+            with open("./downloads/tts.ogg", "wb") as f:
                 f.write(bt)
-            await message.reply_audio(audio='./downloads/tts.ogg')
+            await message.reply_audio(audio="./downloads/tts.ogg")
     except Exception as e:
         await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")

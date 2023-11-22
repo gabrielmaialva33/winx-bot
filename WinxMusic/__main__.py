@@ -8,23 +8,23 @@ import config
 from config import BANNED_USERS
 from WinxMusic import LOGGER, app, userbot
 from WinxMusic.core.call import Winx
-from WinxMusic.misc import sudo, authorized_chats
+from WinxMusic.misc import authorized_chats, sudo
 from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_banned_users, get_gbanned
 
 
 async def init():
     if (
-            not config.STRING1
-            and not config.STRING2
-            and not config.STRING3
-            and not config.STRING4
-            and not config.STRING5
-            and not config.STRING6
-            and not config.STRING7
-            and not config.STRING8
-            and not config.STRING9
-            and not config.STRING10
+        not config.STRING1
+        and not config.STRING2
+        and not config.STRING3
+        and not config.STRING4
+        and not config.STRING5
+        and not config.STRING6
+        and not config.STRING7
+        and not config.STRING8
+        and not config.STRING9
+        and not config.STRING10
     ):
         LOGGER(__name__).error("Assistant client variables not defined, exiting...")
         exit()
