@@ -70,7 +70,7 @@ async def authorized_chats():
     AUTHORIZED_CHATS.add(config.SUPPORT_CHANNEL)
 
     chats = []
-    async for chat in mongodb.privatedb.find({"chat_id": {"$lt": 0}}):
+    async for chat in mongodb.privatechats.find({"chat_id": {"$lt": 0}}):
         chats.append(chat)
 
     for chat in chats:
