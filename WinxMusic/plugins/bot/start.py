@@ -1,9 +1,10 @@
+from youtubesearchpython.__future__ import VideosSearch
+
 import time
 
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from youtubesearchpython.__future__ import VideosSearch
 
 import config
 from config import BANNED_USERS
@@ -108,7 +109,7 @@ async def start_pm(client, message: Message, _):
 
 @app.on_message(filters.command(["start"]) & filters.group & ~BANNED_USERS)
 @LanguageStart
-async def start_gp(client, message: Message, _):
+async def start_gp(_client, message: Message, _):
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
     await message.reply_photo(
@@ -121,14 +122,15 @@ async def start_gp(client, message: Message, _):
 
 @app.on_message(filters.new_chat_members, group=-1)
 async def welcome(_client, message: Message):
-    authorized_chats = [
+    add_authorized_chats = [
         "@winxbotx",
         "@winxmusicsupport",
         "@cinewinx",
         "@clubdaswinxcanal",
         "@cinewinxcoments",
     ]
-    for chat in authorized_chats:
+    for chat in add_authorized_chats:
+        time.sleep(3)
         c = await app.get_chat(chat)
         await add_private_chat(c.id)
 

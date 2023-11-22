@@ -86,6 +86,7 @@ STRING9 = getenv("STRING_SESSION9", None)
 STRING10 = getenv("STRING_SESSION10", None)
 
 BANNED_USERS = filters.user()
+
 adminlist = {}
 lyrical = {}
 votemode = {}

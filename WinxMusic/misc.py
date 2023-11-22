@@ -10,6 +10,7 @@ from WinxMusic.core.mongo import mongodb
 from .logging import LOGGER
 
 SUDOERS = filters.user()
+AUTHORIZED_CHATS = filters.chat()
 
 HAPP = None
 _boot_ = time.time()
@@ -44,6 +45,7 @@ def dbb():
 
 async def sudo():
     global SUDOERS
+
     SUDOERS.add(config.OWNER_ID)
     sudoersdb = mongodb.sudoers
     sudoers = await sudoersdb.find_one({"sudo": "sudo"})
@@ -59,6 +61,21 @@ async def sudo():
         for user_id in sudoers:
             SUDOERS.add(user_id)
     LOGGER(__name__).info(f"Sudoers Loaded.")
+
+
+async def authorized_chats():
+    global AUTHORIZED_CHATS
+    AUTHORIZED_CHATS.add(config.LOGGER_ID)
+    AUTHORIZED_CHATS.add(config.SUPPORT_CHAT)
+    AUTHORIZED_CHATS.add(config.SUPPORT_CHANNEL)
+
+    chats = []
+    async for chat in mongodb.privatedb.find({"chat_id": {"$lt": 0}}):
+        chats.append(chat)
+
+    for chat in chats:
+        AUTHORIZED_CHATS.add(int(chat["chat_id"]))
+    LOGGER(__name__).info(f"Authorized Chats Loaded.")
 
 
 def heroku():

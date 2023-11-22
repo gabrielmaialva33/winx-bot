@@ -14,7 +14,7 @@ from WinxMusic.helpers.misc import ImageModels, getText
 PromptDB = {}
 
 
-@app.on_message(filters.command(["draw", "desenhar", "desenhe"], prefixes=["/", "!"]))
+@app.on_message(filters.command(["draw", "desenhar", "desenhe"], prefixes=["/", "!"]) & filters.group & ~config.BANNED_USERS)
 async def generate(_, message: Message):
     global PromptDB
     prompt = await getText(message)

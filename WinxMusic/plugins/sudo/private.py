@@ -20,8 +20,8 @@ AUTHORIZED_COMMAND = ["authorized"]
 @app.on_message(filters.command(AUTHORIZE_COMMAND) & SUDOERS)
 @language
 async def authorize(_client, message: Message, _):
-    if config.PRIVATE_BOT_MODE != str(True):
-        return await message.reply_text(_["pbot_12"])
+    # if config.PRIVATE_BOT_MODE != str(True):
+    #     return await message.reply_text(_["pbot_12"])
     if len(message.command) != 2:
         return await message.reply_text(_["pbot_1"])
     try:
@@ -38,8 +38,8 @@ async def authorize(_client, message: Message, _):
 @app.on_message(filters.command(UNAUTHORIZE_COMMAND) & SUDOERS)
 @language
 async def unauthorize(_client, message: Message, _):
-    if config.PRIVATE_BOT_MODE != str(True):
-        return await message.reply_text(_["pbot_12"])
+    # if config.PRIVATE_BOT_MODE != str(True):
+    #     return await message.reply_text(_["pbot_12"])
     if len(message.command) != 2:
         return await message.reply_text(_["pbot_2"])
     try:
@@ -55,9 +55,9 @@ async def unauthorize(_client, message: Message, _):
 
 @app.on_message(filters.command(AUTHORIZED_COMMAND) & SUDOERS)
 @language
-async def authorized(client, message: Message, _):
-    if config.PRIVATE_BOT_MODE != str(True):
-        return await message.reply_text(_["pbot_12"])
+async def authorized(_client, message: Message, _):
+    # if config.PRIVATE_BOT_MODE != str(True):
+    #     return await message.reply_text(_["pbot_12"])
     m = await message.reply_text(_["pbot_8"])
     served_chats = []
     text = _["pbot_9"]
