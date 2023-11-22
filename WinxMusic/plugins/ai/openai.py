@@ -109,6 +109,11 @@ async def variation(bot, message: Message):
                 file_name="./downloads/variation.png",
             )
 
+            # convert to png
+            file = Image.open("./downloads/edit.png")
+            file = file.convert("RGBA")
+            file.save("./downloads/edit.png")
+
             await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
             # Send the image to OpenAI
