@@ -40,7 +40,9 @@ async def chat(bot, message):
 
 
 @app.on_message(
-    filters.command(["dall-e-3", "dall-e", "generation", "img", "gerar"], prefixes=["!", "/"])
+    filters.command(
+        ["dall-e-3", "dall-e", "generation", "img", "gerar"], prefixes=["!", "/"]
+    )
 )
 async def dall_e(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
