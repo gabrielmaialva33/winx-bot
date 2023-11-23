@@ -192,18 +192,24 @@ async def edit_image(bot, message: Message):
 )
 async def tts(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
+    VOICES = ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
     try:
-        await bot.send_chat_action(message.chat.id, ChatAction.RECORD_AUDIO)
 
         if len(message.command) < 2:
-            await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts 𝘂𝗺𝗮 𝗳𝗿𝗮𝘀𝗲")
+            await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts [voz] [texto]\n 𝗩𝗼𝘇𝗲𝘀: "
+                                     "alloy, echo, fable, nova, onyx, shimmer")
         else:
-            a = message.text.split(" ", 1)[1]
+            text, voice = message.text.split(" ", 1)[1].split(" ", 1)
             MODEL = "tts-1"
-            VOICES = ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
-            VOICE = random.choice(VOICES)
 
-            response = client.audio.speech.create(model=MODEL, voice=VOICE, input=a)
+            if voice in VOICES:
+                VOICE = voice
+            else:
+                VOICE = random.choice(VOICES)
+
+            response = client.audio.speech.create(model=MODEL, voice=VOICE, input=text)
+
+            await bot.send_chat_action(message.chat.id, ChatAction.RECORD_AUDIO)
 
             print(response)
             # <openai._base_client.HttpxBinaryResponseContent object at 0x1218fe610>
