@@ -87,8 +87,8 @@ def lula_inference(bot, message: Message):
 
 
 @app.on_message(
-    filters.command(["rvc", "bolso", "bolsofy"], prefixes=["!", "/"])
-    & filters.private
+    filters.command(["bolso", "bolsofy"], prefixes=["!", "/"])
+    & filters.group
     & ~config.BANNED_USERS
     & AUTHORIZED_CHATS
 )
