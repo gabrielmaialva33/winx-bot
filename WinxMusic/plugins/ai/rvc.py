@@ -4,6 +4,7 @@ from gradio_client import Client
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
+import aiofiles
 
 import config
 from WinxMusic import LOGGER, app
@@ -34,20 +35,19 @@ async def inference(bot, message: Message):
                 )
 
             # delete the old audio
-            if os.path.exists(f"./downloads/{reply.voice.file_unique_id}.ogg"):
-                os.remove(f"./downloads/{reply.voice.file_unique_id}.ogg")
+            audio_path = f"./downloads/{reply.voice.file_unique_id}.ogg"
+            if os.path.exists(audio_path):
+                async with aiofiles.open(audio_path, mode='w') as file:
+                    await file.close()
 
             # download the audio
             await bot.download_media(
                 message=reply.voice,
-                file_name=f"./downloads/{reply.voice.file_unique_id}.ogg",
+                file_name=audio_path,
             )
 
-            # get the audio file path
-            audio_path = f"./downloads/{reply.voice.file_unique_id}.ogg"
-
             # inference the audio
-            result = client.predict(
+            result = await client.predict(
                 "https://huggingface.co/juuxn/RVCModels/resolve/main/Lula.zip",
                 "harvest",
                 audio_path,
@@ -55,7 +55,7 @@ async def inference(bot, message: Message):
                 -12,  # Número de semitones, subir una octave: 12, bajar una octave: -12
                 0,  # Protejer las consonantes sordas y los sonidos respiratorios. 0.5 para desactivarlo.
                 0,  # Re-muestreo sobre el audio de salida hasta la frecuencia de muestreo final.
-                0,  #  Filtro (reducción de asperezas respiración)
+                0,  # Filtro (reducción de asperezas respiración)
                 fn_index=0,
             )
 
