@@ -18,7 +18,7 @@ from WinxMusic.misc import AUTHORIZED_CHATS
 )
 async def inference(bot, message: Message):
     LOGGER(__name__).info(
-        f"{message.from_user.first_name} requested to inference audio."
+        f"{message.from_user.mention} requested to inference audio."
     )
 
     client = Client("https://juuxn-simplervc.hf.space/--replicas/h4jl4/")
