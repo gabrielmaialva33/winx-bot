@@ -90,6 +90,7 @@ def lula_inference(bot, message: Message):
     filters.command(["rvc", "bolso", "bolsofy"], prefixes=["!", "/"])
     & filters.private
     & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
 )
 def bolso_inference(bot, message: Message):
     LOGGER(__name__).info(
