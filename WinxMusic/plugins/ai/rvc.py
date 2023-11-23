@@ -43,7 +43,7 @@ async def inference(bot, message: Message):
             )
 
             # inference the audio
-            result = await client.predict(
+            result = client.predict(
                 "https://huggingface.co/juuxn/RVCModels/resolve/main/Lula.zip",
                 "harvest",
                 audio_path,
