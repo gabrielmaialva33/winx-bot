@@ -5,9 +5,7 @@ from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
 
-import config
-from WinxMusic import app, LOGGER
-from WinxMusic.misc import AUTHORIZED_CHATS
+from WinxMusic import LOGGER, app
 
 
 @app.on_message(
