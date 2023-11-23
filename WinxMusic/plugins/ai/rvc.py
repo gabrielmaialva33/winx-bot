@@ -12,7 +12,7 @@ from WinxMusic.misc import AUTHORIZED_CHATS
 
 
 @app.on_message(
-    filters.command(["rvc", "lule", "lulify"], prefixes=["!", "/"])
+    filters.command(["lule", "lulify"], prefixes=["!", "/"])
     & filters.group
     & ~config.BANNED_USERS
     & AUTHORIZED_CHATS
@@ -28,13 +28,13 @@ def lula_inference(bot, message: Message):
 
     try:
         if not message.reply_to_message:
-            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !rvc [responder a um audio]")
+            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !lulify [responder a um audio]")
             return
 
         reply = message.reply_to_message
 
         if not reply.voice:
-            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !rvc [responder a um audio]")
+            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !lulify [responder a um audio]")
         else:
             # if audio more 10s not inference
             if reply.voice.duration > 25:
@@ -103,13 +103,13 @@ def bolso_inference(bot, message: Message):
 
     try:
         if not message.reply_to_message:
-            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !rvc [responder a um audio]")
+            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !bolsofy [responder a um audio]")
             return
 
         reply = message.reply_to_message
 
         if not reply.voice:
-            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !rvc [responder a um audio]")
+            message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !bolsofy [responder a um audio]")
         else:
             # if audio more 10s not inference
             if reply.voice.duration > 25:
