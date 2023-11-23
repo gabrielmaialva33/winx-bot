@@ -196,10 +196,11 @@ async def tts(bot, message: Message):
     try:
 
         if len(message.command) < 2:
-            await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts [voz] [texto]\n 𝗩𝗼𝘇𝗲𝘀: "
+            await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts [voz] [texto]\n𝗩𝗼𝘇𝗲𝘀: "
                                      "alloy, echo, fable, nova, onyx, shimmer")
         else:
-            text, voice = message.text.split(" ", 1)[1].split(" ", 1)
+            voice = message.text.split(" ", 1)[1]
+            text = message.text.split(" ", 2)[2]
             MODEL = "tts-1"
 
             if voice in VOICES:
