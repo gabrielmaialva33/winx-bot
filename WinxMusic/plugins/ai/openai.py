@@ -199,14 +199,17 @@ async def tts(bot, message: Message):
             await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts [voz] [texto]\n𝗩𝗼𝘇𝗲𝘀: "
                                      "alloy, echo, fable, nova, onyx, shimmer")
         else:
+            # message.command[0] = /tts
+            # message.command[1] = voice
+            # message.command[2] = text
             voice = message.text.split(" ", 1)[1]
             text = message.text.split(" ", 2)[2]
             MODEL = "tts-1"
 
-            if voice in VOICES:
-                VOICE = voice
-            else:
+            if voice not in VOICES:
                 VOICE = random.choice(VOICES)
+            else:
+                VOICE = voice
 
             response = client.audio.speech.create(model=MODEL, voice=VOICE, input=text)
 
@@ -224,7 +227,7 @@ async def tts(bot, message: Message):
             with open("./downloads/tts.ogg", "wb") as f:
                 f.write(bt)
             await message.reply_audio(
-                audio="./downloads/tts.ogg", caption=f"by model: {VOICE}"
+                audio="./downloads/tts.ogg", caption=f"by voice: {VOICE}"
             )
     except Exception as e:
         await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
