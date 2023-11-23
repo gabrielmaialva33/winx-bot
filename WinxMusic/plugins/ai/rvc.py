@@ -5,14 +5,16 @@ from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
 
+import config
 from WinxMusic import LOGGER, app
+from WinxMusic.misc import AUTHORIZED_CHATS
 
 
 @app.on_message(
     filters.command(["rvc", "lule"], prefixes=["!", "/"])
-    # & filters.group
-    # & ~config.BANNED_USERS
-    # & AUTHORIZED_CHATS
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
 )
 async def inference(bot, message: Message):
     LOGGER(__name__).info(
@@ -28,9 +30,9 @@ async def inference(bot, message: Message):
             await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !rvc [audio]")
         else:
             # if audio more 10s not inference
-            if reply.voice.duration > 15:
+            if reply.voice.duration > 25:
                 return await message.reply_text(
-                    "𝗔𝘂𝗱𝗶𝗼 𝗺𝘂𝗶𝘁𝗼 𝗹𝗼𝗻𝗴𝗼. 𝗠𝗮𝘅𝗶𝗺𝗼 𝟭𝟱 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀."
+                    "𝗔𝘂𝗱𝗶𝗼 𝗺𝘂𝗶𝘁𝗼 𝗹𝗼𝗻𝗴𝗼. 𝗠𝗮𝘅𝗶𝗺𝗼 𝟮𝟱 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀."
                 )
 
             # delete the old audio
