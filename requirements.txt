@@ -5,11 +5,12 @@ beautifulsoup4
 dnspython
 ffmpeg-python
 git+https://github.com/AsmSafone/SafoneAPI
+git+https://github.com/Qewertyy/LexicaAPI
 gitpython
 gpytranslate
+gradio_client
 hachoir
 heroku3
-git+https://github.com/Qewertyy/LexicaAPI
 motor
 ntgcalls
 openai
