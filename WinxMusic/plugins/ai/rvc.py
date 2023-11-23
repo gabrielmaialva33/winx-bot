@@ -1,5 +1,3 @@
-
-
 from gradio_client import Client
 from pyrogram import filters
 from pyrogram.enums import ChatAction
