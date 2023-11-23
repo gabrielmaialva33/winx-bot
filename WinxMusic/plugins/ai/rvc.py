@@ -153,7 +153,7 @@ def bolso_inference(bot, message: Message):
                 bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_AUDIO)
 
                 message.reply_audio(
-                    audio=novo_nome, caption="𝗔𝘂𝗱𝗶𝗼 𝗶𝗻𝗳𝗲𝗿𝗶𝗱𝗼 𝗽𝗼𝗿 𝗟𝘂𝗹𝗮 🤖"
+                    audio=novo_nome, caption="𝗔𝘂𝗱𝗶𝗼 𝗶𝗻𝗳𝗲𝗿𝗶𝗱𝗼 𝗽𝗼𝗿 𝗕𝗼𝗹𝘀𝗼𝗻𝗮𝗿𝗼 🤖"
                 )
             else:
                 message.reply_text("𝗘𝗿𝗿𝗼𝗿 𝗮𝗼 𝗶𝗻𝗳𝗲𝗿𝗶𝗿 𝗼 𝗮𝘂𝗱𝗶𝗼.")
