@@ -1,10 +1,9 @@
-import os
+
 
 from gradio_client import Client
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
-import aiofiles
 
 import config
 from WinxMusic import LOGGER, app
@@ -36,9 +35,6 @@ async def inference(bot, message: Message):
 
             # delete the old audio
             audio_path = f"./downloads/{reply.voice.file_unique_id}.ogg"
-            if os.path.exists(audio_path):
-                async with aiofiles.open(audio_path, mode='w') as file:
-                    await file.close()
 
             # download the audio
             await bot.download_media(
@@ -61,7 +57,7 @@ async def inference(bot, message: Message):
 
             # get file path
             file_path = result[1]
-            if os.path.exists(file_path):
+            if file_path is not None:
                 # send the audio
                 await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_AUDIO)
 
