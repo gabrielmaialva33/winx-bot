@@ -216,6 +216,8 @@ async def tts(bot, message: Message):
             # tts.ogg in ./downloads/tts.ogg
             with open("./downloads/tts.ogg", "wb") as f:
                 f.write(bt)
-            await message.reply_audio(audio="./downloads/tts.ogg", caption=f"by model: {VOICE}")
+            await message.reply_audio(
+                audio="./downloads/tts.ogg", caption=f"by model: {VOICE}"
+            )
     except Exception as e:
         await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
