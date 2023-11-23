@@ -18,9 +18,13 @@ from WinxMusic.misc import AUTHORIZED_CHATS
     & AUTHORIZED_CHATS
 )
 def lula_inference(bot, message: Message):
-    LOGGER(__name__).info(f"requested to lulify audio by {message.from_user.first_name}")
+    LOGGER(__name__).info(
+        f"requested to lulify audio by {message.from_user.first_name}"
+    )
 
-    client = Client("https://juuxn-simplervc.hf.space/--replicas/h4jl4/", output_dir="./downloads")
+    client = Client(
+        "https://juuxn-simplervc.hf.space/--replicas/h4jl4/", output_dir="./downloads"
+    )
 
     try:
         if not message.reply_to_message:
@@ -34,9 +38,7 @@ def lula_inference(bot, message: Message):
         else:
             # if audio more 10s not inference
             if reply.voice.duration > 25:
-                return message.reply_text(
-                    "𝗔𝘂𝗱𝗶𝗼 𝗺𝘂𝗶𝘁𝗼 𝗹𝗼𝗻𝗴𝗼. 𝗠𝗮𝘅𝗶𝗺𝗼 𝟮𝟱 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀."
-                )
+                return message.reply_text("𝗔𝘂𝗱𝗶𝗼 𝗺𝘂𝗶𝘁𝗼 𝗹𝗼𝗻𝗴𝗼. 𝗠𝗮𝘅𝗶𝗺𝗼 𝟮𝟱 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀.")
 
             # delete the old audio
             if os.path.exists(f"./downloads/{reply.voice.file_unique_id}.ogg"):
@@ -90,9 +92,13 @@ def lula_inference(bot, message: Message):
     & ~config.BANNED_USERS
 )
 def bolso_inference(bot, message: Message):
-    LOGGER(__name__).info(f"requested to bolsofy audio by {message.from_user.first_name}")
+    LOGGER(__name__).info(
+        f"requested to bolsofy audio by {message.from_user.first_name}"
+    )
 
-    client = Client("https://juuxn-simplervc.hf.space/--replicas/h4jl4/", output_dir="./downloads")
+    client = Client(
+        "https://juuxn-simplervc.hf.space/--replicas/h4jl4/", output_dir="./downloads"
+    )
 
     try:
         if not message.reply_to_message:
@@ -106,9 +112,7 @@ def bolso_inference(bot, message: Message):
         else:
             # if audio more 10s not inference
             if reply.voice.duration > 25:
-                return message.reply_text(
-                    "𝗔𝘂𝗱𝗶𝗼 𝗺𝘂𝗶𝘁𝗼 𝗹𝗼𝗻𝗴𝗼. 𝗠𝗮𝘅𝗶𝗺𝗼 𝟮𝟱 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀."
-                )
+                return message.reply_text("𝗔𝘂𝗱𝗶𝗼 𝗺𝘂𝗶𝘁𝗼 𝗹𝗼𝗻𝗴𝗼. 𝗠𝗮𝘅𝗶𝗺𝗼 𝟮𝟱 𝘀𝗲𝗴𝘂𝗻𝗱𝗼𝘀.")
 
             # delete the old audio
             if os.path.exists(f"./downloads/{reply.voice.file_unique_id}.ogg"):
