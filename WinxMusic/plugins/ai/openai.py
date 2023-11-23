@@ -1,4 +1,5 @@
 import os
+import random
 
 from openai import OpenAI
 from PIL import Image
@@ -199,7 +200,9 @@ async def tts(bot, message: Message):
         else:
             a = message.text.split(" ", 1)[1]
             MODEL = "tts-1"
-            VOICE = "nova"
+            VOICES = ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+            VOICE = random.choice(VOICES)
+
             response = client.audio.speech.create(model=MODEL, voice=VOICE, input=a)
 
             print(response)
