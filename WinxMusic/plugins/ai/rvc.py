@@ -14,9 +14,9 @@ from WinxMusic.misc import AUTHORIZED_CHATS
 
 @app.on_message(
     filters.command(["rvc", "lule"], prefixes=["!", "/"])
-    & filters.group
-    & ~config.BANNED_USERS
-    & AUTHORIZED_CHATS
+    # & filters.group
+    # & ~config.BANNED_USERS
+    # & AUTHORIZED_CHATS
 )
 async def inference(bot, message: Message):
     client = Client("https://juuxn-simplervc.hf.space/--replicas/h4jl4/")
