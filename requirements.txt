@@ -6,6 +6,7 @@ dnspython
 ffmpeg-python
 git+https://github.com/AsmSafone/SafoneAPI
 git+https://github.com/Qewertyy/LexicaAPI
+git+https://github.com/yt-dlp/yt-dlp
 gitpython
 gpytranslate
 gradio_client
@@ -29,4 +30,3 @@ unidecode
 urllib3
 youtube-search
 youtube-search-python
-yt-dlp
