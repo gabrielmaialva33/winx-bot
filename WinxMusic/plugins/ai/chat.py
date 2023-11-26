@@ -4,12 +4,12 @@ import aiohttp
 from pyrogram import filters
 
 from WinxMusic import app
+from config import BANNED_USERS
 
 # --------------------------------------------------------------------------------- #
 
 API_URL = "https://api.qewertyy.me/models"
 API_TIMEOUT = 30
-
 
 # --------------------------------------------------------------------------------- #
 
@@ -23,11 +23,11 @@ async def get_gpt_response(session, api_params):
             return f"error: api retornou {response.status} status."
 
 
-@app.on_message(filters.command(["gpt"], prefixes=["/", "!"]))
+@app.on_message(filters.command(["gpt"], prefixes=["/", "!"]) & ~BANNED_USERS)
 async def gpt_chatbot(_client, message):
     args = message.text.split(maxsplit=1)
     if len(args) < 2:
-        await message.reply("por favor, forneça um texto.")
+        await message.reply("por favor, forneça um texto para gerar uma resposta.")
         return
 
     input_text = args[1]

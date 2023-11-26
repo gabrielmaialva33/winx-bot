@@ -1,90 +1,66 @@
 from pyrogram import filters
-from pyrogram.types import (
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    InputMediaDocument,
-    Message,
-)
-
-import config
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, InputMediaDocument, Message
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.lexica_api import ImageGeneration
 from WinxMusic.helpers.misc import ImageModels, getText
+from config import BANNED_USERS
 
-PromptDB = {}
+# É recomendado usar uma alternativa para substituir essa variável global
+prompt_db = {}
+
+# Constantes para mensagens
+PROMPT_MISSING_MSG = "➜ você não me deu um prompt para desenhar!"
+CHOOSE_MODEL_MSG = "➜ Escolha um modelo"
+ERROR_MSG = "➜ algo deu errado, tente novamente mais tarde"
+DRAWING_MSG = "➜ desenhando..."
+NOT_YOUR_REQUEST_MSG = "➜ não é seu pedido!"
 
 
-@app.on_message(
-    filters.command(["draw", "desenhar", "desenhe"], prefixes=["/", "!"])
-    & filters.group
-    & ~config.BANNED_USERS
-)
+@app.on_message(filters.command(["draw", "desenhar", "desenhe"], prefixes=["/", "!"]) & filters.group & ~BANNED_USERS)
 async def generate(_, message: Message):
-    global PromptDB
     prompt = await getText(message)
     if prompt is None:
-        return await message.reply_text("➜ você não me deu um prompt para desenhar!")
+        return await message.reply_text(PROMPT_MISSING_MSG)
+
     user = message.from_user
-    btns = []
-    PromptDB[user.id] = {"prompt": prompt, "reply_to_id": message.id}
-    for i in ImageModels:
-        btns.append(
-            InlineKeyboardButton(
-                text=i, callback_data=f"draw.{ImageModels[i]}.{user.id}"
-            )
-        )
-    btns = [
-        [btns[0], btns[1]],
-        [btns[2], btns[3]],
-        [btns[4], btns[5]],
-        [btns[6], btns[7]],
-        [btns[8], btns[9]],
-        [btns[10], btns[11]],
-        [btns[12], btns[13]],
-    ]
-    await message.reply_animation(
-        config.GLOBAL_IMG_URL,
-        caption=f"➜ Escolha um modelo",
-        reply_markup=InlineKeyboardMarkup(btns),
-    )
+    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id}
+    btns = generate_buttons(user.id)
+
+    await message.reply_animation(config.GLOBAL_IMG_URL, caption=CHOOSE_MODEL_MSG, reply_markup=InlineKeyboardMarkup(btns))
+
+
+def generate_buttons(user_id):
+    buttons = [InlineKeyboardButton(text=model, callback_data=f"draw.{ImageModels[model]}.{user_id}") for model in ImageModels]
+    return [buttons[i:i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^draw.(.*)"))
 async def draw(_, query):
     data = query.data.split(".")
     auth_user = int(data[-1])
+
     if query.from_user.id != auth_user:
-        return await query.answer("Não é seu pedido!", show_alert=True)
-    promptdata = PromptDB.get(auth_user, None)
-    if promptdata is None:
-        return await query.edit_message_text(
-            "algo deu errado, tente novamente mais tarde"
-        )
-    await query.edit_message_text("➜ desenhando...")
+        return await query.answer(NOT_YOUR_REQUEST_MSG, show_alert=True)
 
+    prompt_data = prompt_db.get(auth_user)
+    if prompt_data is None:
+        return await query.edit_message_text(ERROR_MSG)
+
+    await query.edit_message_text(DRAWING_MSG)
+    await process_drawing(query, data[1], prompt_data)
+
+
+async def process_drawing(query, model_id, prompt_data):
     try:
-        img_url = await ImageGeneration(int(data[1]), promptdata["prompt"])
-        if img_url is None or img_url == 2 or img_url == 1:
-            return await query.edit_message_text(
-                "algo deu errado, tente novamente mais tarde"
-            )
-        images = []
-        await query.message.delete()
-        del PromptDB[auth_user]
-        for i in img_url:
-            images.append(
-                InputMediaDocument(
-                    i,
-                    caption=f"➜ prompt: {promptdata['prompt']}\n\npoe: @{app.me.username}",
-                )
-            )
+        img_url = await ImageGeneration(int(model_id), prompt_data["prompt"])
+        if img_url in [None, 1, 2]:
+            return await query.edit_message_text(ERROR_MSG)
 
-        await app.send_media_group(
-            chat_id=query.message.chat.id,
-            media=images,
-            reply_to_message_id=promptdata["reply_to_id"],
-        )
+        images = [InputMediaDocument(url, caption=f"➜ prompt: {prompt_data['prompt']}\n\npoe: @{app.me.username}") for url in img_url]
+        await app.send_media_group(chat_id=query.message.chat.id, media=images, reply_to_message_id=prompt_data["reply_to_id"])
+        del prompt_db[query.from_user.id]
     except Exception as e:
         LOGGER(__name__).error(e)
+        await query.message.reply_text(ERROR_MSG)
+    finally:
         await query.message.delete()
-        await query.message.reply_text("algo deu errado, tente mais tarde 🤷‍♂️")

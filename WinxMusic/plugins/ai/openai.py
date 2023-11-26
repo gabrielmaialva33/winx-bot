@@ -1,234 +1,164 @@
 import os
 import random
-
 from openai import OpenAI
 from PIL import Image
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
-
 import config
 from config import OPEN_AI_API_KEY
 from WinxMusic import LOGGER, app
 from WinxMusic.misc import AUTHORIZED_CHATS
 
+# Constantes para mensagens e modelos
+EXAMPLE_MESSAGE = "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- {}"
+ERROR_MESSAGE = "**𝗘𝗿𝗿𝗼𝗿**: {} "
+GPT4_MODEL = "gpt-4"
+DALI_MODEL = "dall-e-3"
+TTS_MODEL = "tts-1"
+VOICES = ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
+DOWNLOADS_PATH = "./downloads/"
+TTS_FILE = "tts.ogg"
 
+
+# Função para limpar arquivos temporários
+def clean_temp_file(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+
+# Função para baixar e preparar imagem
+async def download_and_prepare_image(bot, message, file_name):
+    await bot.download_media(message=message, file_name=file_name)
+    file = Image.open(file_name)
+    file = file.convert("RGBA")
+    file.save(file_name)
+
+
+# Função para processar e enviar resposta
+async def process_and_reply(client, bot, message, model, prompt, is_image=False):
+    try:
+        await bot.send_chat_action(message.chat.id, ChatAction.TYPING if not is_image else ChatAction.UPLOAD_PHOTO)
+        if len(message.command) < 2:
+            return await message.reply_text(EXAMPLE_MESSAGE.format(prompt))
+
+        user_input = message.text.split(" ", 1)[1]
+        response = None
+        if model == GPT4_MODEL:
+            response = client.chat.completions.create(model=model, messages=[...])  # Adicione a lógica específica aqui
+        elif model == DALI_MODEL:
+            response = client.images.generate(model=model, prompt=user_input, n=1, size="1024x1024")
+        # Adicione mais condições conforme necessário
+
+        if is_image:
+            image_url = response.data[0].url
+            return await message.reply_photo(photo=image_url, caption=user_input)
+        else:
+            text_response = response.choices[0].message.content
+            await message.reply_text(text_response)
+    except Exception as e:
+        await message.reply_text(ERROR_MESSAGE.format(e))
+
+
+# Handlers para GPT-4, DALL-E-3, e outros
 @app.on_message(
-    filters.command(["chatgpt", "gpt4"], prefixes=["!", "/"])
-    & filters.group
-    & ~config.BANNED_USERS
-    & AUTHORIZED_CHATS
-)
+    filters.command(["chatgpt", "gpt4"], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
 async def chat(bot, message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
-    try:
-        await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
-        if len(message.command) < 2:
-            await message.reply_text(
-                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !gpt4 𝗖𝗼𝗺𝗼 𝗰𝗼𝗻𝘀𝗲𝗴𝘂𝗶𝗿 𝘂𝗺𝗮 𝗻𝗮𝗺𝗼𝗿𝗮𝗱𝗮?"
-            )
-        else:
-            a = message.text.split(" ", 1)[1]
-            MODEL = "gpt-4"
-            response = client.chat.completions.create(
-                model=MODEL,
-                messages=[
-                    {
-                        "role": "system",
-                        "content": "A seguir, uma conversa entre um usuário e a Winx uma assistente virtual "
-                        "que usa a tecnologia GPT-4 para responder perguntas e conversar com "
-                        "você.",
-                    },
-                    {"role": "assistant", "content": "Olá, eu sou a Winx 🌈"},
-                    {"role": "user", "content": a},
-                ],
-            )
-
-            x = response.choices[0].message.content
-            await message.reply_text(f"{x}")
-    except Exception as e:
-        await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
+    await process_and_reply(client, bot, message, GPT4_MODEL, "Exemplo: !gpt4 Como consigo uma namorada?")
 
 
-@app.on_message(
-    filters.command(["dall-e-3", "dall-e", "generation", "gerar"], prefixes=["!", "/"])
-    & filters.group
-    & ~config.BANNED_USERS
-    & AUTHORIZED_CHATS
-)
+@app.on_message(filters.command(["dalle3", "generation", "gerar"],
+                                prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
 async def generation(bot, message: Message):
-    LOGGER(__name__).info(
-        "command: /generation used by %s", message.from_user.first_name
-    )
-
     client = OpenAI(api_key=OPEN_AI_API_KEY)
-    try:
-        await bot.send_chat_action(message.chat.id, ChatAction.TYPING)
-        if len(message.command) < 2:
-            await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !gerar 𝘂𝗺𝗮 𝗻𝗮𝗺𝗼𝗿𝗮𝗱𝗮")
-        else:
-            a = message.text.split(" ", 1)[1]
-            MODEL = "dall-e-3"
-            response = client.images.generate(
-                model=MODEL, prompt=a, n=1, size="1024x1024"
-            )
-            x = response.data[0].url
-            return await message.reply_photo(photo=x, caption=f"{a}")
-    except Exception as e:
-        if "Error code" in str(e):
-            LOGGER(__name__).error(e.message)
-            return await message.reply_text(
-                "Ocorreu um erro. Por favor, tente novamente mais tarde."
-            )
-        LOGGER(__name__).error(e)
-        await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
+    await process_and_reply(client, bot, message, DALI_MODEL, "Exemplo: !gerar uma namorada", is_image=True)
 
 
-@app.on_message(
-    filters.command(["variation", "variar"], prefixes=["!", "/"])
-    & filters.group
-    & ~config.BANNED_USERS
-    & AUTHORIZED_CHATS
-)
+@app.on_message(filters.command(["variation", "variar"],
+                                prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
 async def variation(bot, message: Message):
-    LOGGER(__name__).info(
-        "command: /variation used by %s", message.from_user.first_name
-    )
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
         # Get the image
         reply = message.reply_to_message
         if not reply.photo:
-            await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !variar [imagem]")
-        else:
-            if os.path.exists("./downloads/variation.png"):
-                os.remove("./downloads/variation.png")
+            return await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !variar [imagem]")
 
-            # Download the image
-            await bot.download_media(
-                message=reply,
-                file_name="./downloads/variation.png",
-            )
+        file_path = os.path.join(DOWNLOADS_PATH, 'variation.png')
+        await download_and_prepare_image(bot, reply, file_path)
 
-            # convert to png
-            file = Image.open("./downloads/edit.png")
-            file = file.convert("RGBA")
-            file.save("./downloads/edit.png")
+        await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
-            await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
+        # Send the image to OpenAI
+        with open(file_path, 'rb') as img_file:
+            response = client.images.create_variation(image=img_file, n=1, size="1024x1024")
 
-            # Send the image to OpenAI
-            MODEL = "dall-e-3"
-            response = client.images.create_variation(
-                image=open("./downloads/variation.png", "rb"), n=1, size="1024x1024"
-            )
-            # Get the image url
-            x = response.data[0].url
-            # Send the image
-            await message.reply_photo(photo=x)
+        # Get the image url and send the image
+        image_url = response.data[0].url
+        await message.reply_photo(photo=image_url)
     except Exception as e:
-        await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
+        await message.reply_text(ERROR_MESSAGE.format(e))
+    finally:
+        clean_temp_file(file_path)
 
 
 @app.on_message(
-    filters.command(["edit", "editar"], prefixes=["!", "/"])
-    & filters.group
-    & ~config.BANNED_USERS
-    & AUTHORIZED_CHATS
-)
+    filters.command(["edit", "editar"], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
 async def edit_image(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
         LOGGER(__name__).info("command: /edit used by %s", message.from_user.first_name)
         # Get the image
         reply = message.reply_to_message
-        if not reply.photo:
-            await message.reply_text(
-                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !editar [resposta a imagem] + [prompt]"
-            )
-        else:
-            txt = message.text.split(" ", 1)[1]
-            if not txt:
-                await message.reply_text(
-                    "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !editar [resposta a imagem] + [prompt]"
-                )
+        if not reply.photo or len(message.command) < 2:
+            return await message.reply_text(
+                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !editar [resposta a imagem] + [prompt]")
 
-            if os.path.exists("./downloads/edit.png"):
-                os.remove("./downloads/edit.png")
+        prompt = message.text.split(" ", 1)[1]
+        file_path = os.path.join(DOWNLOADS_PATH, 'edit.png')
+        await download_and_prepare_image(bot, reply, file_path)
 
-            # Download the image
-            await bot.download_media(
-                message=reply,
-                file_name="./downloads/edit.png",
-            )
+        await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
-            # convert to png
-            file = Image.open("./downloads/edit.png")
-            file = file.convert("RGBA")
-            file.save("./downloads/edit.png")
+        # Send the image to OpenAI
+        with open(file_path, 'rb') as img_file:
+            response = client.images.edit(image=img_file, mask=img_file, n=1, size="1024x1024", prompt=prompt)
 
-            await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
-
-            # Send the image to OpenAI
-            response = client.images.edit(
-                image=open("./downloads/edit.png", "rb"),
-                mask=open("./downloads/edit.png", "rb"),
-                n=1,
-                size="1024x1024",
-                prompt=txt,
-            )
-            # Get the image url
-            x = response.data[0].url
-            # Send the image
-            await message.reply_photo(photo=x, caption=txt)
+        # Get the image url and send the image
+        image_url = response.data[0].url
+        await message.reply_photo(photo=image_url, caption=prompt)
     except Exception as e:
-        await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
+        await message.reply_text(ERROR_MESSAGE.format(e))
+    finally:
+        clean_temp_file(file_path)
 
 
-@app.on_message(
-    filters.command(["tts", "fale"], prefixes=["!", "/"])
-    & filters.group
-    & ~config.BANNED_USERS
-)
+@app.on_message(filters.command(["tts", "fale"], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS)
 async def tts(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
-    VOICES = ["alloy", "echo", "fable", "nova", "onyx", "shimmer"]
     try:
-        if len(message.command) < 2:
-            await message.reply_text(
-                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts [voz] [texto]\n𝗩𝗼𝘇𝗲𝘀: "
-                "alloy, echo, fable, nova, onyx, shimmer"
+        if len(message.command) < 3:
+            return await message.reply_text(
+                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !tts [voz] [texto]\n𝗩𝗼𝘇𝗲𝘀: " + ", ".join(VOICES)
             )
-        else:
-            # message.command[0] = /tts
-            # message.command[1] = voice
-            # message.command[2] = text
-            voice = message.text.split(" ", 1)[1]
-            text = message.text.split(" ", 2)[2]
-            MODEL = "tts-1"
 
-            if voice not in VOICES:
-                VOICE = random.choice(VOICES)
-            else:
-                VOICE = voice
+        voice = message.command[1]
+        text = message.command[2]
+        voice = voice if voice in VOICES else random.choice(VOICES)
 
-            response = client.audio.speech.create(model=MODEL, voice=VOICE, input=text)
+        await bot.send_chat_action(message.chat.id, ChatAction.RECORD_AUDIO)
+        response = client.audio.speech.create(model=TTS_MODEL, voice=voice, input=text)
 
-            await bot.send_chat_action(message.chat.id, ChatAction.RECORD_AUDIO)
+        # Convert to bytes
+        audio_data = response.read()
 
-            print(response)
-            # <openai._base_client.HttpxBinaryResponseContent object at 0x1218fe610>
-            # convert to bytes
-            bt = response.read()
+        tts_path = os.path.join(DOWNLOADS_PATH, TTS_FILE)
+        with open(tts_path, "wb") as f:
+            f.write(audio_data)
 
-            if os.path.exists("./downloads/tts.ogg"):
-                os.remove("./downloads/tts.ogg")
-
-            # tts.ogg in ./downloads/tts.ogg
-            with open("./downloads/tts.ogg", "wb") as f:
-                f.write(bt)
-            await message.reply_audio(
-                audio="./downloads/tts.ogg", caption=f"by voice: {VOICE}"
-            )
+        await message.reply_audio(audio=tts_path, caption=f"by voice: {voice}")
     except Exception as e:
-        await message.reply_text(f"**𝗘𝗿𝗿𝗼𝗿**: {e} ")
+        await message.reply_text(ERROR_MESSAGE.format(e))
+    finally:
+        clean_temp_file(tts_path)

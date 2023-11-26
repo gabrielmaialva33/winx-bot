@@ -4,12 +4,14 @@ from datetime import datetime
 from pyrogram.enums import ChatType
 
 import config
-from WinxMusic import app
+from WinxMusic import app, LOGGER
 from WinxMusic.core.call import Winx, autoend
 from WinxMusic.utils.database import get_client, is_active_chat, is_autoend
 
 
 async def auto_leave():
+    LOGGER(__name__).info(f"Auto leave assistant is {config.AUTO_LEAVING_ASSISTANT}")
+
     if config.AUTO_LEAVING_ASSISTANT is True:
         while not await asyncio.sleep(config.LEAVE_TIME):
             from WinxMusic.core.userbot import assistants
@@ -25,8 +27,8 @@ async def auto_leave():
                             ChatType.CHANNEL,
                         ]:
                             if (
-                                i.chat.id != config.LOGGER_ID
-                                and i.chat.id != -1001621792868
+                                    i.chat.id != config.LOGGER_ID
+                                    and i.chat.id != -1001621792868
                             ):
                                 if left == 20:
                                     continue
@@ -40,8 +42,7 @@ async def auto_leave():
                     pass
 
 
-if config.AUTO_LEAVING_ASSISTANT is True:
-    asyncio.create_task(auto_leave())
+asyncio.create_task(auto_leave())
 
 
 async def auto_end():
