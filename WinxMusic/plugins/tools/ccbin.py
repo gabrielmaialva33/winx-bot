@@ -38,7 +38,6 @@ async def fetch_bin_info(bin_number):
     """Busca informações do BIN usando a API e retorna uma mensagem formatada."""
     LOGGER(__name__).info(f"Buscando informações do BIN: {bin_number}")
     try:
-
         resp = await api.bininfo(bin=bin_number)
         return (
             f"<b>💠 Detalhes Completos do BIN:</b>\n"
