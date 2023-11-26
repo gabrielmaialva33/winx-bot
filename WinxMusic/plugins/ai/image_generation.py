@@ -6,10 +6,10 @@ from pyrogram.types import (
     Message,
 )
 
-from config import BANNED_USERS
+from config import BANNED_USERS, GLOBAL_IMG_URL
 from WinxMusic import LOGGER, app
-from WinxMusic.helpers.lexica_api import ImageGeneration
-from WinxMusic.helpers.misc import ImageModels, getText
+from WinxMusic.helpers.lexica_api import image_generation
+from WinxMusic.helpers.misc import ImageModels, get_text
 
 # É recomendado usar uma alternativa para substituir essa variável global
 prompt_db = {}
@@ -28,7 +28,7 @@ NOT_YOUR_REQUEST_MSG = "➜ não é seu pedido!"
     & ~BANNED_USERS
 )
 async def generate(_, message: Message):
-    prompt = await getText(message)
+    prompt = await get_text(message)
     if prompt is None:
         return await message.reply_text(PROMPT_MISSING_MSG)
 
@@ -37,7 +37,7 @@ async def generate(_, message: Message):
     btns = generate_buttons(user.id)
 
     await message.reply_animation(
-        config.GLOBAL_IMG_URL,
+        GLOBAL_IMG_URL,
         caption=CHOOSE_MODEL_MSG,
         reply_markup=InlineKeyboardMarkup(btns),
     )
@@ -50,7 +50,7 @@ def generate_buttons(user_id):
         )
         for model in ImageModels
     ]
-    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^draw.(.*)"))
@@ -71,7 +71,7 @@ async def draw(_, query):
 
 async def process_drawing(query, model_id, prompt_data):
     try:
-        img_url = await ImageGeneration(int(model_id), prompt_data["prompt"])
+        img_url = await image_generation(int(model_id), prompt_data["prompt"])
         if img_url in [None, 1, 2]:
             return await query.edit_message_text(ERROR_MSG)
 

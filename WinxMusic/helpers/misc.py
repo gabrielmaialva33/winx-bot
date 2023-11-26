@@ -1,4 +1,4 @@
-async def getFile(message):
+async def get_file(message):
     if not message.reply_to_message:
         return None
     if (
@@ -18,7 +18,7 @@ async def getFile(message):
         return None
 
 
-async def getText(message):
+async def get_text(message):
     """Extract Text From Commands"""
     text_to_return = message.text
     if message.text is None:

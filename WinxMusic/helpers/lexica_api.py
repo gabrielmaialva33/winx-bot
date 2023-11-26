@@ -1,61 +1,49 @@
 import asyncio
-
 from lexica import AsyncClient
-
 from WinxMusic import LOGGER
 from WinxMusic.helpers.misc import ImageModels
 
 
-async def ImageGeneration(model, prompt):
+async def image_generation(model, prompt):
+    client = AsyncClient()
     try:
         LOGGER(__name__).info(f"Generating image with model {model}")
         if model not in list(ImageModels.values()):
             return 1
-        client = AsyncClient()
+
         output = await client.generate(model, prompt, "")
         if output["code"] != 1:
             return 2
+
         task_id, request_id = output["task_id"], output["request_id"]
         await asyncio.sleep(20)
-        tries = 0
-        image_url = None
-        resp = await client.getImages(task_id, request_id)
-        while True:
-            if resp["code"] == 2:
-                image_url = resp["img_urls"]
-                break
-            if tries > 15:
-                break
-            await asyncio.sleep(10)
+
+        for _ in range(16):  # Máximo de 16 tentativas (160 segundos)
             resp = await client.getImages(task_id, request_id)
-            tries += 1
-            continue
-        return image_url
+            if resp["code"] == 2:
+                return resp["img_urls"]
+            await asyncio.sleep(10)
+        return None
     except Exception as e:
-        raise Exception(f"Failed to generate the image: {e}")
-
-
-async def UpscaleImages(image: bytes) -> str:
-    """
-    Upscales an image and return with upscaled image path.
-    """
-    try:
-        client = AsyncClient()
-        content = await client.upscale(image)
+        LOGGER(__name__).error(f"Failed to generate the image: {e}")
+        return None
+    finally:
         await client.close()
+
+
+async def upscale_image(image: bytes) -> str:
+    """
+    Upscales an image and returns the path to the upscaled image.
+    """
+    client = AsyncClient()
+    try:
+        content = await client.upscale(image)
         upscaled_file_path = "upscaled.png"
         with open(upscaled_file_path, "wb") as output_file:
             output_file.write(content)
         return upscaled_file_path
     except Exception as e:
-        raise Exception(f"Failed to upscale the image: {e}")
-
-
-async def gpt(prompt) -> str:
-    try:
-        client = AsyncClient()
-        output = await client.gpt(prompt)
+        LOGGER(__name__).error(f"Failed to upscale the image: {e}")
+        return ""
+    finally:
         await client.close()
-        return output["content"]
-    except Exception as e:
-        raise Exception(f"Failed to upscale the image: {e}")

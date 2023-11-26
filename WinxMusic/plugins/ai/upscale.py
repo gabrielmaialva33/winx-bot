@@ -3,15 +3,15 @@ import os
 from pyrogram import filters
 
 from WinxMusic import app
-from WinxMusic.helpers.lexica_api import UpscaleImages
-from WinxMusic.helpers.misc import getFile
+from WinxMusic.helpers.lexica_api import upscale_image
+from WinxMusic.helpers.misc import get_file
 
 UPSCALE_COMMAND = ["upscale", "aumentar", "aumente", "melhorar", "melhore"]
 
 
 @app.on_message(filters.command(UPSCALE_COMMAND) & filters.group)
 async def upscale(_, message):
-    file = await getFile(message)
+    file = await get_file(message)
     if file is None:
         return await message.reply_text(
             "💬 ➜ responda a uma mensagem com uma 🖼️ para 🔍 aumentar a escala ⬆️."
@@ -22,7 +22,7 @@ async def upscale(_, message):
         with open(file, "rb") as image_file:
             imageBytes = image_file.read()
 
-        upscaled = await UpscaleImages(imageBytes)
+        upscaled = await upscale_image(imageBytes)
 
         with open(upscaled, "rb") as upscaled_file:
             await message.reply_document(
