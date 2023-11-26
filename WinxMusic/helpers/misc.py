@@ -46,5 +46,4 @@ ImageModels = {
     "AbsoluteReality|Character": 13,
     "ConceptArt|LandScape": 15,
     "Lexica|General": 16,
-    "CounterFeitXL|Anime": 17,
 }

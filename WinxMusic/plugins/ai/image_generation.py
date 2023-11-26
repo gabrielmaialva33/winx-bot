@@ -50,7 +50,7 @@ def generate_buttons(user_id):
         )
         for model in ImageModels
     ]
-    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^draw.(.*)"))
