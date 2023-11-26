@@ -8,12 +8,12 @@
 
 <p align="center">
   <img src="https://wakatime.com/badge/user/e61842d0-c588-4586-96a3-f0448a434be4/project/018b720b-1142-45bd-a7b9-8e9bb2b95d4f.svg" alt="wakatime">
-  <img src="https://img.shields.io/github/languages/top/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="GitHub top language" >
-  <img src="https://img.shields.io/github/languages/count/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="GitHub language count" >
-  <img src="https://img.shields.io/github/repo-size/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="Repository size" >
-  <img src="https://img.shields.io/github/license/gabrielmaialva33/winx-music-bot?color=00b8d3?style=flat&logo=appveyor" alt="License" /> 
+  <img src="https://img.shields.io/github/languages/top/gabrielmaialva33/winx-bot?style=flat&logo=appveyor" alt="GitHub top language" >
+  <img src="https://img.shields.io/github/languages/count/gabrielmaialva33/winx-bot?style=flat&logo=appveyor" alt="GitHub language count" >
+  <img src="https://img.shields.io/github/repo-size/gabrielmaialva33/winx-bot?style=flat&logo=appveyor" alt="Repository size" >
+  <img src="https://img.shields.io/github/license/gabrielmaialva33/winx-bot?color=00b8d3?style=flat&logo=appveyor" alt="License" /> 
   <a href="https://github.com/gabrielmaialva33/winx-bot/commits/master">
-    <img src="https://img.shields.io/github/last-commit/gabrielmaialva33/winx-music-bot?style=flat&logo=appveyor" alt="GitHub last commit" >
+    <img src="https://img.shields.io/github/last-commit/gabrielmaialva33/winx-bot?style=flat&logo=appveyor" alt="GitHub last commit" >
     <img src="https://img.shields.io/badge/made%20by-Maia-15c3d6?style=flat&logo=appveyor" alt="Maia" >  
   </a>
 </p>
@@ -57,9 +57,9 @@ transmitir músicas, vídeos e até mesmo transmissões ao vivo nas suas chamada
 sudo apt-get update -y && sudo apt-get upgrade -y
 sudo apt-get install -y --no-install-recommends ffmpeg
 # clone the repository
-git clone https://github.com/gabrielmaialva33/winx-music-bot.git
+git clone https://github.com/gabrielmaialva33/winx-bot.git
 # enter the directory
-cd winx-music-bot
+cd winx-bot
 # install the dependencies
 pip3 install --no-cache-dir --upgrade --requirement requirements.txt
 ```
