@@ -3,8 +3,8 @@ import asyncio
 import aiohttp
 from pyrogram import filters
 
-from WinxMusic import app
 from config import BANNED_USERS
+from WinxMusic import app
 
 # --------------------------------------------------------------------------------- #
 

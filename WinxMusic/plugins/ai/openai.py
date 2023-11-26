@@ -1,10 +1,12 @@
 import os
 import random
+
 from openai import OpenAI
 from PIL import Image
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
+
 import config
 from config import OPEN_AI_API_KEY
 from WinxMusic import LOGGER, app
@@ -38,16 +40,23 @@ async def download_and_prepare_image(bot, message, file_name):
 # Função para processar e enviar resposta
 async def process_and_reply(client, bot, message, model, prompt, is_image=False):
     try:
-        await bot.send_chat_action(message.chat.id, ChatAction.TYPING if not is_image else ChatAction.UPLOAD_PHOTO)
+        await bot.send_chat_action(
+            message.chat.id,
+            ChatAction.TYPING if not is_image else ChatAction.UPLOAD_PHOTO,
+        )
         if len(message.command) < 2:
             return await message.reply_text(EXAMPLE_MESSAGE.format(prompt))
 
         user_input = message.text.split(" ", 1)[1]
         response = None
         if model == GPT4_MODEL:
-            response = client.chat.completions.create(model=model, messages=[...])  # Adicione a lógica específica aqui
+            response = client.chat.completions.create(
+                model=model, messages=[...]
+            )  # Adicione a lógica específica aqui
         elif model == DALI_MODEL:
-            response = client.images.generate(model=model, prompt=user_input, n=1, size="1024x1024")
+            response = client.images.generate(
+                model=model, prompt=user_input, n=1, size="1024x1024"
+            )
         # Adicione mais condições conforme necessário
 
         if is_image:
@@ -62,21 +71,37 @@ async def process_and_reply(client, bot, message, model, prompt, is_image=False)
 
 # Handlers para GPT-4, DALL-E-3, e outros
 @app.on_message(
-    filters.command(["chatgpt", "gpt4"], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
+    filters.command(["chatgpt", "gpt4"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
+)
 async def chat(bot, message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
-    await process_and_reply(client, bot, message, GPT4_MODEL, "Exemplo: !gpt4 Como consigo uma namorada?")
+    await process_and_reply(
+        client, bot, message, GPT4_MODEL, "Exemplo: !gpt4 Como consigo uma namorada?"
+    )
 
 
-@app.on_message(filters.command(["dalle3", "generation", "gerar"],
-                                prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
+@app.on_message(
+    filters.command(["dalle3", "generation", "gerar"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
+)
 async def generation(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
-    await process_and_reply(client, bot, message, DALI_MODEL, "Exemplo: !gerar uma namorada", is_image=True)
+    await process_and_reply(
+        client, bot, message, DALI_MODEL, "Exemplo: !gerar uma namorada", is_image=True
+    )
 
 
-@app.on_message(filters.command(["variation", "variar"],
-                                prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
+@app.on_message(
+    filters.command(["variation", "variar"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
+)
 async def variation(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
@@ -85,14 +110,16 @@ async def variation(bot, message: Message):
         if not reply.photo:
             return await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !variar [imagem]")
 
-        file_path = os.path.join(DOWNLOADS_PATH, 'variation.png')
+        file_path = os.path.join(DOWNLOADS_PATH, "variation.png")
         await download_and_prepare_image(bot, reply, file_path)
 
         await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
         # Send the image to OpenAI
-        with open(file_path, 'rb') as img_file:
-            response = client.images.create_variation(image=img_file, n=1, size="1024x1024")
+        with open(file_path, "rb") as img_file:
+            response = client.images.create_variation(
+                image=img_file, n=1, size="1024x1024"
+            )
 
         # Get the image url and send the image
         image_url = response.data[0].url
@@ -104,7 +131,11 @@ async def variation(bot, message: Message):
 
 
 @app.on_message(
-    filters.command(["edit", "editar"], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS & AUTHORIZED_CHATS)
+    filters.command(["edit", "editar"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+    & AUTHORIZED_CHATS
+)
 async def edit_image(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
@@ -113,17 +144,20 @@ async def edit_image(bot, message: Message):
         reply = message.reply_to_message
         if not reply.photo or len(message.command) < 2:
             return await message.reply_text(
-                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !editar [resposta a imagem] + [prompt]")
+                "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !editar [resposta a imagem] + [prompt]"
+            )
 
         prompt = message.text.split(" ", 1)[1]
-        file_path = os.path.join(DOWNLOADS_PATH, 'edit.png')
+        file_path = os.path.join(DOWNLOADS_PATH, "edit.png")
         await download_and_prepare_image(bot, reply, file_path)
 
         await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
         # Send the image to OpenAI
-        with open(file_path, 'rb') as img_file:
-            response = client.images.edit(image=img_file, mask=img_file, n=1, size="1024x1024", prompt=prompt)
+        with open(file_path, "rb") as img_file:
+            response = client.images.edit(
+                image=img_file, mask=img_file, n=1, size="1024x1024", prompt=prompt
+            )
 
         # Get the image url and send the image
         image_url = response.data[0].url
@@ -134,7 +168,11 @@ async def edit_image(bot, message: Message):
         clean_temp_file(file_path)
 
 
-@app.on_message(filters.command(["tts", "fale"], prefixes=["!", "/"]) & filters.group & ~config.BANNED_USERS)
+@app.on_message(
+    filters.command(["tts", "fale"], prefixes=["!", "/"])
+    & filters.group
+    & ~config.BANNED_USERS
+)
 async def tts(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:

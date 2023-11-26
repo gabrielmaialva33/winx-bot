@@ -1,10 +1,11 @@
 import logging
+
 import requests
 from pyrogram import filters
 from pyrogram.types import Message
 
-from WinxMusic import app
 from config import BANNED_USERS
+from WinxMusic import app
 
 WIFU_COMMAND = ["wifu", "waifu"]
 API_ENDPOINT = "https://waifu.pics/api/sfw/waifu"
@@ -29,6 +30,8 @@ def get_waifu_image():
 async def wifu(_, message: Message):
     image_url = get_waifu_image()
     if image_url:
-        await message.reply_photo(image_url,caption=f" ➜ 🖼 waifu de 👤{message.from_user.first_name} ✅")
+        await message.reply_photo(
+            image_url, caption=f" ➜ 🖼 waifu de 👤{message.from_user.first_name} ✅"
+        )
     else:
         await message.reply("voçe não tem waifu 😔")

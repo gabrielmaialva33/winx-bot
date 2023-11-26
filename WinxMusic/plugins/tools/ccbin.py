@@ -1,5 +1,6 @@
 from pyrogram import *
 from SafoneAPI import SafoneAPI
+
 from ... import *
 
 api = SafoneAPI()
@@ -22,9 +23,7 @@ async def check_ccbin(_client, message):
         await reply_message.edit(bin_info)
     except Exception as e:
         LOGGER(__name__).error(e)
-        await reply_message.edit(
-            "🚫 BIN não encontrada!"
-        )
+        await reply_message.edit("🚫 BIN não encontrada!")
 
 
 def get_bin_number(message):

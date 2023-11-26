@@ -4,7 +4,7 @@ from datetime import datetime
 from pyrogram.enums import ChatType
 
 import config
-from WinxMusic import app, LOGGER
+from WinxMusic import LOGGER, app
 from WinxMusic.core.call import Winx, autoend
 from WinxMusic.utils.database import get_client, is_active_chat, is_autoend
 
@@ -27,8 +27,8 @@ async def auto_leave():
                             ChatType.CHANNEL,
                         ]:
                             if (
-                                    i.chat.id != config.LOGGER_ID
-                                    and i.chat.id != -1001621792868
+                                i.chat.id != config.LOGGER_ID
+                                and i.chat.id != -1001621792868
                             ):
                                 if left == 20:
                                     continue
