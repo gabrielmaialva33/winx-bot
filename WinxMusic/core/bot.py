@@ -3,6 +3,7 @@ from pyrogram.enums import ChatMemberStatus, ParseMode
 from pyrogram.types import BotCommand
 
 import config
+
 from ..logging import LOGGER
 
 
@@ -42,7 +43,7 @@ class Winx(Client):
             await self.send_message(
                 chat_id=config.LOGGER_ID,
                 text=f"🚀<u><b>➜ {self.mention} Bot iniciado:</b></u>🚀\n\n"
-                     f"ID: <code>{self.id}</code>\nNome: {self.name}\nUsuário: @{self.username}",
+                f"ID: <code>{self.id}</code>\nNome: {self.name}\nUsuário: @{self.username}",
             )
         except (errors.ChannelInvalid, errors.PeerIdInvalid):
             LOGGER(__name__).error(
@@ -59,22 +60,28 @@ class Winx(Client):
     async def check_bot_admin_status(self):
         chat_member = await self.get_chat_member(config.LOGGER_ID, self.id)
         if chat_member.status != ChatMemberStatus.ADMINISTRATOR:
-            LOGGER(__name__).error("Por favor, promova seu bot a admin no seu grupo/canal de log.")
+            LOGGER(__name__).error(
+                "Por favor, promova seu bot a admin no seu grupo/canal de log."
+            )
             raise PermissionError("Bot não é administrador no grupo/canal de log.")
 
     async def configure_bot_commands(self):
         if config.SET_CMDS == str(True):
             try:
-                await self.set_bot_commands([
-                    BotCommand("ping", "Veja se o bot está online"),
-                    BotCommand("play", "Reproduz a música solicitada"),
-                    BotCommand("skip", "Pula a música atual"),
-                    BotCommand("pause", "Pausa a música atual"),
-                    BotCommand("resume", "Retoma a música atual"),
-                    BotCommand("end", "Para a música atual e limpa a fila"),
-                    BotCommand("shuffle", "Embaralha a fila de músicas"),
-                    BotCommand("playmode", "Alterna entre os modos de reprodução"),
-                    BotCommand("settings", "Abre o menu de configurações")
-                ])
+                await self.set_bot_commands(
+                    [
+                        BotCommand("ping", "Veja se o bot está online"),
+                        BotCommand("play", "Reproduz a música solicitada"),
+                        BotCommand("skip", "Pula a música atual"),
+                        BotCommand("pause", "Pausa a música atual"),
+                        BotCommand("resume", "Retoma a música atual"),
+                        BotCommand("end", "Para a música atual e limpa a fila"),
+                        BotCommand("shuffle", "Embaralha a fila de músicas"),
+                        BotCommand("playmode", "Alterna entre os modos de reprodução"),
+                        BotCommand("settings", "Abre o menu de configurações"),
+                    ]
+                )
             except Exception as e:
-                LOGGER(__name__).warning(f"Não foi possível configurar os comandos do bot: {e}")
+                LOGGER(__name__).warning(
+                    f"Não foi possível configurar os comandos do bot: {e}"
+                )
