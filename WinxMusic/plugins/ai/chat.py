@@ -38,7 +38,7 @@ async def gpt_chatbot(_client, message):
         ) as session:
             result_msg = await message.reply("...")
 
-            api_params = {"model_id": 5, "prompt": input_text}
+            api_params = {"model_id": 19, "prompt": input_text}
             api_response = await asyncio.gather(get_gpt_response(session, api_params))
 
             await result_msg.delete()
