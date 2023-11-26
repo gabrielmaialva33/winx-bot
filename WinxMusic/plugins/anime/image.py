@@ -1,6 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import InputMediaPhoto
 from requests import get
+
 from WinxMusic import app
 
 
@@ -28,11 +29,15 @@ async def pinterest(_, message):
     msg = await message.reply(f"➜ pesquisando por {query}")
     for count, _ in enumerate(media_group, 1):
         # Atualizando a mensagem com o progresso
-        await msg.edit(f"➜ pesquisando por {query} \n➜ {count} de {len(media_group)} imagens encontradas")
+        await msg.edit(
+            f"➜ pesquisando por {query} \n➜ {count} de {len(media_group)} imagens encontradas"
+        )
 
     try:
         # Enviando as imagens
-        await app.send_media_group(chat_id=message.chat.id, media=media_group, reply_to_message_id=message.id)
+        await app.send_media_group(
+            chat_id=message.chat.id, media=media_group, reply_to_message_id=message.id
+        )
     except Exception as e:
         await message.reply(f"➜ erro ao enviar imagens: {e}")
     finally:

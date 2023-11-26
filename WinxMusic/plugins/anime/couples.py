@@ -1,9 +1,11 @@
 import random
 from datetime import datetime, timedelta
+
 from pyrogram import filters
+
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import get_couple, save_couple
-from config import BANNED_USERS
 
 COUPLE_COMMAND = ["couple", "casal", "winxers"]
 PHOTO_URL = "https://telegra.ph/file/908be770f3a34834379f1.png"
@@ -33,8 +35,10 @@ async def couple(_, message):
                 list_of_users.append(member.user.id)
 
         if len(list_of_users) < 2:
-            return await message.reply_text("➜ <i> não há membros suficientes para escolher um casal.</i>",
-                                            parse_mode="html")
+            return await message.reply_text(
+                "➜ <i> não há membros suficientes para escolher um casal.</i>",
+                parse_mode="html",
+            )
 
         c1_id, c2_id = random.sample(list_of_users, 2)
 
@@ -44,8 +48,11 @@ async def couple(_, message):
         c1_mention = c1_user.mention
         c2_mention = c2_user.mention
 
-        await app.send_photo(chat_id, photo=PHOTO_URL,
-                             caption=COUPLE_SELECTION_MESSAGE.format(c1_mention, c2_mention, tomorrow))
+        await app.send_photo(
+            chat_id,
+            photo=PHOTO_URL,
+            caption=COUPLE_SELECTION_MESSAGE.format(c1_mention, c2_mention, tomorrow),
+        )
         await save_couple(chat_id, today, {"c1_id": c1_id, "c2_id": c2_id})
 
     else:
@@ -55,5 +62,8 @@ async def couple(_, message):
         c1_mention = c1_user.mention
         c2_mention = c2_user.mention
 
-        await app.send_photo(chat_id, photo=PHOTO_URL,
-                             caption=COUPLE_SELECTION_MESSAGE.format(c1_mention, c2_mention, tomorrow))
+        await app.send_photo(
+            chat_id,
+            photo=PHOTO_URL,
+            caption=COUPLE_SELECTION_MESSAGE.format(c1_mention, c2_mention, tomorrow),
+        )
