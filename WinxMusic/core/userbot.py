@@ -5,7 +5,7 @@ import config
 from ..logging import LOGGER
 
 assistants = []
-assistantids = []
+assistant_ids = []
 
 
 class Userbot(Client):
@@ -104,7 +104,7 @@ class Userbot(Client):
             self.one.id = self.one.me.id
             self.one.name = self.one.me.mention
             self.one.username = self.one.me.username
-            assistantids.append(self.one.id)
+            assistant_ids.append(self.one.id)
             LOGGER(__name__).info(f"Assistant Started as {self.one.name}")
 
         if config.STRING2:
@@ -128,7 +128,7 @@ class Userbot(Client):
             self.two.id = self.two.me.id
             self.two.name = self.two.me.mention
             self.two.username = self.two.me.username
-            assistantids.append(self.two.id)
+            assistant_ids.append(self.two.id)
             LOGGER(__name__).info(f"Assistant Two Started as {self.two.name}")
 
         if config.STRING3:
@@ -152,7 +152,7 @@ class Userbot(Client):
             self.three.id = self.three.me.id
             self.three.name = self.three.me.mention
             self.three.username = self.three.me.username
-            assistantids.append(self.three.id)
+            assistant_ids.append(self.three.id)
             LOGGER(__name__).info(f"Assistant Three Started as {self.three.name}")
 
         if config.STRING4:
@@ -176,7 +176,7 @@ class Userbot(Client):
             self.four.id = self.four.me.id
             self.four.name = self.four.me.mention
             self.four.username = self.four.me.username
-            assistantids.append(self.four.id)
+            assistant_ids.append(self.four.id)
             LOGGER(__name__).info(f"Assistant Four Started as {self.four.name}")
 
         if config.STRING5:
@@ -200,7 +200,7 @@ class Userbot(Client):
             self.five.id = self.five.me.id
             self.five.name = self.five.me.mention
             self.five.username = self.five.me.username
-            assistantids.append(self.five.id)
+            assistant_ids.append(self.five.id)
             LOGGER(__name__).info(f"Assistant Five Started as {self.five.name}")
 
         if config.STRING6:
@@ -224,7 +224,7 @@ class Userbot(Client):
             self.six.id = self.six.me.id
             self.six.name = self.six.me.mention
             self.six.username = self.six.me.username
-            assistantids.append(self.six.id)
+            assistant_ids.append(self.six.id)
             LOGGER(__name__).info(f"Assistant Six Started as {self.six.name}")
 
         if config.STRING7:
@@ -248,7 +248,7 @@ class Userbot(Client):
             self.seven.id = self.seven.me.id
             self.seven.name = self.seven.me.mention
             self.seven.username = self.seven.me.username
-            assistantids.append(self.seven.id)
+            assistant_ids.append(self.seven.id)
             LOGGER(__name__).info(f"Assistant Seven Started as {self.seven.name}")
 
         if config.STRING8:
@@ -272,7 +272,7 @@ class Userbot(Client):
             self.eight.id = self.eight.me.id
             self.eight.name = self.eight.me.mention
             self.eight.username = self.eight.me.username
-            assistantids.append(self.eight.id)
+            assistant_ids.append(self.eight.id)
             LOGGER(__name__).info(f"Assistant Eight Started as {self.eight.name}")
 
         if config.STRING9:
@@ -296,7 +296,7 @@ class Userbot(Client):
             self.nine.id = self.nine.me.id
             self.nine.name = self.nine.me.mention
             self.nine.username = self.nine.me.username
-            assistantids.append(self.nine.id)
+            assistant_ids.append(self.nine.id)
             LOGGER(__name__).info(f"Assistant Nine Started as {self.nine.name}")
 
         if config.STRING10:
@@ -320,7 +320,7 @@ class Userbot(Client):
             self.ten.id = self.ten.me.id
             self.ten.name = self.ten.me.mention
             self.ten.username = self.ten.me.username
-            assistantids.append(self.ten.id)
+            assistant_ids.append(self.ten.id)
             LOGGER(__name__).info(f"Assistant Ten Started as {self.ten.name}")
 
     async def stop(self):

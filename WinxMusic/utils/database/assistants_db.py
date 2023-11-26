@@ -9,31 +9,24 @@ assistant_dict: Dict[int, int] = {}
 
 
 async def get_assistant_number(chat_id: int) -> int:
-    assistant = assistant_dict.get(chat_id)
+    assistant = assistant_dict.get(int(chat_id))
     return assistant
 
 
-async def get_client(assistant: int):
-    if int(assistant) == 1:
-        return userbot.one
-    elif int(assistant) == 2:
-        return userbot.two
-    elif int(assistant) == 3:
-        return userbot.three
-    elif int(assistant) == 4:
-        return userbot.four
-    elif int(assistant) == 5:
-        return userbot.five
-    elif int(assistant) == 6:
-        return userbot.six
-    elif int(assistant) == 7:
-        return userbot.seven
-    elif int(assistant) == 8:
-        return userbot.eight
-    elif int(assistant) == 9:
-        return userbot.nine
-    elif int(assistant) == 10:
-        return userbot.ten
+async def get_client(assistant: int) -> userbot:
+    assistant_clients = {
+        1: userbot.one,
+        2: userbot.two,
+        3: userbot.three,
+        4: userbot.four,
+        5: userbot.five,
+        6: userbot.six,
+        7: userbot.seven,
+        8: userbot.eight,
+        9: userbot.nine,
+        10: userbot.ten,
+    }
+    return assistant_clients[int(assistant)]
 
 
 async def set_assistant_new(chat_id, number):
@@ -119,23 +112,16 @@ async def group_assistant(self, chat_id: int) -> int:
             assis = assistant
         else:
             assis = await set_calls_assistant(chat_id)
-    if int(assis) == 1:
-        return self.one
-    elif int(assis) == 2:
-        return self.two
-    elif int(assis) == 3:
-        return self.three
-    elif int(assis) == 4:
-        return self.four
-    elif int(assis) == 5:
-        return self.five
-    elif int(assis) == 6:
-        return self.six
-    elif int(assis) == 7:
-        return self.seven
-    elif int(assis) == 8:
-        return self.eight
-    elif int(assis) == 9:
-        return self.nine
-    elif int(assis) == 10:
-        return self.ten
+    self_clients = {
+        1: self.one,
+        2: self.two,
+        3: self.three,
+        4: self.four,
+        5: self.five,
+        6: self.six,
+        7: self.seven,
+        8: self.eight,
+        9: self.nine,
+        10: self.ten,
+    }
+    return self_clients[int(assis)]
