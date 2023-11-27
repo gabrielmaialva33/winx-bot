@@ -51,10 +51,14 @@ async def process_and_reply(client, bot, message, model, prompt, is_image=False)
         response = None
         if model == GPT4_MODEL:
             response = client.chat.completions.create(
-                model=model, messages=[
-                    {"role": "system", "content": "Você é a assistente do Winx uma AI poderosa"},
-                    {"role": "user", "content": user_input}
-                ]
+                model=model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "Você é a assistente do Winx uma AI poderosa",
+                    },
+                    {"role": "user", "content": user_input},
+                ],
             )  # Adicione a lógica específica aqui
         elif model == DALI_MODEL:
             response = client.images.generate(
