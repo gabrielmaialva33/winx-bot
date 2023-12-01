@@ -50,7 +50,7 @@ def audio_inference(bot, message, character):
     )
 
     client = Client(
-        "https://juuxn-simplervc.hf.space/--replicas/h4jl4/", output_dir="./downloads"
+        "https://juuxn-simplervc.hf.space/--replicas/8j26w/", output_dir="./downloads"
     )
     audio_path = check_and_download_audio(bot, message)
     if audio_path is None:
