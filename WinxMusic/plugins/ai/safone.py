@@ -1,7 +1,7 @@
 from pyrogram import *
 from SafoneAPI import SafoneAPI
 
-from WinxMusic import app, LOGGER
+from WinxMusic import LOGGER, app
 
 api = SafoneAPI()
 
@@ -19,10 +19,12 @@ async def gpt3(_, message):
 
     try:
         response = await api.chatgpt(input_text, chat_mode="assistant", version=4)
-        await reply_message.edit(f"<b>🤖 Resposta:</b> <i>{response.choices[0].message.content}</i>"
-                                 f"\n\n<b>ℹ️ Tokens:</b> <code>{response.usage.total_tokens}</code>"
-                                 f"\n<b>🔎 Tokens de conclusão:</b> <code>{response.usage.completion_tokens}</code>"
-                                 f"\n<b>📝 Tokens de prompt:</b> <code>{response.usage.prompt_tokens}</code>")
+        await reply_message.edit(
+            f"<b>🤖 Resposta:</b> <i>{response.choices[0].message.content}</i>"
+            f"\n\n<b>ℹ️ Tokens:</b> <code>{response.usage.total_tokens}</code>"
+            f"\n<b>🔎 Tokens de conclusão:</b> <code>{response.usage.completion_tokens}</code>"
+            f"\n<b>📝 Tokens de prompt:</b> <code>{response.usage.prompt_tokens}</code>"
+        )
     except Exception as e:
         LOGGER(__name__).error(e)
         await reply_message.edit("🚫 Algo deu errado!")
@@ -41,10 +43,12 @@ async def gpt3(_, message):
 
     try:
         response = await api.chatgpt(input_text, chat_mode="assistant", version=4)
-        await reply_message.edit(f"<b>🤖 Resposta:</b> <i>{response.choices[0].message.content}</i>"
-                                 f"\n\n<b>ℹ️ Tokens:</b> <code>{response.usage.total_tokens}</code>"
-                                 f"\n<b>🔎 Tokens de conclusão:</b> <code>{response.usage.completion_tokens}</code>"
-                                 f"\n<b>📝 Tokens de prompt:</b> <code>{response.usage.prompt_tokens}</code>")
+        await reply_message.edit(
+            f"<b>🤖 Resposta:</b> <i>{response.choices[0].message.content}</i>"
+            f"\n\n<b>ℹ️ Tokens:</b> <code>{response.usage.total_tokens}</code>"
+            f"\n<b>🔎 Tokens de conclusão:</b> <code>{response.usage.completion_tokens}</code>"
+            f"\n<b>📝 Tokens de prompt:</b> <code>{response.usage.prompt_tokens}</code>"
+        )
     except Exception as e:
         LOGGER(__name__).error(e)
         await reply_message.edit("🚫 Algo deu errado!")
