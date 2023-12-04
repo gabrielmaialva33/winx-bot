@@ -11,6 +11,7 @@ from WinxMusic import app
 API_URL = "https://api.qewertyy.me/models"
 API_TIMEOUT = 30
 
+
 # --------------------------------------------------------------------------------- #
 
 
@@ -34,7 +35,7 @@ async def gpt_chatbot(_client, message):
 
     try:
         async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             result_msg = await message.reply("...")
 

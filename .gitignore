@@ -11,3 +11,5 @@ __pycache__/
 .idea/
 unknown_errors.txt
 *.env
+
+WinxMusic/plugins/ai/openai.env
