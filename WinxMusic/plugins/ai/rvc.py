@@ -7,7 +7,7 @@ from pyrogram.types import Message
 from unidecode import unidecode
 
 import config
-from WinxMusic import LOGGER, app
+from WinxMusic import app
 from WinxMusic.misc import AUTHORIZED_CHATS
 
 # Constantes para mensagens
@@ -19,9 +19,7 @@ INFERRED_AUDIO_CAPTION = "🎙️𝗔𝘂𝗱𝗶𝗼 𝗶𝗻𝗳𝗲𝗿𝗶�
 API_URL = "https://juuxn-simplervc.hf.space/--replicas/8j26w/"
 
 # Modelo e URL de cada personagem
-MODEL_URLS = {
-    "lule": "https://huggingface.co/juuxn/RVCModels/resolve/main/Lula.zip"
-}
+MODEL_URLS = {"lule": "https://huggingface.co/juuxn/RVCModels/resolve/main/Lula.zip"}
 
 
 def check_and_download_audio(bot, message, max_duration=60):
@@ -76,13 +74,15 @@ def text_to_speech(bot, message, character):
 
     try:
         model_url = MODEL_URLS.get(character, "")
-        result = client.predict(text,
-                                model_url,
-                                "Edge-tts",
-                                "pt-BR-AntonioNeural-Male",
-                                "bc350aa45093bd4b6d2b3ba9a381a404",
-                                "pt",
-                                fn_index=1)
+        result = client.predict(
+            text,
+            model_url,
+            "Edge-tts",
+            "pt-BR-AntonioNeural-Male",
+            "bc350aa45093bd4b6d2b3ba9a381a404",
+            "pt",
+            fn_index=1,
+        )
         file_path = result[1]
         if file_path:
             new_name = f"./downloads/{character.capitalize()}_{unidecode(message.from_user.first_name).strip().replace(' ', '_')}.wav"
@@ -93,7 +93,9 @@ def text_to_speech(bot, message, character):
                 caption=INFERRED_AUDIO_CAPTION.format(character.capitalize()),
             )
         else:
-            message.reply_text("𝗘𝗿𝗿𝗼𝗿 𝗮𝗼 𝗶𝗻𝗳𝗲𝗿𝗶𝗿 𝗼 𝘁𝗲𝘅𝘁𝗼 𝗶𝗻𝘁𝗿𝗼𝗱𝘂𝘇𝗶𝗱𝗼 𝗻𝗮 𝗺𝗲𝗻𝘀𝗮𝗴𝗲𝗺 𝗱𝗲 𝗮𝘂𝗱𝗶𝗼")
+            message.reply_text(
+                "𝗘𝗿𝗿𝗼𝗿 𝗮𝗼 𝗶𝗻𝗳𝗲𝗿𝗶𝗿 𝗼 𝘁𝗲𝘅𝘁𝗼 𝗶𝗻𝘁𝗿𝗼𝗱𝘂𝘇𝗶𝗱𝗼 𝗻𝗮 𝗺𝗲𝗻𝘀𝗮𝗴𝗲𝗺 𝗱𝗲 𝗮𝘂𝗱𝗶𝗼"
+            )
 
     except Exception as e:
         message.reply_text(ERROR_MESSAGE.format(e))
