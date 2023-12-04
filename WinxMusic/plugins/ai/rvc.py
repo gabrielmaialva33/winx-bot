@@ -50,7 +50,7 @@ def audio_inference(bot, message, character):
     try:
         model_url = MODEL_URLS.get(character, "")
         result = client.predict(
-            model_url, "rmvpe", audio_path, 0, -12, 0, 0, 0, fn_index=0
+            model_url, "harvest,harvest", audio_path, 0, -12, 0, 0, 0, fn_index=0
         )
 
         file_path = result[1]
