@@ -6,7 +6,7 @@ from WinxMusic import LOGGER, app
 api = SafoneAPI()
 
 
-@app.on_message(filters.command(["gpt3", "gpt"], ["!", "/"]))
+@app.on_message(filters.command(["chatgpt3", "chatgpt"], ["!", "/"]))
 async def gpt3(_, message):
     if len(message.command) < 2:
         return message.reply_text(
@@ -30,7 +30,7 @@ async def gpt3(_, message):
         await reply_message.edit("🚫 Algo deu errado!")
 
 
-@app.on_message(filters.command(["gpt4"], ["!", "/"]))
+@app.on_message(filters.command(["chatgpt4"], ["!", "/"]))
 async def gpt3(_, message):
     if len(message.command) < 2:
         return message.reply_text(
