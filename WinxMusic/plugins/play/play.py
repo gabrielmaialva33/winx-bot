@@ -59,7 +59,7 @@ async def play_commnd(
             _["promote_1"],
         )
 
-    # check if user can send messages in chat
+    # check if user can send messages or not
     if (
         not await Winx.can_send_messages(message)
         | await Winx.can_send_media_messages(message)
