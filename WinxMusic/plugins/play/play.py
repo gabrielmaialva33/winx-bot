@@ -54,26 +54,35 @@ async def play_commnd(
     url,
     fplay,
 ):
-    # check if bot (me) can send messages
     chat = await app.get_chat(message.chat.id)
     me = await app.get_me()
     member = await chat.get_member(me.id)
     LOGGER(__name__).info(member)
+
     if member.status != ChatMemberStatus.ADMINISTRATOR:
         return await message.reply_text(_["promote_1"])
-    if (
-        member.privileges.can_manage_chat
-        != True | member.privileges.can_delete_messages
-        != True | member.privileges.can_manage_video_chats
-        != True | member.privileges.can_restrict_members
-        != True | member.privileges.can_promote_members
-        != True | member.privileges.can_change_info
-        != True | member.privileges.can_edit_messages
-        != True | member.privileges.can_invite_users
-        != True | member.privileges.can_pin_messages
-        != True
-    ):
+    elif not member.privileges.can_manage_chat:
         return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_delete_messages:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_manage_video_chats:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_restrict_members:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_promote_members:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_change_info:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_post_messages:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_edit_messages:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_invite_users:
+        return await message.reply_text(_["promote_2"])
+    elif not member.privileges.can_pin_messages:
+        return await message.reply_text(_["promote_2"])
+    else:
+        pass
 
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
