@@ -53,12 +53,6 @@ async def play_commnd(
     url,
     fplay,
 ):
-    # check if user is admin or not
-    if not await Winx.is_admin(message.from_user.id, message.chat.id):
-        return await message.reply_text(
-            _["promote_1"],
-        )
-
     # check if user can send messages or not
     if (
         not await Winx.can_send_messages(message)
