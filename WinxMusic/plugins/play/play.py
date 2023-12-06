@@ -55,14 +55,14 @@ async def play_commnd(
 ):
     # check if user can send messages or not
     if (
-        not await Winx.can_send_messages(message)
-        | await Winx.can_send_media_messages(message)
-        | await Winx.can_send_other_messages(message)
-        | await Winx.can_send_polls(message)
-        | await Winx.can_add_web_page_previews(message)
-        | await Winx.can_change_info(message)
-        | await Winx.can_invite_users(message)
-        | await Winx.can_pin_messages(message)
+        not await app.can_send_messages(message)
+        | await app.can_send_media_messages(message)
+        | await app.can_send_other_messages(message)
+        | await app.can_send_polls(message)
+        | await app.can_add_web_page_previews(message)
+        | await app.can_change_info(message)
+        | await app.can_invite_users(message)
+        | await app.can_pin_messages(message)
     ):
         return await message.reply_text(
             _["promote_2"],
