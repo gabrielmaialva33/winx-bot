@@ -57,7 +57,6 @@ async def play_commnd(
     chat = await app.get_chat(message.chat.id)
     me = await app.get_me()
     member = await chat.get_member(me.id)
-    LOGGER(__name__).info(member)
 
     if member.status != ChatMemberStatus.ADMINISTRATOR:
         return await message.reply_text(_["promote_1"])
