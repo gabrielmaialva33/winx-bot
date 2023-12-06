@@ -56,7 +56,13 @@ async def play_commnd(
     # check if user is admin or not
     if not await Winx.is_admin(message.from_user.id, message.chat.id):
         return await message.reply_text(
-            _["cplay_4"],
+            _["promote_1"],
+        )
+
+    # check if user can send messages in chat
+    if not await Winx.can_send_messages(message) | await Winx.can_send_media_messages(message) | await Winx.can_send_other_messages(message) | await Winx.can_send_polls(message) | await Winx.can_add_web_page_previews(message) | await Winx.can_change_info(message) | await Winx.can_invite_users(message) | await Winx.can_pin_messages(message):
+        return await message.reply_text(
+            _["promote_2"],
         )
 
     mystic = await message.reply_text(
