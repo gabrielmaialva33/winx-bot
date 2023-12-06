@@ -2,6 +2,7 @@ import random
 import string
 
 from pyrogram import filters
+from pyrogram.enums import ChatMemberStatus
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 
@@ -43,15 +44,15 @@ from WinxMusic.utils.stream.stream import stream
 )
 @PlayWrapper
 async def play_commnd(
-        client,
-        message: Message,
-        _,
-        chat_id,
-        video,
-        channel,
-        playmode,
-        url,
-        fplay,
+    client,
+    message: Message,
+    _,
+    chat_id,
+    video,
+    channel,
+    playmode,
+    url,
+    fplay,
 ):
     # check if bot (me) can send messages
     chat = await app.get_chat(message.chat.id)
@@ -165,9 +166,9 @@ async def play_commnd(
     #     }
     # }
     LOGGER(__name__).info(member)
-    if member.status != "ChatMemberStatus.ADMINISTRATOR":
+    if member.status != ChatMemberStatus.ADMINISTRATOR:
         return await message.reply_text(_["promote_1"])
-    if member.privileges.can_manage_chat != True | member.privileges.can_delete_messages != True | member.privileges.can_manage_video_chats != True | member.privileges.can_restrict_members != True | member.privileges.can_promote_members != True | member.privileges.can_change_info != True | member.privileges.can_edit_messages != True | member.privileges.can_invite_users != True | member.privileges.can_pin_messages != True:
+    if member.privileges.can_manage_chat != True | member.privileges.can_delete_messages != True | member.privileges.can_manage_video_chats != True | member.privileges.can_restrict_members != True | member.privileges.can_promote_members != True | member.privileges.can_change_info != True | member.privileges.can_post_messages != True | member.privileges.can_edit_messages != True | member.privileges.can_invite_users != True | member.privileges.can_pin_messages != True:
         return await message.reply_text(_["promote_2"])
     else:
         pass
