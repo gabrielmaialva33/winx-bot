@@ -63,23 +63,23 @@ async def play_commnd(
     elif not member.privileges.can_manage_chat:
         return await message.reply_text(_["promote_2"])
     elif not member.privileges.can_delete_messages:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_3"])
     elif not member.privileges.can_manage_video_chats:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_4"])
     elif not member.privileges.can_restrict_members:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_5"])
     elif not member.privileges.can_promote_members:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_6"])
     elif not member.privileges.can_change_info:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_7"])
     elif not member.privileges.can_post_messages:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_8"])
     elif not member.privileges.can_edit_messages:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_9"])
     elif not member.privileges.can_invite_users:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_10"])
     elif not member.privileges.can_pin_messages:
-        return await message.reply_text(_["promote_2"])
+        return await message.reply_text(_["promote_11"])
     else:
         pass
 
