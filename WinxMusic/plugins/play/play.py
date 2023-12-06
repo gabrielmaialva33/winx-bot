@@ -53,6 +53,12 @@ async def play_commnd(
     url,
     fplay,
 ):
+    # check if user is admin or not
+    if not await Winx.is_admin(message.from_user.id, message.chat.id):
+        return await message.reply_text(
+            _["cplay_4"],
+        )
+
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
