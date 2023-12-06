@@ -8,7 +8,7 @@ from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
 from config import BANNED_USERS, lyrical
-from WinxMusic import LOGGER, Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
+from WinxMusic import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.utils import seconds_to_min, time_to_seconds
 from WinxMusic.utils.channelplay import get_channeplayCB
