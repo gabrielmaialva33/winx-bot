@@ -7,7 +7,7 @@ from pytgcalls.exceptions import NoActiveGroupCall
 
 import config
 from config import BANNED_USERS, lyrical
-from WinxMusic import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
+from WinxMusic import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app, LOGGER
 from WinxMusic.core.call import Winx
 from WinxMusic.utils import seconds_to_min, time_to_seconds
 from WinxMusic.utils.channelplay import get_channeplayCB
@@ -43,30 +43,134 @@ from WinxMusic.utils.stream.stream import stream
 )
 @PlayWrapper
 async def play_commnd(
-    client,
-    message: Message,
-    _,
-    chat_id,
-    video,
-    channel,
-    playmode,
-    url,
-    fplay,
+        client,
+        message: Message,
+        _,
+        chat_id,
+        video,
+        channel,
+        playmode,
+        url,
+        fplay,
 ):
-    # check if user can send messages or not
-    if (
-        not await client.can_send_messages(message)
-        | await client.can_send_media_messages(message)
-        | await client.can_send_other_messages(message)
-        | await client.can_send_polls(message)
-        | await client.can_add_web_page_previews(message)
-        | await client.can_change_info(message)
-        | await client.can_invite_users(message)
-        | await client.can_pin_messages(message)
-    ):
-        return await message.reply_text(
-            _["promote_2"],
-        )
+    # check if bot (me) can send messages
+    chat = await app.get_chat(message.chat.id)
+    me = await app.get_me()
+    member = await chat.get_member(me.id)
+    #  {
+    #     "_": "ChatMember",
+    #     "status": "ChatMemberStatus.ADMINISTRATOR",
+    #     "user": {
+    #         "_": "User",
+    #         "id": 5832522252,
+    #         "is_self": true,
+    #         "is_contact": false,
+    #         "is_mutual_contact": false,
+    #         "is_deleted": false,
+    #         "is_bot": true,
+    #         "is_verified": false,
+    #         "is_restricted": false,
+    #         "is_scam": false,
+    #         "is_fake": false,
+    #         "is_support": false,
+    #         "is_premium": false,
+    #         "first_name": "𝗖𝗶𝗻𝗲𝗪𝗶𝗻𝘅𝗕𝗼𝘁",
+    #         "username": "cinewinxbot",
+    #         "dc_id": 1,
+    #         "photo": {
+    #             "_": "ChatPhoto",
+    #             "small_file_id": "AQADAQADQKwxG9OqmUYAEAIAAww6pVsBAANgmxuZfzTXeAAEHgQ",
+    #             "small_photo_unique_id": "AgADQKwxG9OqmUY",
+    #             "big_file_id": "AQADAQADQKwxG9OqmUYAEAMAAww6pVsBAANgmxuZfzTXeAAEHgQ",
+    #             "big_photo_unique_id": "AgADQKwxG9OqmUY"
+    #         }
+    #     },
+    #     "joined_date": "2023-11-21 22:25:14",
+    #     "invited_by": {
+    #         "_": "User",
+    #         "id": 5643634626,
+    #         "is_self": false,
+    #         "is_contact": false,
+    #         "is_mutual_contact": false,
+    #         "is_deleted": false,
+    #         "is_bot": false,
+    #         "is_verified": false,
+    #         "is_restricted": false,
+    #         "is_scam": false,
+    #         "is_fake": false,
+    #         "is_support": false,
+    #         "is_premium": true,
+    #         "first_name": "M͎̪̯̝͓̥̣̲͔͎͕̉̓͂̒͂͐̚ａｉａ 𓆏",
+    #         "status": "UserStatus.RECENTLY",
+    #         "username": "mrootx",
+    #         "language_code": "pt-br",
+    #         "emoji_status": {
+    #             "_": "EmojiStatus",
+    #             "custom_emoji_id": 5852513585049111975
+    #         },
+    #         "dc_id": 1,
+    #         "photo": {
+    #             "_": "ChatPhoto",
+    #             "small_file_id": "AQADAQADwqsxG52NSUcAEAIAA8IHY1ABAANBrPTD2XryhAAEHgQ",
+    #             "small_photo_unique_id": "AgADwqsxG52NSUc",
+    #             "big_file_id": "AQADAQADwqsxG52NSUcAEAMAA8IHY1ABAANBrPTD2XryhAAEHgQ",
+    #             "big_photo_unique_id": "AgADwqsxG52NSUc"
+    #         }
+    #     },
+    #     "promoted_by": {
+    #         "_": "User",
+    #         "id": 5643634626,
+    #         "is_self": false,
+    #         "is_contact": false,
+    #         "is_mutual_contact": false,
+    #         "is_deleted": false,
+    #         "is_bot": false,
+    #         "is_verified": false,
+    #         "is_restricted": false,
+    #         "is_scam": false,
+    #         "is_fake": false,
+    #         "is_support": false,
+    #         "is_premium": true,
+    #         "first_name": "M͎̪̯̝͓̥̣̲͔͎͕̉̓͂̒͂͐̚ａｉａ 𓆏",
+    #         "status": "UserStatus.RECENTLY",
+    #         "username": "mrootx",
+    #         "language_code": "pt-br",
+    #         "emoji_status": {
+    #             "_": "EmojiStatus",
+    #             "custom_emoji_id": 5852513585049111975
+    #         },
+    #         "dc_id": 1,
+    #         "photo": {
+    #             "_": "ChatPhoto",
+    #             "small_file_id": "AQADAQADwqsxG52NSUcAEAIAA8IHY1ABAANBrPTD2XryhAAEHgQ",
+    #             "small_photo_unique_id": "AgADwqsxG52NSUc",
+    #             "big_file_id": "AQADAQADwqsxG52NSUcAEAMAA8IHY1ABAANBrPTD2XryhAAEHgQ",
+    #             "big_photo_unique_id": "AgADwqsxG52NSUc"
+    #         }
+    #     },
+    #     "can_be_edited": false,
+    #     "privileges": {
+    #         "_": "ChatPrivileges",
+    #         "can_manage_chat": true,
+    #         "can_delete_messages": true,
+    #         "can_manage_video_chats": true,
+    #         "can_restrict_members": true,
+    #         "can_promote_members": false,
+    #         "can_change_info": true,
+    #         "can_post_messages": false,
+    #         "can_edit_messages": false,
+    #         "can_invite_users": true,
+    #         "can_pin_messages": true,
+    #         "is_anonymous": false
+    #     }
+    # }
+    LOGGER(__name__).info(member)
+    if member.status != "ChatMemberStatus.ADMINISTRATOR":
+        return await message.reply_text(_["promote_1"])
+    if member.privileges.can_manage_chat != True | member.privileges.can_delete_messages != True | member.privileges.can_manage_video_chats != True | member.privileges.can_restrict_members != True | member.privileges.can_promote_members != True | member.privileges.can_change_info != True | member.privileges.can_edit_messages != True | member.privileges.can_invite_users != True | member.privileges.can_pin_messages != True:
+        return await message.reply_text(_["promote_2"])
+    else:
+        pass
 
     mystic = await message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
