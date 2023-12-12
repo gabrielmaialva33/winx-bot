@@ -3,6 +3,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from WinxMusic import app
+from config import BANNED_USERS
 
 # --------------------------------------------------------------------------------- #
 
@@ -638,7 +639,7 @@ def waifu(_, m: Message):
 
 
 # only for pv chat
-@app.on_message(filters.command("trap"))
+@app.on_message(filters.command("trap") & filters.private & ~BANNED_USERS)
 def trap(_, m: Message):
     reply = m.reply_to_message
     if reply:
@@ -651,7 +652,7 @@ def trap(_, m: Message):
         m.reply_photo(photo=url, caption=f"𝗧𝗿𝗮𝗽 🪤🚫 {m.from_user.first_name}")
 
 
-@app.on_message(filters.command("mamada"))
+@app.on_message(filters.command("mamada") & filters.private & ~BANNED_USERS)
 def mamada(_, m: Message):
     reply = m.reply_to_message
     if reply:
@@ -666,7 +667,7 @@ def mamada(_, m: Message):
         m.reply_animation(animation=url, caption=f"𝗠𝗮𝗺𝗮𝗻𝗱𝗼 🍼 {m.from_user.first_name}")
 
 
-@app.on_message(filters.command("neko_xxx"))
+@app.on_message(filters.command("neko_xxx") & filters.private & ~BANNED_USERS)
 def neko_xxx(_, m: Message):
     reply = m.reply_to_message
     if reply:
@@ -679,7 +680,7 @@ def neko_xxx(_, m: Message):
         m.reply_photo(photo=url, caption=f"𝗡𝗲𝗸𝗼 {m.from_user.first_name}")
 
 
-@app.on_message(filters.command("wifu_xxx"))
+@app.on_message(filters.command("wifu_xxx") & filters.private & ~BANNED_USERS)
 def wifu_xxx(_, m: Message):
     reply = m.reply_to_message
     if reply:
