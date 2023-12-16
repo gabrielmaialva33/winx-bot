@@ -3,8 +3,8 @@ import asyncio
 import aiohttp
 from pyrogram import filters
 
-from WinxMusic import app
 from config import BANNED_USERS
+from WinxMusic import app
 
 # --------------------------------------------------------------------------------- #
 
@@ -35,7 +35,7 @@ async def gpt3(_client, message):
 
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             result_msg = await message.reply("...")
 
@@ -67,7 +67,7 @@ async def gpt4(_client, message):
 
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             result_msg = await message.reply("...")
 
