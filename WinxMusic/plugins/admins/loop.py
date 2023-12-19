@@ -1,11 +1,11 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import get_loop, set_loop
 from WinxMusic.utils.decorators import AdminRightsCheck
 from WinxMusic.utils.inline import close_markup
+from config import BANNED_USERS
 
 
 @app.on_message(filters.command(["loop", "cloop"]) & filters.group & ~BANNED_USERS)

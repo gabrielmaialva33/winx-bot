@@ -2,8 +2,8 @@ import requests
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS
 from WinxMusic import app
+from config import BANNED_USERS
 
 # --------------------------------------------------------------------------------- #
 
