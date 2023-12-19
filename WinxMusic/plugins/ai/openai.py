@@ -1,16 +1,16 @@
 import os
 import random
 
-from PIL import Image
 from openai import OpenAI
+from PIL import Image
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
 
 import config
+from config import OPEN_AI_API_KEY
 from WinxMusic import LOGGER, app
 from WinxMusic.misc import AUTHORIZED_CHATS
-from config import OPEN_AI_API_KEY
 
 EXAMPLE_MESSAGE = "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- {}"
 ERROR_MESSAGE = "**𝗘𝗿𝗿𝗼𝗿**: {} "
