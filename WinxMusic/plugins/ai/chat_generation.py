@@ -1,9 +1,10 @@
 import aiohttp
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from WinxMusic import app
-from WinxMusic.helpers.misc import get_text, ChatModels
+
 from config import BANNED_USERS
+from WinxMusic import app
+from WinxMusic.helpers.misc import ChatModels, get_text
 
 # --------------------------------------------------------------------------------------
 # Chat AI
@@ -23,10 +24,9 @@ prompt_db = {}
 
 # --------------------------------------------------------------------------------------
 
+
 @app.on_message(
-    filters.command(["gpt"], prefixes=["/", "!"])
-    & filters.group
-    & ~BANNED_USERS
+    filters.command(["gpt"], prefixes=["/", "!"]) & filters.group & ~BANNED_USERS
 )
 async def generate_text(_, message: Message):
     prompt = await get_text(message)
@@ -50,7 +50,7 @@ def generate_text_buttons(user_id):
         )
         for model in ChatModels
     ]
-    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^text.(.*)"))
@@ -72,7 +72,7 @@ async def generate_response(_, query):
 async def process_text_generation(query, model_id, prompt_data):
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             api_params = {"model_id": model_id, "prompt": prompt_data["prompt"]}
 
