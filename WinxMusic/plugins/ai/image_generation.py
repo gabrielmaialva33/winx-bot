@@ -6,20 +6,26 @@ from pyrogram.types import (
     Message,
 )
 
-from config import BANNED_USERS, GLOBAL_IMG_URL
+from config import BANNED_USERS
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.lexica_api import image_generation
 from WinxMusic.helpers.misc import ImageModels, get_text
 
-# É recomendado usar uma alternativa para substituir essa variável global
-prompt_db = {}
+# --------------------------------------------------------------------------------------
+# Image AI
+# --------------------------------------------------------------------------------------
 
-# Constantes para mensagens
+
 PROMPT_MISSING_MSG = "➜ você não me deu um prompt para desenhar!"
 CHOOSE_MODEL_MSG = "➜ Escolha um modelo"
 ERROR_MSG = "➜ algo deu errado, tente novamente mais tarde"
 DRAWING_MSG = "➜ desenhando..."
 NOT_YOUR_REQUEST_MSG = "➜ não é seu pedido!"
+
+prompt_db = {}
+
+
+# --------------------------------------------------------------------------------------
 
 
 @app.on_message(
@@ -37,7 +43,7 @@ async def generate(_, message: Message):
     btns = generate_buttons(user.id)
 
     await message.reply_animation(
-        GLOBAL_IMG_URL,
+        "https://64.media.tumblr.com/ac0bd0dbb6d9e3c7471630584e58b668/42dbca30b09f38f4-36/s1280x1920/ec602883a8242946698b201505bc7a47ac2f6afe.gifv",
         caption=CHOOSE_MODEL_MSG,
         reply_markup=InlineKeyboardMarkup(btns),
     )
@@ -50,7 +56,7 @@ def generate_buttons(user_id):
         )
         for model in ImageModels
     ]
-    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^draw.(.*)"))

@@ -10,7 +10,6 @@ import config
 from WinxMusic import app
 from WinxMusic.misc import AUTHORIZED_CHATS
 
-# Constantes para mensagens
 AUDIO_LONG_MESSAGE = "🎙️ Áudio muito longo 🚫. Máximo ⏱️ 60 segundos ⏳."
 REPLY_AUDIO_MESSAGE = "👋 Olá winxer 🤖\n💡 Exemplo: - !{} [responder a um 🎙️ áudio] 💬"
 ERROR_MESSAGE = "❌ erro: {} 💬"
@@ -18,7 +17,6 @@ INFERRED_AUDIO_CAPTION = "🎙️𝗔𝘂𝗱𝗶𝗼 𝗶𝗻𝗳𝗲𝗿𝗶�
 
 API_URL = "https://juuxn-simplervc.hf.space/--replicas/8j26w/"
 
-# Modelo e URL de cada personagem
 MODEL_URLS = {"lule": "https://huggingface.co/juuxn/RVCModels/resolve/main/Lula.zip"}
 
 
@@ -42,7 +40,7 @@ def check_and_download_audio(bot, message, max_duration=60):
 
 
 def audio_inference(bot, message, character):
-    client = Client(API_URL, output_dir="./downloads")
+    client = Client(API_URL, output_dir=os.path.join(os.getcwd(), "downloads"))
     audio_path = check_and_download_audio(bot, message)
     if audio_path is None:
         return
@@ -50,7 +48,7 @@ def audio_inference(bot, message, character):
     try:
         model_url = MODEL_URLS.get(character, "")
         result = client.predict(
-            model_url, "harvest,harvest", audio_path, 0, -12, 0, 0, 0, fn_index=0
+            model_url, "rmvpe", audio_path, 0, -12, 0, 0, 0, fn_index=0
         )
 
         file_path = result[1]
@@ -69,7 +67,7 @@ def audio_inference(bot, message, character):
 
 
 def text_to_speech(bot, message, character):
-    client = Client(API_URL, output_dir="./downloads")
+    client = Client(API_URL, output_dir=os.path.join(os.getcwd(), "downloads"))
     text = message.text.split(None, 1)[1]
 
     try:
