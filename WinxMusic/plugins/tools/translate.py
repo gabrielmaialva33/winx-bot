@@ -1,8 +1,8 @@
 from gpytranslate import Translator
 from pyrogram import filters
 
-from WinxMusic import app
 from config import BANNED_USERS
+from WinxMusic import app
 
 # ------------------------------------------------------------------------------- #
 
@@ -39,5 +39,6 @@ async def translate(_, message) -> None:
     translation = await trans(to_translate, sourcelang=source, targetlang=dest)
     reply = f"𝗧𝗿𝗮𝗱𝘂𝘇𝗶𝗱𝗼 𝗱𝗲 {source} 🌐 𝗽𝗮𝗿𝗮  {dest}:\n" f"`{translation.text}`"
     await message.reply_text(reply)
+
 
 # ------------------------------------------------------------------------------- #

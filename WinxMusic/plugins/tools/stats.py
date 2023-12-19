@@ -9,6 +9,7 @@ from pyrogram.types import InputMediaPhoto, Message
 from pytgcalls.__version__ import __version__ as pytgver
 
 import config
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.core.userbot import assistants
 from WinxMusic.misc import SUDOERS, mongodb
@@ -16,7 +17,6 @@ from WinxMusic.plugins import ALL_MODULES
 from WinxMusic.utils.database import get_served_chats, get_served_users, get_sudoers
 from WinxMusic.utils.decorators.language import language, languageCB
 from WinxMusic.utils.inline.stats import back_stats_buttons, stats_buttons
-from config import BANNED_USERS
 
 
 @app.on_message(filters.command(["stats", "gstats"]) & filters.group & ~BANNED_USERS)
@@ -85,7 +85,7 @@ async def bot_stats(client, CallbackQuery, _):
     await CallbackQuery.edit_message_text(_["gstats_1"].format(app.mention))
     p_core = psutil.cpu_count(logical=False)
     t_core = psutil.cpu_count(logical=True)
-    ram = str(round(psutil.virtual_memory().total / (1024.0 ** 3))) + " ɢʙ"
+    ram = str(round(psutil.virtual_memory().total / (1024.0**3))) + " ɢʙ"
     try:
         cpu_freq = psutil.cpu_freq().current
         if cpu_freq >= 1000:
@@ -95,9 +95,9 @@ async def bot_stats(client, CallbackQuery, _):
     except:
         cpu_freq = "𝗙𝗮𝗹𝗵𝗮 𝗮𝗼 𝗯𝘂𝘀𝗰𝗮𝗿 🚫"
     hdd = psutil.disk_usage("/")
-    total = hdd.total / (1024.0 ** 3)
-    used = hdd.used / (1024.0 ** 3)
-    free = hdd.free / (1024.0 ** 3)
+    total = hdd.total / (1024.0**3)
+    used = hdd.used / (1024.0**3)
+    free = hdd.free / (1024.0**3)
     call = await mongodb.command("dbstats")
     datasize = call["dataSize"] / 1024
     storage = call["storageSize"] / 1024

@@ -1,12 +1,12 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
+from config import BANNED_USERS
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
 from WinxMusic.utils import AdminRightsCheck, seconds_to_min
 from WinxMusic.utils.inline import close_markup
-from config import BANNED_USERS
 
 
 @app.on_message(
