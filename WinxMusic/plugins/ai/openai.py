@@ -13,7 +13,7 @@ from WinxMusic import LOGGER, app
 from WinxMusic.misc import AUTHORIZED_CHATS
 
 EXAMPLE_MESSAGE = "𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- {}"
-ERROR_MESSAGE = "**𝗘𝗿𝗿𝗼𝗿**: {} "
+ERROR_MESSAGE = "𝗘𝗿𝗿𝗼𝗿: {} "
 GPT4_MODEL = "gpt-4"
 DALI_MODEL = "dall-e-3"
 TTS_MODEL = "tts-1"
@@ -71,7 +71,8 @@ async def process_and_reply(client, bot, message, model, prompt, is_image=False)
             text_response = response.choices[0].message.content
             await message.reply_text(text_response)
     except Exception as e:
-        await message.reply_text(ERROR_MESSAGE.format(e))
+        error_message = e.args[0]["error"]["message"]
+        await message.reply_text(ERROR_MESSAGE.format(error_message))
 
 
 # Handlers para GPT-4, DALL-E-3, e outros
@@ -130,7 +131,8 @@ async def variation(bot, message: Message):
         image_url = response.data[0].url
         await message.reply_photo(photo=image_url)
     except Exception as e:
-        await message.reply_text(ERROR_MESSAGE.format(e))
+        error_message = e.args[0]["error"]["message"]
+        await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(file_path)
 
@@ -168,7 +170,8 @@ async def edit_image(bot, message: Message):
         image_url = response.data[0].url
         await message.reply_photo(photo=image_url, caption=prompt)
     except Exception as e:
-        await message.reply_text(ERROR_MESSAGE.format(e))
+        error_message = e.args[0]["error"]["message"]
+        await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(file_path)
 
@@ -202,6 +205,7 @@ async def tts(bot, message: Message):
 
         await message.reply_audio(audio=tts_path, caption=f"by voice: {voice}")
     except Exception as e:
-        await message.reply_text(ERROR_MESSAGE.format(e))
+        error_message = e.args[0]["error"]["message"]
+        await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(tts_path)
