@@ -80,7 +80,7 @@ class Winx(Client):
                         BotCommand("playmode", "Alterna entre os modos de reprodução"),
                         BotCommand("settings", "Abre o menu de configurações"),
                         BotCommand("gpt", "Chat com a AI"),
-                        BotCommand("draw", "Desenhe com a AI")
+                        BotCommand("draw", "Desenhe com a AI"),
                     ]
                 )
             except Exception as e:
