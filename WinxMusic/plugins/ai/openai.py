@@ -1,10 +1,12 @@
 import os
 import random
+
+from openai import OpenAI
 from PIL import Image
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
-from openai import OpenAI
+
 import config
 from config import OPEN_AI_API_KEY
 from WinxMusic import LOGGER, app
@@ -71,14 +73,14 @@ async def process_and_reply(client, bot, message, model, prompt, is_image=False)
             await message.reply_text(text_response)
     except Exception as e:
         error_message = "➜ algo deu errado, tente novamente mais tarde"
-        if hasattr(e, 'args') and e.args:
+        if hasattr(e, "args") and e.args:
             error_detail = e.args[0]
-            if isinstance(error_detail, dict) and 'error' in error_detail:
-                error_code = error_detail['error'].get('code')
+            if isinstance(error_detail, dict) and "error" in error_detail:
+                error_code = error_detail["error"].get("code")
                 if error_code in ErrorCodes:
                     error_message = ErrorCodes[error_code]
                 else:
-                    error_message = error_detail['error'].get('message', error_message)
+                    error_message = error_detail["error"].get("message", error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
 
 
@@ -135,14 +137,14 @@ async def variation(bot, message: Message):
         await message.reply_photo(photo=image_url)
     except Exception as e:
         error_message = "➜ algo deu errado, tente novamente mais tarde"
-        if hasattr(e, 'args') and e.args:
+        if hasattr(e, "args") and e.args:
             error_detail = e.args[0]
-            if isinstance(error_detail, dict) and 'error' in error_detail:
-                error_code = error_detail['error'].get('code')
+            if isinstance(error_detail, dict) and "error" in error_detail:
+                error_code = error_detail["error"].get("code")
                 if error_code in ErrorCodes:
                     error_message = ErrorCodes[error_code]
                 else:
-                    error_message = error_detail['error'].get('message', error_message)
+                    error_message = error_detail["error"].get("message", error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(file_path)
@@ -179,14 +181,14 @@ async def edit_image(bot, message: Message):
         await message.reply_photo(photo=image_url, caption=prompt)
     except Exception as e:
         error_message = "➜ algo deu errado, tente novamente mais tarde"
-        if hasattr(e, 'args') and e.args:
+        if hasattr(e, "args") and e.args:
             error_detail = e.args[0]
-            if isinstance(error_detail, dict) and 'error' in error_detail:
-                error_code = error_detail['error'].get('code')
+            if isinstance(error_detail, dict) and "error" in error_detail:
+                error_code = error_detail["error"].get("code")
                 if error_code in ErrorCodes:
                     error_message = ErrorCodes[error_code]
                 else:
-                    error_message = error_detail['error'].get('message', error_message)
+                    error_message = error_detail["error"].get("message", error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(file_path)
@@ -221,14 +223,14 @@ async def tts(bot, message: Message):
         await message.reply_audio(audio=tts_path, caption=f"by voice: {voice}")
     except Exception as e:
         error_message = "➜ algo deu errado, tente novamente mais tarde"
-        if hasattr(e, 'args') and e.args:
+        if hasattr(e, "args") and e.args:
             error_detail = e.args[0]
-            if isinstance(error_detail, dict) and 'error' in error_detail:
-                error_code = error_detail['error'].get('code')
+            if isinstance(error_detail, dict) and "error" in error_detail:
+                error_code = error_detail["error"].get("code")
                 if error_code in ErrorCodes:
                     error_message = ErrorCodes[error_code]
                 else:
-                    error_message = error_detail['error'].get('message', error_message)
+                    error_message = error_detail["error"].get("message", error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(tts_path)
