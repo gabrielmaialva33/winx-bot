@@ -21,6 +21,7 @@ CHOOSE_MODEL_MSG = "➜ Escolha um modelo"
 ERROR_MSG = "➜ algo deu errado, tente novamente mais tarde"
 DRAWING_MSG = "➜ desenhando..."
 NOT_YOUR_REQUEST_MSG = "➜ não é seu pedido!"
+GIF_URL = "https://64.media.tumblr.com/ac0bd0dbb6d9e3c7471630584e58b668/42dbca30b09f38f4-36/s1280x1920/ec602883a8242946698b201505bc7a47ac2f6afe.gifv"
 
 prompt_db = {}
 
@@ -40,12 +41,12 @@ async def generate(_, message: Message):
 
     user = message.from_user
     prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id}
-    btns = generate_buttons(user.id)
+    btn = generate_buttons(user.id)
 
     await message.reply_animation(
-        "https://64.media.tumblr.com/ac0bd0dbb6d9e3c7471630584e58b668/42dbca30b09f38f4-36/s1280x1920/ec602883a8242946698b201505bc7a47ac2f6afe.gifv",
+        GIF_URL,
         caption=CHOOSE_MODEL_MSG,
-        reply_markup=InlineKeyboardMarkup(btns),
+        reply_markup=InlineKeyboardMarkup(btn),
     )
 
 
@@ -56,7 +57,7 @@ def generate_buttons(user_id):
         )
         for model in ImageModels
     ]
-    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^draw.(.*)"))
@@ -84,7 +85,7 @@ async def process_drawing(query, model_id, prompt_data):
         images = [
             InputMediaDocument(
                 url,
-                caption=f"➜ prompt: {prompt_data['prompt']}\n\npoe: @{app.me.username}",
+                caption=f"➜ prompt: {prompt_data['prompt']}",
             )
             for url in img_url
         ]
@@ -96,4 +97,5 @@ async def process_drawing(query, model_id, prompt_data):
         del prompt_db[query.from_user.id]
     except Exception as e:
         LOGGER(__name__).error(e)
-        await query.message.reply_text(ERROR_MSG)
+        await query.message.edit_media(media="")
+        await query.message.edit_text(ERROR_MSG)

@@ -16,7 +16,7 @@ from WinxMusic.utils.inline import close_markup
 
 @app.on_message(filters.command("auth") & filters.group & ~BANNED_USERS)
 @AdminActual
-async def auth(client, message: Message, _):
+async def auth(_client, message: Message, _):
     if not message.reply_to_message:
         if len(message.command) != 2:
             return await message.reply_text(_["general_1"])

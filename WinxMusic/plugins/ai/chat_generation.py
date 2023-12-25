@@ -6,10 +6,6 @@ from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.helpers.misc import ChatModels, get_text
 
-# --------------------------------------------------------------------------------------
-# Chat AI
-# --------------------------------------------------------------------------------------
-
 API_URL = "https://api.qewertyy.me/models"
 API_TIMEOUT = 30
 
@@ -20,9 +16,6 @@ GENERATING_MSG = "➜ gerando resposta..."
 NOT_YOUR_REQUEST_MSG = "➜ não é seu pedido!"
 
 prompt_db = {}
-
-
-# --------------------------------------------------------------------------------------
 
 
 @app.on_message(

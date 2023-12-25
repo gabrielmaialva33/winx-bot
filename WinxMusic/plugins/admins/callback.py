@@ -3,6 +3,7 @@ import asyncio
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
+import config
 from config import (
     BANNED_USERS,
     SOUNCLOUD_IMG_URL,

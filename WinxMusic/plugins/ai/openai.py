@@ -1,12 +1,10 @@
 import os
 import random
-
-from openai import OpenAI
 from PIL import Image
 from pyrogram import filters
 from pyrogram.enums import ChatAction
 from pyrogram.types import Message
-
+from openai import OpenAI
 import config
 from config import OPEN_AI_API_KEY
 from WinxMusic import LOGGER, app
@@ -27,7 +25,6 @@ def clean_temp_file(file_path):
         os.remove(file_path)
 
 
-# Função para baixar e preparar imagem
 async def download_and_prepare_image(bot, message, file_name):
     await bot.download_media(message=message, file_name=file_name)
     file = Image.open(file_name)
@@ -35,7 +32,11 @@ async def download_and_prepare_image(bot, message, file_name):
     file.save(file_name)
 
 
-# Função para processar e enviar resposta
+ErrorCodes = {
+    "billing_hard_limit_reached": "Acabou nosso dinheiro, tente novamente mais tarde",
+}
+
+
 async def process_and_reply(client, bot, message, model, prompt, is_image=False):
     try:
         await bot.send_chat_action(
@@ -57,13 +58,11 @@ async def process_and_reply(client, bot, message, model, prompt, is_image=False)
                     },
                     {"role": "user", "content": user_input},
                 ],
-            )  # Adicione a lógica específica aqui
+            )
         elif model == DALI_MODEL:
             response = client.images.generate(
                 model=model, prompt=user_input, n=1, size="1024x1024"
             )
-        # Adicione mais condições conforme necessário
-
         if is_image:
             image_url = response.data[0].url
             return await message.reply_photo(photo=image_url, caption=user_input)
@@ -71,11 +70,18 @@ async def process_and_reply(client, bot, message, model, prompt, is_image=False)
             text_response = response.choices[0].message.content
             await message.reply_text(text_response)
     except Exception as e:
-        error_message = e.args[0]["error"]["message"]
+        error_message = "➜ algo deu errado, tente novamente mais tarde"
+        if hasattr(e, 'args') and e.args:
+            error_detail = e.args[0]
+            if isinstance(error_detail, dict) and 'error' in error_detail:
+                error_code = error_detail['error'].get('code')
+                if error_code in ErrorCodes:
+                    error_message = ErrorCodes[error_code]
+                else:
+                    error_message = error_detail['error'].get('message', error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
 
 
-# Handlers para GPT-4, DALL-E-3, e outros
 @app.on_message(
     filters.command(["gpt4"], prefixes=["!", "/"])
     & filters.group
@@ -111,7 +117,6 @@ async def generation(bot, message: Message):
 async def variation(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
-        # Get the image
         reply = message.reply_to_message
         if not reply.photo:
             return await message.reply_text("𝗢𝗹𝗮́ 𝘄𝗶𝗻𝘅𝗲𝗿\n𝗘𝘅𝗲𝗺𝗽𝗹𝗼:- !variar [imagem]")
@@ -121,17 +126,23 @@ async def variation(bot, message: Message):
 
         await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
-        # Send the image to OpenAI
         with open(file_path, "rb") as img_file:
             response = client.images.create_variation(
                 image=img_file, n=1, size="1024x1024"
             )
 
-        # Get the image url and send the image
         image_url = response.data[0].url
         await message.reply_photo(photo=image_url)
     except Exception as e:
-        error_message = e.args[0]["error"]["message"]
+        error_message = "➜ algo deu errado, tente novamente mais tarde"
+        if hasattr(e, 'args') and e.args:
+            error_detail = e.args[0]
+            if isinstance(error_detail, dict) and 'error' in error_detail:
+                error_code = error_detail['error'].get('code')
+                if error_code in ErrorCodes:
+                    error_message = ErrorCodes[error_code]
+                else:
+                    error_message = error_detail['error'].get('message', error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(file_path)
@@ -147,7 +158,6 @@ async def edit_image(bot, message: Message):
     client = OpenAI(api_key=OPEN_AI_API_KEY)
     try:
         LOGGER(__name__).info("command: /edit used by %s", message.from_user.first_name)
-        # Get the image
         reply = message.reply_to_message
         if not reply.photo or len(message.command) < 2:
             return await message.reply_text(
@@ -160,17 +170,23 @@ async def edit_image(bot, message: Message):
 
         await bot.send_chat_action(message.chat.id, ChatAction.UPLOAD_PHOTO)
 
-        # Send the image to OpenAI
         with open(file_path, "rb") as img_file:
             response = client.images.edit(
                 image=img_file, mask=img_file, n=1, size="1024x1024", prompt=prompt
             )
 
-        # Get the image url and send the image
         image_url = response.data[0].url
         await message.reply_photo(photo=image_url, caption=prompt)
     except Exception as e:
-        error_message = e.args[0]["error"]["message"]
+        error_message = "➜ algo deu errado, tente novamente mais tarde"
+        if hasattr(e, 'args') and e.args:
+            error_detail = e.args[0]
+            if isinstance(error_detail, dict) and 'error' in error_detail:
+                error_code = error_detail['error'].get('code')
+                if error_code in ErrorCodes:
+                    error_message = ErrorCodes[error_code]
+                else:
+                    error_message = error_detail['error'].get('message', error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(file_path)
@@ -196,7 +212,6 @@ async def tts(bot, message: Message):
         await bot.send_chat_action(message.chat.id, ChatAction.RECORD_AUDIO)
         response = client.audio.speech.create(model=TTS_MODEL, voice=voice, input=text)
 
-        # Convert to bytes
         audio_data = response.read()
 
         tts_path = os.path.join(DOWNLOADS_PATH, TTS_FILE)
@@ -205,7 +220,15 @@ async def tts(bot, message: Message):
 
         await message.reply_audio(audio=tts_path, caption=f"by voice: {voice}")
     except Exception as e:
-        error_message = e.args[0]["error"]["message"]
+        error_message = "➜ algo deu errado, tente novamente mais tarde"
+        if hasattr(e, 'args') and e.args:
+            error_detail = e.args[0]
+            if isinstance(error_detail, dict) and 'error' in error_detail:
+                error_code = error_detail['error'].get('code')
+                if error_code in ErrorCodes:
+                    error_message = ErrorCodes[error_code]
+                else:
+                    error_message = error_detail['error'].get('message', error_message)
         await message.reply_text(ERROR_MESSAGE.format(error_message))
     finally:
         clean_temp_file(tts_path)
