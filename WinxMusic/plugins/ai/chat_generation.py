@@ -43,7 +43,7 @@ def generate_text_buttons(user_id):
         )
         for model in ChatModels
     ]
-    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^text.(.*)"))
@@ -58,25 +58,23 @@ async def generate_response(_, query):
     if prompt_data is None:
         return await query.edit_message_text(ERROR_MSG)
 
-    model_id = data[1]
-    if model_id not in ChatModels.values():
-        return await query.edit_message_text(ERROR_MSG)
-    model_name = list(ChatModels.keys())[list(ChatModels.values()).index(model_id)]
-
-    await query.edit_message_text(f"{GENERATING_MSG}\n\nModelo: {model_name}")
+    await query.edit_message_text(GENERATING_MSG)
     await process_text_generation(query, data[1], prompt_data)
 
 
 async def process_text_generation(query, model_id, prompt_data):
     try:
         async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             api_params = {"model_id": model_id, "prompt": prompt_data["prompt"]}
 
             text_response = await get_chat_response(session, api_params)
             if text_response in [None, "error"]:
                 return await query.edit_message_text(ERROR_MSG)
+
+            model_name = list(ChatModels.keys())[list(ChatModels.values()).index(model_id)]
+            text_response = f"➜ <b>Modelo:</b> <code>{model_name}</code>\n\n <b>Resposta:</b> <i>{text_response}</i>"
 
             await query.message.reply_text(
                 text_response,
