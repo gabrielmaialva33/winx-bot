@@ -3,7 +3,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from config import BANNED_USERS
-from WinxMusic import app
+from WinxMusic import app, logging, LOGGER
 from WinxMusic.helpers.misc import ChatModels, get_text
 
 API_URL = "https://api.qewertyy.me/models"
@@ -43,7 +43,7 @@ def generate_text_buttons(user_id):
         )
         for model in ChatModels
     ]
-    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^text.(.*)"))
@@ -65,7 +65,7 @@ async def generate_response(_, query):
 async def process_text_generation(query, model_id, prompt_data):
     try:
         async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             api_params = {"model_id": model_id, "prompt": prompt_data["prompt"]}
 
@@ -79,13 +79,14 @@ async def process_text_generation(query, model_id, prompt_data):
             )
             del prompt_db[query.from_user.id]
     except Exception as e:
+        LOGGER(__name__).warning(str(e))
         await query.message.reply_text(ERROR_MSG)
     finally:
         await query.message.delete()
 
 
 async def get_chat_response(session, api_params):
-    async with session.post(API_URL, json=api_params) as response:
+    async with session.post(API_URL, params=api_params) as response:
         if response.status == 200:
             data = await response.json()
             return data.get("content", "error: api retornou um valor nulo")
