@@ -14,7 +14,7 @@ async def upscale(_, message):
     file = await get_file(message)
     if file is None:
         return await message.reply_text(
-            "💬 ➜ responda a uma mensagem com uma 🖼️ para 🔍 aumentar a escala ⬆️."
+            "💬 ➜ responda a uma mensagem com uma 🖼️ para 🔍 aumentar a escala ⬆️"
         )
 
     msg = await message.reply_text("<code>➜ ⏳ampliando a imagem... 💭</code>")

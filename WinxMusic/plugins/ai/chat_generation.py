@@ -10,9 +10,9 @@ API_URL = "https://api.qewertyy.me/models"
 API_TIMEOUT = 30
 
 PROMPT_MISSING_MSG = "🚨➜ você não me deu um prompt para gerar texto!"
-CHOOSE_MODEL_MSG = "🤔➜ Escolha um modelo de texto"
+CHOOSE_MODEL_MSG = "<b>🤔Escolha um modelo de texto</b>"
 ERROR_MSG = "⚠️➜ algo deu errado, tente novamente mais tarde"
-GENERATING_MSG = "⏳➜ gerando resposta..."
+GENERATING_MSG = "<code>🔍gerando...</code>"
 NOT_YOUR_REQUEST_MSG = "❌➜ não é seu prompt, não é sua resposta!"
 
 prompt_db = {}
