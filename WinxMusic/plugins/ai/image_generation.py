@@ -97,5 +97,4 @@ async def process_drawing(query, model_id, prompt_data):
         del prompt_db[query.from_user.id]
     except Exception as e:
         LOGGER(__name__).error(e)
-        await query.message.edit_media(media="")
         await query.message.edit_text(ERROR_MSG)
