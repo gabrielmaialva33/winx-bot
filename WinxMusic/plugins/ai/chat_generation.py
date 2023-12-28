@@ -58,7 +58,12 @@ async def generate_response(_, query):
     if prompt_data is None:
         return await query.edit_message_text(ERROR_MSG)
 
-    await query.edit_message_text(GENERATING_MSG)
+    model_id = data[1]
+    if model_id not in ChatModels.values():
+        return await query.edit_message_text(ERROR_MSG)
+    model_name = list(ChatModels.keys())[list(ChatModels.values()).index(model_id)]
+
+    await query.edit_message_text(f"{GENERATING_MSG}\n\nModelo: {model_name}")
     await process_text_generation(query, data[1], prompt_data)
 
 
