@@ -19,7 +19,7 @@ from WinxMusic.helpers.misc import ImageModels, get_text
 PROMPT_MISSING_MSG = "🖍️você não me deu um prompt para desenhar!"
 CHOOSE_MODEL_MSG = "🤖<b>Escolha um modelo de desenho</b>"
 ERROR_MSG = "🔴<b> algo deu errado, tente novamente mais tarde</b>"
-DRAWING_MSG = "<code>🎨desenhando...</code>"
+DRAWING_MSG = "<code>🎨 desenhando...</code>"
 NOT_YOUR_REQUEST_MSG = "🚫<b>não é seu pedido!</b>"
 GIF_URL = "https://64.media.tumblr.com/ac0bd0dbb6d9e3c7471630584e58b668/42dbca30b09f38f4-36/s1280x1920/ec602883a8242946698b201505bc7a47ac2f6afe.gifv"
 
@@ -93,6 +93,7 @@ async def process_drawing(query, model_id, prompt_data):
             )
             for url in img_url
         ]
+        await query.message.delete()
         await app.send_media_group(
             chat_id=query.message.chat.id,
             media=images,
