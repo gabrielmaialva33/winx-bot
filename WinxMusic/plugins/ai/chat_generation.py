@@ -9,11 +9,11 @@ from WinxMusic.helpers.misc import ChatModels, get_text
 API_URL = "https://api.qewertyy.me/models"
 API_TIMEOUT = 30
 
-PROMPT_MISSING_MSG = "➜ você não me deu um prompt para gerar texto!"
-CHOOSE_MODEL_MSG = "➜ Escolha um modelo de texto"
-ERROR_MSG = "➜ algo deu errado, tente novamente mais tarde"
-GENERATING_MSG = "➜ gerando resposta..."
-NOT_YOUR_REQUEST_MSG = "➜ não é seu pedido!"
+PROMPT_MISSING_MSG = "🚨➜ você não me deu um prompt para gerar texto!"
+CHOOSE_MODEL_MSG = "🤔➜ Escolha um modelo de texto"
+ERROR_MSG = "⚠️➜ algo deu errado, tente novamente mais tarde"
+GENERATING_MSG = "⏳➜ gerando resposta..."
+NOT_YOUR_REQUEST_MSG = "❌➜ não é seu prompt, não é sua resposta!"
 
 prompt_db = {}
 
@@ -73,8 +73,8 @@ async def process_text_generation(query, model_id, prompt_data):
             if text_response in [None, "error"]:
                 return await query.edit_message_text(ERROR_MSG)
 
-            model_name = list(ChatModels.keys())[list(ChatModels.values()).index(model_id)]
-            text_response = f"➜ <b>Modelo:</b> <code>{model_name}</code>\n\n <b>Resposta:</b> <i>{text_response}</i>"
+            model_name = list(ChatModels.keys())[list(ChatModels.values()).index(int(model_id))]
+            text_response = f"🌟<b>Modelo:</b> <code>{model_name}</code>🌟\n\n 💬<b>Resposta:</b> <i>{text_response}</i>💬"
 
             await query.message.reply_text(
                 text_response,
