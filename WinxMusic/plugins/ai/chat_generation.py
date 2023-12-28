@@ -3,7 +3,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from config import BANNED_USERS
-from WinxMusic import app, logging, LOGGER
+from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import ChatModels, get_text
 
 API_URL = "https://api.qewertyy.me/models"
@@ -43,7 +43,7 @@ def generate_text_buttons(user_id):
         )
         for model in ChatModels
     ]
-    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^text.(.*)"))
@@ -65,7 +65,7 @@ async def generate_response(_, query):
 async def process_text_generation(query, model_id, prompt_data):
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             api_params = {"model_id": model_id, "prompt": prompt_data["prompt"]}
 
