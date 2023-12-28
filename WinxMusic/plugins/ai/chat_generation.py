@@ -43,7 +43,7 @@ def generate_text_buttons(user_id):
         )
         for model in ChatModels
     ]
-    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^text.(.*)"))
@@ -65,7 +65,7 @@ async def generate_response(_, query):
 async def process_text_generation(query, model_id, prompt_data):
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT)
         ) as session:
             api_params = {"model_id": model_id, "prompt": prompt_data["prompt"]}
 
@@ -73,7 +73,9 @@ async def process_text_generation(query, model_id, prompt_data):
             if text_response in [None, "error"]:
                 return await query.edit_message_text(ERROR_MSG)
 
-            model_name = list(ChatModels.keys())[list(ChatModels.values()).index(int(model_id))]
+            model_name = list(ChatModels.keys())[
+                list(ChatModels.values()).index(int(model_id))
+            ]
             text_response = f"🌟<b>Modelo:</b> <code>{model_name}</code>🌟\n\n 💬<b>Resposta:</b> <i>{text_response}</i>💬"
 
             await query.message.reply_text(
