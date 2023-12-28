@@ -27,7 +27,7 @@ async def upscale(_, message):
         with open(upscaled, "rb") as upscaled_file:
             await message.reply_document(
                 upscaled_file,
-                caption=f" ➜ imagem 🖼 ampliada com sucesso ⬆️.",
+                caption=f"<code>➜ 🖼️ imagem ampliada com sucesso! ⬆️</code>",
             )
 
         await msg.delete()
