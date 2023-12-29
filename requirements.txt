@@ -17,7 +17,7 @@ ntgcalls
 openai
 pillow
 psutil
-py-tgcalls==1.1.0
+py-tgcalls
 pykeyboard
 pyrogram
 python-dotenv
