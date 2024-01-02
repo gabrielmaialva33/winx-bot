@@ -1,5 +1,3 @@
-from youtubesearchpython.__future__ import VideosSearch
-
 import asyncio
 import os
 import re
@@ -8,6 +6,7 @@ from typing import Union
 import yt_dlp
 from pyrogram.enums import MessageEntityType
 from pyrogram.types import Message
+from youtubesearchpython.__future__ import VideosSearch
 
 from WinxMusic.utils.database import is_on_off
 from WinxMusic.utils.formatters import time_to_seconds
