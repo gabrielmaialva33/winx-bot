@@ -58,6 +58,7 @@ async def play_commnd(
     me = await app.get_me()
     member = await chat.get_member(me.id)
 
+    # ensure that the bot is an admin
     if member.status != ChatMemberStatus.ADMINISTRATOR:
         return await message.reply_text(_["promote_1"])
     elif not member.privileges.can_manage_chat:
