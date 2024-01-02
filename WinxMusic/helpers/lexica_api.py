@@ -7,6 +7,9 @@ from WinxMusic.helpers.misc import ImageModels
 
 
 async def image_generation(model, prompt):
+    """
+    Generates an image and returns the URL to the image.
+    """
     client = AsyncClient()
     try:
         LOGGER(__name__).info(f"Generating image with model {model}")
@@ -20,7 +23,7 @@ async def image_generation(model, prompt):
         task_id, request_id = output["task_id"], output["request_id"]
         await asyncio.sleep(20)
 
-        for _ in range(16):  # Máximo de 16 tentativas (160 segundos)
+        for _ in range(16):
             resp = await client.getImages(task_id, request_id)
             if resp["code"] == 2:
                 return resp["img_urls"]
