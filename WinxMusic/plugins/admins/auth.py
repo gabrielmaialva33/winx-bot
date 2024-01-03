@@ -27,7 +27,7 @@ async def auth(_client, message: Message, _):
     if int(count) == 25:
         return await message.reply_text(_["auth_1"])
     if token not in _check:
-        assis = {
+        assist = {
             "auth_user_id": user.id,
             "auth_name": user.first_name,
             "admin_id": message.from_user.id,
@@ -37,7 +37,7 @@ async def auth(_client, message: Message, _):
         if get:
             if user.id not in get:
                 get.append(user.id)
-        await save_authuser(message.chat.id, token, assis)
+        await save_authuser(message.chat.id, token, assist)
         return await message.reply_text(_["auth_2"].format(user.mention))
     else:
         return await message.reply_text(_["auth_3"].format(user.mention))
