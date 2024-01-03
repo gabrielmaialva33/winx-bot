@@ -1,16 +1,17 @@
-import aiohttp
 import asyncio
+
+import aiohttp
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
+from config import BANNED_USERS, MIDJOURNEY_KEY
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_text
 from WinxMusic.misc import AUTHORIZED_CHATS
-from config import BANNED_USERS, MIDJOURNEY_KEY
 
 API_URL = "https://api.mymidjourney.ai/api/v1/midjourney"
 API_TIMEOUT = 60
-HEADERS = {'Accept': 'application/json', 'Authorization': f"Bearer {MIDJOURNEY_KEY}"}
+HEADERS = {"Accept": "application/json", "Authorization": f"Bearer {MIDJOURNEY_KEY}"}
 MSG_PROMPT_MISSING = "🚨Você não me deu um prompt para gerar imagem!"
 MSG_PROMPT_NOT_ALLOWED = "⚠️Não foi você quem enviou o prompt"
 MSG_ERROR = "⚠️Algo deu errado, tente novamente mais tarde."
@@ -32,7 +33,12 @@ async def generate_image(_client, message: Message):
         return await message.reply_text(MSG_PROMPT_MISSING)
 
     user = message.from_user
-    prompt_data = {"prompt": prompt, "reply_to_id": message.id, "md_id": None, "user_id": user.id}
+    prompt_data = {
+        "prompt": prompt,
+        "reply_to_id": message.id,
+        "md_id": None,
+        "user_id": user.id,
+    }
     prompt_db[user.id] = prompt_data
 
     message_id = await create_task_process(message, prompt_data)
@@ -43,9 +49,15 @@ async def generate_image(_client, message: Message):
 
 
 async def create_task_process(message: Message, prompt_data):
-    LOGGER(__name__).info(f"creating task process for {message.from_user.id} with prompt: {prompt_data['prompt']}")
-    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS) as session:
-        response = await session.post(f"{API_URL}/imagine/", data={"prompt": prompt_data["prompt"]})
+    LOGGER(__name__).info(
+        f"creating task process for {message.from_user.id} with prompt: {prompt_data['prompt']}"
+    )
+    async with aiohttp.ClientSession(
+        timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+    ) as session:
+        response = await session.post(
+            f"{API_URL}/imagine/", data={"prompt": prompt_data["prompt"]}
+        )
         data = await response.json()
         if not data.get("success"):
             await message.edit_text(MSG_ERROR)
@@ -58,8 +70,12 @@ async def create_task_process(message: Message, prompt_data):
 
 
 async def get_task_process(message: Message, mj_id: str):
-    LOGGER(__name__).info(f"getting task process for {message.from_user.id} with message_id: {mj_id}")
-    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS) as session:
+    LOGGER(__name__).info(
+        f"getting task process for {message.from_user.id} with message_id: {mj_id}"
+    )
+    async with aiohttp.ClientSession(
+        timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+    ) as session:
         response = await session.get(f"{API_URL}/message/{mj_id}")
         data = await response.json()
         return data
@@ -82,11 +98,15 @@ async def process_image_generation(message: Message, mj_id: str, prompt_data):
     image_url = task_process["uri"]
     buttons = task_process.get("buttons", [])
 
-    await download_and_send_image(message, image_url, buttons, prompt_data["user_id"], prompt_data["reply_to_id"])
+    await download_and_send_image(
+        message, image_url, buttons, prompt_data["user_id"], prompt_data["reply_to_id"]
+    )
     await generating.delete()
 
 
-async def download_and_send_image(message: Message, image_url: str, buttons: list, user_id: int, reply_to_id: int):
+async def download_and_send_image(
+    message: Message, image_url: str, buttons: list, user_id: int, reply_to_id: int
+):
     print(user_id, "User ID")
     print(reply_to_id, "Reply To ID")
     async with aiohttp.ClientSession() as session:
@@ -105,9 +125,15 @@ async def download_and_send_image(message: Message, image_url: str, buttons: lis
 
 
 async def task_action(message: Message, mj_id, action):
-    LOGGER(__name__).info(f"task action for {message.from_user.id} with message_id: {mj_id} and action: {action}")
-    async with aiohttp.ClientSession(timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS) as session:
-        response = await session.post(f"{API_URL}/button/", data={"messageId": mj_id, "button": action})
+    LOGGER(__name__).info(
+        f"task action for {message.from_user.id} with message_id: {mj_id} and action: {action}"
+    )
+    async with aiohttp.ClientSession(
+        timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+    ) as session:
+        response = await session.post(
+            f"{API_URL}/button/", data={"messageId": mj_id, "button": action}
+        )
         data = await response.json()
         return data
 
@@ -130,23 +156,33 @@ def buttons_markup(buttons: list, user_id: int):
             InlineKeyboardButton("V4", callback_data=f"V4_{user_id}"),
         ],
         [
-            InlineKeyboardButton("Upscale (2x)", callback_data=f"Upscale (2x)_{user_id}"),
-            InlineKeyboardButton("Upscale (4x)", callback_data=f"Upscale (4x)_{user_id}"),
+            InlineKeyboardButton(
+                "Upscale (2x)", callback_data=f"Upscale (2x)_{user_id}"
+            ),
+            InlineKeyboardButton(
+                "Upscale (4x)", callback_data=f"Upscale (4x)_{user_id}"
+            ),
         ],
         [
             InlineKeyboardButton("Zoom Out 2x", callback_data=f"Zoom Out 2x_{user_id}"),
-            InlineKeyboardButton("Zoom Out 1.5x", callback_data=f"Zoom Out 1.5x_{user_id}"),
+            InlineKeyboardButton(
+                "Zoom Out 1.5x", callback_data=f"Zoom Out 1.5x_{user_id}"
+            ),
         ],
         [
-            InlineKeyboardButton("Vary (Strong)", callback_data=f"Vary (Strong)_{user_id}"),
-            InlineKeyboardButton("Vary (Subtle)", callback_data=f"Vary (Subtle)_{user_id}"),
+            InlineKeyboardButton(
+                "Vary (Strong)", callback_data=f"Vary (Strong)_{user_id}"
+            ),
+            InlineKeyboardButton(
+                "Vary (Subtle)", callback_data=f"Vary (Subtle)_{user_id}"
+            ),
         ],
         [
             InlineKeyboardButton("⬅️", callback_data=f"⬅️_{user_id}"),
             InlineKeyboardButton("➡️", callback_data=f"➡️_{user_id}"),
             InlineKeyboardButton("⬆️", callback_data=f"⬆️_{user_id}"),
             InlineKeyboardButton("⬇️", callback_data=f"⬇️_{user_id}"),
-        ]
+        ],
     ]
 
     filtered_buttons = []
@@ -161,10 +197,12 @@ def buttons_markup(buttons: list, user_id: int):
     return InlineKeyboardMarkup(filtered_buttons)
 
 
-@app.on_callback_query(filters.regex(
-    r"^(U1|U2|U3|U4|V1|V2|V3|V4|Upscale \(2x\)|Upscale \(4x\)|Zoom Out 2x|Zoom Out 1.5x|Vary \(Strong\)|Vary \("
-    r"Subtle\)|⬅️|➡️|⬆️|⬇️|🔄)_(\d+)$"
-))
+@app.on_callback_query(
+    filters.regex(
+        r"^(U1|U2|U3|U4|V1|V2|V3|V4|Upscale \(2x\)|Upscale \(4x\)|Zoom Out 2x|Zoom Out 1.5x|Vary \(Strong\)|Vary \("
+        r"Subtle\)|⬅️|➡️|⬆️|⬇️|🔄)_(\d+)$"
+    )
+)
 async def callback_query_handler(_, callback_query):
     data = callback_query.data.split("_")
     action = data[0]
@@ -185,6 +223,8 @@ async def callback_query_handler(_, callback_query):
         await callback_query.message.delete()
         new_mj_id = task["messageId"]
         print(new_mj_id, "New MJ ID")
-        await process_image_generation(callback_query.message, new_mj_id, prompt_db[user_id])
+        await process_image_generation(
+            callback_query.message, new_mj_id, prompt_db[user_id]
+        )
     else:
         await callback_query.message.edit_text(MSG_ERROR)
