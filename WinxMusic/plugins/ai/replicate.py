@@ -5,7 +5,7 @@ from pyrogram.types import Message
 
 from config import BANNED_USERS
 from WinxMusic import LOGGER, app
-from WinxMusic.helpers.misc import get_file
+from WinxMusic.helpers.misc import get_file, get_text
 from WinxMusic.misc import AUTHORIZED_CHATS
 
 
@@ -65,3 +65,54 @@ async def telegra_upload(file):
                 return await resp.json()
             else:
                 return None
+
+
+@app.on_message(
+    filters.command(["music"], prefixes=["!", "/"])
+    & filters.group
+    & ~BANNED_USERS
+    & AUTHORIZED_CHATS
+)
+async def riffusion(_client, message: Message):
+    prompt_a, prompt_b = extract_prompt_ab(message)
+    if prompt_a is None or prompt_b is None:
+        return await message.reply_text("💬 ➜ envie um texto 🎵 para 🔍 gerar uma música 🎶 se possível em inglês ⬆️ "
+                                        "ex: !music funky synth solo - 90's rap")
+
+    msg = await message.reply_text("<code>➜ ⏳gerando música... 💭</code>")
+
+    try:
+        output = replicate.run(
+            "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05",
+            input={
+                "alpha": 0.5,
+                "prompt_a": prompt_a,
+                "prompt_b": prompt_b,
+                "denoising": 0.75,
+                "seed_image_id": "vibes",
+                "num_inference_steps": 50
+            }
+        )
+        if output is None:
+            return await msg.edit("➜ ❌ erro ao gerar música 😕")
+
+        # save audio in ./cache
+        audio = await aiohttp.ClientSession().get(output["audio"])
+        audio = await audio.read()
+        with open("./cache/gen_sound.wav", "wb") as f:
+            f.write(audio)
+        audio_path = "./cache/gen_sound.wav"
+
+        await message.reply_audio(
+            audio=audio_path,
+            caption=f"<code>➜ 🎵 música gerada com sucesso ⬆️</code>",
+        )
+        await msg.delete()
+    except Exception as e:
+        await msg.edit(f"➜ ❌ erro ao 🔍 gerar música 😕: {e}")
+
+
+def extract_prompt_ab(message: Message):
+    prompt_a = message.text.split("-")[0].split(" ", 1)[1]
+    prompt_b = message.text.split("-")[1].strip()
+    return prompt_a, prompt_b
