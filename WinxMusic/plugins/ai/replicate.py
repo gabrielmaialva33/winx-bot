@@ -129,8 +129,10 @@ def extract_prompt_ab(message: Message):
 async def musicgen(_, message: Message):
     prompt = await get_text(message)
     if prompt is None:
-        return await message.reply_text("💬 ➜ envie um texto 🎵 para 🔍 gerar uma música 🎶 se possível em inglês ⬆️ "
-                                        "ex: !musicgen funky synth solo 90's rap")
+        return await message.reply_text(
+            "💬 ➜ envie um texto 🎵 para 🔍 gerar uma música 🎶 se possível em inglês ⬆️ "
+            "ex: !musicgen funky synth solo 90's rap"
+        )
 
     msg = await message.reply_text("<code>➜ ⏳gerando música... 💭</code>")
     output = replicate.run(
@@ -147,8 +149,8 @@ async def musicgen(_, message: Message):
             "continuation_start": 0,
             "multi_band_diffusion": False,
             "normalization_strategy": "peak",
-            "classifier_free_guidance": 3
-        }
+            "classifier_free_guidance": 3,
+        },
     )
     print(output)
     if output is None:
@@ -166,4 +168,3 @@ async def musicgen(_, message: Message):
     )
 
     await msg.delete()
-
