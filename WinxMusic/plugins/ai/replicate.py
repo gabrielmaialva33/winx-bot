@@ -152,11 +152,10 @@ async def musicgen(_, message: Message):
             "classifier_free_guidance": 3,
         },
     )
-    print(output)
     if output is None:
         return await msg.edit("➜ ❌ erro ao gerar música 😕")
 
-    audio = await aiohttp.ClientSession().get(output["audio"])
+    audio = await aiohttp.ClientSession().get(output)
     audio = await audio.read()
     with open("./cache/musicgen_sound.wav", "wb") as f:
         f.write(audio)
