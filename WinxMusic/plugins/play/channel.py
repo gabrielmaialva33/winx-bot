@@ -2,10 +2,10 @@ from pyrogram import filters
 from pyrogram.enums import ChatMembersFilter, ChatMemberStatus, ChatType
 from pyrogram.types import Message
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import set_cmode
 from WinxMusic.utils.decorators.admins import AdminActual
+from config import BANNED_USERS
 
 
 @app.on_message(filters.command(["channelplay"]) & filters.group & ~BANNED_USERS)
@@ -36,7 +36,7 @@ async def playmode_(client, message: Message, _):
             return await message.reply_text(_["cplay_5"])
         try:
             async for user in app.get_chat_members(
-                chat.id, filter=ChatMembersFilter.ADMINISTRATORS
+                    chat.id, filter=ChatMembersFilter.ADMINISTRATORS
             ):
                 if user.status == ChatMemberStatus.OWNER:
                     cusn = user.user.username

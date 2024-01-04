@@ -1,8 +1,8 @@
-from config import SUPPORT_CHAT
-from strings import get_string
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import get_lang, is_maintenance
+from config import SUPPORT_CHAT
+from strings import get_string
 
 
 def language(mystic):

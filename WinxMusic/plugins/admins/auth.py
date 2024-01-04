@@ -1,7 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS, adminlist
 from WinxMusic import app
 from WinxMusic.utils import extract_user, int_to_alpha
 from WinxMusic.utils.database import (
@@ -12,6 +11,7 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators import AdminActual, language
 from WinxMusic.utils.inline import close_markup
+from config import BANNED_USERS, adminlist
 
 
 @app.on_message(filters.command("auth") & filters.group & ~BANNED_USERS)
