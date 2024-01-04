@@ -5,7 +5,7 @@ from pyrogram.types import Message
 
 from config import BANNED_USERS
 from WinxMusic import LOGGER, app
-from WinxMusic.helpers.misc import get_file
+from WinxMusic.helpers.misc import get_file, get_text
 from WinxMusic.misc import AUTHORIZED_CHATS
 
 
@@ -154,7 +154,6 @@ async def musicgen(_, message: Message):
     if output is None:
         return await msg.edit("➜ ❌ erro ao gerar música 😕")
 
-    # save audio in ./cache
     audio = await aiohttp.ClientSession().get(output["audio"])
     audio = await audio.read()
     with open("./cache/musicgen_sound.wav", "wb") as f:
