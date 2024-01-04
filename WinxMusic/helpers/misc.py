@@ -1,16 +1,19 @@
+import aiohttp
+
+
 async def get_file(message):
     if not message.reply_to_message:
         return None
     if (
-        message.reply_to_message.document is False
-        or message.reply_to_message.photo is False
+            message.reply_to_message.document is False
+            or message.reply_to_message.photo is False
     ):
         return None
     if (
-        message.reply_to_message.document
-        and message.reply_to_message.document.mime_type
-        in ["image/png", "image/jpg", "image/jpeg"]
-        or message.reply_to_message.photo
+            message.reply_to_message.document
+            and message.reply_to_message.document.mime_type
+            in ["image/png", "image/jpg", "image/jpeg"]
+            or message.reply_to_message.photo
     ):
         image = await message.reply_to_message.download()
         return image
@@ -30,6 +33,17 @@ async def get_text(message):
             return None
     else:
         return None
+
+
+async def telegra_upload(file):
+    async with aiohttp.ClientSession() as session:
+        binary_file = open(file, "rb")
+        data = {"file": binary_file}
+        async with session.post("https://telegra.ph/upload", data=data) as resp:
+            if resp.status == 200:
+                return await resp.json()
+            else:
+                return None
 
 
 ImageModels = {

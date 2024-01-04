@@ -4,7 +4,7 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from config import BANNED_USERS
-from WinxMusic import LOGGER, app
+from WinxMusic import app
 from WinxMusic.helpers.misc import get_file, get_text
 from WinxMusic.misc import AUTHORIZED_CHATS
 
@@ -15,56 +15,58 @@ from WinxMusic.misc import AUTHORIZED_CHATS
     & ~BANNED_USERS
     & AUTHORIZED_CHATS
 )
-async def generate_image(_client, message: Message):
-    LOGGER(__name__).info(f" animate command received by {message.from_user.id}")
+async def animate(_client, message: Message):
     file = await get_file(message)
+    prompt = await get_text(message)
+
+    frames_per_second = int(prompt.split(" ")[0])
+    motion_bucket_id = int(prompt.split(" ")[1])
+
     if file is None:
         return await message.reply_text(
-            "💬 ➜ responda a uma mensagem com uma 🖼️ para animar ⬆️"
+            "💬 responda a uma mensagem com uma 🖼️ para animar ⬆️"
+            "ex: !videofy 10 127 (10 frames por segundo e motion bucket id 127)"
         )
 
-    msg = await message.reply_text("<code>➜ ⏳animando... 💭</code>")
+    if frames_per_second < 5 or frames_per_second > 30:
+        return await message.reply_text(
+            "💬 frames por segundo deve estar entre 5 e 30 ⬆️"
+        )
+
+    if motion_bucket_id < 1 or motion_bucket_id > 255:
+        return await message.reply_text(
+            "💬 motion bucket id deve estar entre 1 e 255 ⬆️"
+        )
+
+    if frames_per_second is None:
+        frames_per_second = 6
+    if motion_bucket_id is None:
+        motion_bucket_id = 127
+
+    msg = await message.reply_text("<code>⏳animando... 💭</code>")
     try:
-        telegra_file = await telegra_upload(file)
-        if telegra_file is None:
-            return await msg.edit("➜ ❌ erro ao enviar imagem para o telegra.ph 😕")
-
-        file_name = telegra_file[0]["src"].split("/")[-1]
-        file_url = f"https://telegra.ph/file/{file_name}"
-
         output = replicate.run(
             "stability-ai/stable-video-diffusion:3f0457e4619daac51203dedb472816fd4af51f3149fa7a9e0b5ffcf1b8172438",
             input={
                 "cond_aug": 0.02,
                 "decoding_t": 7,
-                "input_image": file_url,
+                "input_image": open(file, "rb"),
                 "video_length": "25_frames_with_svd_xt",
                 "sizing_strategy": "maintain_aspect_ratio",
-                "motion_bucket_id": 127,
-                "frames_per_second": 6,
+                "motion_bucket_id": motion_bucket_id,
+                "frames_per_second": frames_per_second,
             },
         )
         if output is None:
-            return await msg.edit("➜ ❌ erro ao animar imagem 😕")
+            return await msg.edit("❌ erro ao animar imagem 😕")
 
         await message.reply_video(
             output,
-            caption=f"<code>➜ 🖼️ imagem animada com sucesso ⬆️</code>",
+            caption=f"<code>➜ 🖼️ imagem animada </code>",
         )
         await msg.delete()
     except Exception as e:
         await msg.edit(f"➜ ❌ erro ao 🔍 animar 😕: {e}")
-
-
-async def telegra_upload(file):
-    async with aiohttp.ClientSession() as session:
-        binary_file = open(file, "rb")
-        data = {"file": binary_file}
-        async with session.post("https://telegra.ph/upload", data=data) as resp:
-            if resp.status == 200:
-                return await resp.json()
-            else:
-                return None
 
 
 @app.on_message(
@@ -167,52 +169,3 @@ async def musicgen(_, message: Message):
     )
 
     await msg.delete()
-
-
-@app.on_message(
-    filters.command(["3d"], prefixes=["!", "/"])
-    & filters.group
-    & ~BANNED_USERS
-    & AUTHORIZED_CHATS
-)
-async def generate_3d(_, message: Message):
-    file = await get_file(message)
-    if file is None:
-        return await message.reply_text(
-            "💬 ➜ responda a uma mensagem com uma 🖼️ para 🔍 gerar uma imagem 3D ⬆️"
-        )
-
-    msg = await message.reply_text("<code>➜ ⏳gerando 3d... 💭</code>")
-    try:
-        telegra_file = await telegra_upload(file)
-        if telegra_file is None:
-            return await msg.edit("➜ ❌ erro ao enviar imagem para o telegra.ph 😕")
-
-        file_name = telegra_file[0]["src"].split("/")[-1]
-        file_url = f"https://telegra.ph/file/{file_name}"
-
-        output = replicate.run(
-            "adirik/dreamgaussian:44d1361ed7b4e46754c70de0d91334e79a1bc8bbe3e7ec18835691629de25305",
-            input={
-                "image": file_url,
-                "elevation": 0,
-                "num_steps": 500,
-                "image_size": 256,
-                "num_point_samples": 5000,
-                "num_refinement_steps": 50
-            }
-        )
-        if output is None:
-            return await msg.edit("➜ ❌ erro ao gerar imagem 3D 😕")
-
-        mp4 = output[1]
-        if mp4 is None:
-            return await msg.edit("➜ ❌ erro ao gerar imagem 3D 😕")
-
-        await message.reply_video(
-            video=mp4,
-            caption=f"<code>➜ 🖼️ imagem 3D gerada com sucesso ⬆️</code>",
-        )
-        await msg.delete()
-    except Exception as e:
-        await msg.edit(f"➜ ❌ erro ao 🔍 animar 😕: {e}")
