@@ -19,13 +19,13 @@ async def animate(_client, message: Message):
     file = await get_file(message)
     prompt = await get_text(message)
 
-    frames_per_second = int(prompt.split(" ")[0])
-    motion_bucket_id = int(prompt.split(" ")[1])
+    frames_per_second = int(prompt.split(" ")[0]) if prompt else None
+    motion_bucket_id = int(prompt.split(" ")[1]) if prompt else None
 
     if file is None:
         return await message.reply_text(
             "💬 responda a uma mensagem com uma 🖼️ para animar ⬆️"
-            "ex: !videofy 10 127 (10 frames por segundo e motion bucket id 127)"
+            "ex: !videofy"
         )
 
     if frames_per_second < 5 or frames_per_second > 30:
@@ -43,7 +43,7 @@ async def animate(_client, message: Message):
     if motion_bucket_id is None:
         motion_bucket_id = 127
 
-    msg = await message.reply_text("<code>⏳animando... 💭</code>")
+    msg = await message.reply_text("<code>⏳ animando... 💭</code>")
     try:
         output = replicate.run(
             "stability-ai/stable-video-diffusion:3f0457e4619daac51203dedb472816fd4af51f3149fa7a9e0b5ffcf1b8172438",
