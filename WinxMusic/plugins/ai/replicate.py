@@ -5,7 +5,7 @@ from pyrogram.types import Message
 
 from config import BANNED_USERS
 from WinxMusic import LOGGER, app
-from WinxMusic.helpers.misc import get_file, get_text
+from WinxMusic.helpers.misc import get_file
 from WinxMusic.misc import AUTHORIZED_CHATS
 
 
@@ -76,8 +76,10 @@ async def telegra_upload(file):
 async def riffusion(_client, message: Message):
     prompt_a, prompt_b = extract_prompt_ab(message)
     if prompt_a is None or prompt_b is None:
-        return await message.reply_text("💬 ➜ envie um texto 🎵 para 🔍 gerar uma música 🎶 se possível em inglês ⬆️ "
-                                        "ex: !music funky synth solo - 90's rap")
+        return await message.reply_text(
+            "💬 ➜ envie um texto 🎵 para 🔍 gerar uma música 🎶 se possível em inglês ⬆️ "
+            "ex: !music funky synth solo - 90's rap"
+        )
 
     msg = await message.reply_text("<code>➜ ⏳gerando música... 💭</code>")
 
@@ -90,8 +92,8 @@ async def riffusion(_client, message: Message):
                 "prompt_b": prompt_b,
                 "denoising": 0.75,
                 "seed_image_id": "vibes",
-                "num_inference_steps": 50
-            }
+                "num_inference_steps": 50,
+            },
         )
         if output is None:
             return await msg.edit("➜ ❌ erro ao gerar música 😕")
