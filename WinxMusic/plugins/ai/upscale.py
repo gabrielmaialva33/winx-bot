@@ -1,6 +1,7 @@
 import os
 
 from pyrogram import filters
+from pyrogram.types import Message
 
 from WinxMusic import app
 from WinxMusic.helpers.lexica_api import upscale_image
@@ -10,7 +11,7 @@ UPSCALE_COMMAND = ["upscale", "aumentar", "aumente", "melhorar", "melhore"]
 
 
 @app.on_message(filters.command(UPSCALE_COMMAND) & filters.group)
-async def upscale(_, message):
+async def upscale(_, message: Message):
     file = await get_file(message)
     if file is None:
         return await message.reply_text(
@@ -20,9 +21,9 @@ async def upscale(_, message):
     msg = await message.reply_text("<code>➜ ⏳ampliando a imagem... 💭</code>")
     try:
         with open(file, "rb") as image_file:
-            imageBytes = image_file.read()
+            image_bytes = image_file.read()
 
-        upscaled = await upscale_image(imageBytes)
+        upscaled = await upscale_image(image_bytes)
 
         with open(upscaled, "rb") as upscaled_file:
             await message.reply_document(

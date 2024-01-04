@@ -23,7 +23,7 @@ prompt_db = {}
 
 
 @app.on_message(
-    filters.command(["mid", "mymidjourney", "gerar"], prefixes=["!", "/"])
+    filters.command(["mid", "mymidjourney"], prefixes=["!", "/"])
     & filters.group
     & ~BANNED_USERS
     & AUTHORIZED_CHATS

@@ -23,6 +23,7 @@ pyrogram
 python-dotenv
 pyyaml
 requests
+replicate
 speedtest-cli
 spotipy
 tgcrypto

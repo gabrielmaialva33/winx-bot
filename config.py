@@ -19,6 +19,9 @@ OPEN_AI_API_KEY = getenv("OPEN_AI_API_KEY", None)
 # MidJourney API Key
 MIDJOURNEY_KEY = getenv("MIDJOURNEY_KEY", None)
 
+# Replicate API Key
+REPLICATE_API_TOKEN = getenv("REPLICATE_API_TOKEN", None)
+
 # Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 
