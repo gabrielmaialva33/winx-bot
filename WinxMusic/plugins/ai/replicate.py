@@ -199,8 +199,8 @@ async def generate_3d(_, message: Message):
                 "num_steps": 500,
                 "image_size": 256,
                 "num_point_samples": 5000,
-                "num_refinement_steps": 50
-            }
+                "num_refinement_steps": 50,
+            },
         )
         if output is None:
             return await msg.edit("➜ ❌ erro ao gerar imagem 3D 😕")
