@@ -116,3 +116,53 @@ def extract_prompt_ab(message: Message):
     prompt_a = message.text.split("-")[0].split(" ", 1)[1]
     prompt_b = message.text.split("-")[1].strip()
     return prompt_a, prompt_b
+
+
+@app.on_message(
+    filters.command(["musicgen"], prefixes=["!", "/"])
+    & filters.group
+    & ~BANNED_USERS
+    & AUTHORIZED_CHATS
+)
+async def musicgen(_, message: Message):
+    prompt = await get_text(message)
+    if prompt is None:
+        return await message.reply_text("💬 ➜ envie um texto 🎵 para 🔍 gerar uma música 🎶 se possível em inglês ⬆️ "
+                                        "ex: !musicgen funky synth solo 90's rap")
+
+    msg = await message.reply_text("<code>➜ ⏳gerando música... 💭</code>")
+    output = replicate.run(
+        "meta/musicgen:b05b1dff1d8c6dc63d14b0cdb42135378dcb87f6373b0d3d341ede46e59e2b38",
+        input={
+            "top_k": 250,
+            "top_p": 0,
+            "prompt": prompt,
+            "duration": 33,
+            "temperature": 1,
+            "continuation": False,
+            "model_version": "stereo-large",
+            "output_format": "wav",
+            "continuation_start": 0,
+            "multi_band_diffusion": False,
+            "normalization_strategy": "peak",
+            "classifier_free_guidance": 3
+        }
+    )
+    print(output)
+    if output is None:
+        return await msg.edit("➜ ❌ erro ao gerar música 😕")
+
+    # save audio in ./cache
+    audio = await aiohttp.ClientSession().get(output["audio"])
+    audio = await audio.read()
+    with open("./cache/musicgen_sound.wav", "wb") as f:
+        f.write(audio)
+    audio_path = "./cache/musicgen_sound.wav"
+
+    await message.reply_audio(
+        audio=audio_path,
+        caption=f"<code>➜ 🎵 música gerada com sucesso ⬆️</code>",
+    )
+
+    await msg.delete()
+
