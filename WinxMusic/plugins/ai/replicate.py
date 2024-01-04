@@ -1,12 +1,12 @@
 import aiohttp
+import replicate
 from pyrogram import filters
 from pyrogram.types import Message
 
-import replicate
+from config import BANNED_USERS
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_file
 from WinxMusic.misc import AUTHORIZED_CHATS
-from config import BANNED_USERS
 
 
 @app.on_message(
@@ -41,8 +41,8 @@ async def generate_image(_client, message: Message):
                 "video_length": "25_frames_with_svd_xt",
                 "sizing_strategy": "maintain_aspect_ratio",
                 "motion_bucket_id": 127,
-                "frames_per_second": 6
-            }
+                "frames_per_second": 6,
+            },
         )
         if output is None:
             return await msg.edit("➜ ❌ erro ao animar imagem 😕")
@@ -59,12 +59,8 @@ async def generate_image(_client, message: Message):
 async def telegra_upload(file):
     async with aiohttp.ClientSession() as session:
         binary_file = open(file, "rb")
-        data = {
-            "file": binary_file
-        }
-        async with session.post(
-                "https://telegra.ph/upload",
-                data=data) as resp:
+        data = {"file": binary_file}
+        async with session.post("https://telegra.ph/upload", data=data) as resp:
             if resp.status == 200:
                 return await resp.json()
             else:
