@@ -1,3 +1,4 @@
+import aiofiles
 import aiohttp
 import replicate
 from pyrogram import filters
@@ -83,7 +84,7 @@ async def riffusion(_client, message: Message):
         # save audio in ./cache
         audio = await aiohttp.ClientSession().get(output["audio"])
         audio = await audio.read()
-        with open("./cache/gen_sound.wav", "wb") as f:
+        with aiofiles.open("./cache/gen_sound.wav", "wb") as f:
             f.write(audio)
         audio_path = "./cache/gen_sound.wav"
 
@@ -139,7 +140,7 @@ async def musicgen(_, message: Message):
 
     audio = await aiohttp.ClientSession().get(output)
     audio = await audio.read()
-    with open("./cache/musicgen_sound.wav", "wb") as f:
+    with aiofiles.open("./cache/musicgen_sound.wav", "wb") as f:
         f.write(audio)
     audio_path = "./cache/musicgen_sound.wav"
 

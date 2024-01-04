@@ -1,5 +1,6 @@
 import asyncio
 
+import aiofiles
 import aiohttp
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
@@ -122,7 +123,7 @@ async def download_and_send_image(
         image_data = await response.read()
 
     image_path = f"cache/{reply_to_id}.png"
-    with open(image_path, "wb") as f:
+    with aiofiles.open(image_path, "wb") as f:
         f.write(image_data)
 
     await message.reply_photo(
