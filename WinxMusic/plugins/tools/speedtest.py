@@ -1,9 +1,9 @@
 import asyncio
 
+import speedtest
 from pyrogram import filters
 from pyrogram.types import Message
 
-import speedtest
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.decorators.language import language

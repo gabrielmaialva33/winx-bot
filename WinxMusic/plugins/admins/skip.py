@@ -2,6 +2,7 @@ from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
 import config
+from config import BANNED_USERS
 from WinxMusic import YouTube, app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import db
@@ -10,7 +11,6 @@ from WinxMusic.utils.decorators import AdminRightsCheck
 from WinxMusic.utils.inline import close_markup, stream_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import get_thumb
-from config import BANNED_USERS
 
 
 @app.on_message(

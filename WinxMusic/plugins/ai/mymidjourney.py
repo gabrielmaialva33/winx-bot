@@ -4,10 +4,10 @@ import aiohttp
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
+from config import BANNED_USERS, MIDJOURNEY_KEY
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_text
 from WinxMusic.misc import AUTHORIZED_CHATS
-from config import BANNED_USERS, MIDJOURNEY_KEY
 
 API_URL = "https://api.mymidjourney.ai/api/v1/midjourney"
 API_TIMEOUT = 120
@@ -56,7 +56,7 @@ async def create_task_process(message: Message, prompt_data):
     )
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
         ) as session:
             response = await session.post(
                 f"{API_URL}/imagine/", data={"prompt": prompt_data["prompt"]}
@@ -82,7 +82,7 @@ async def get_task_process(message: Message, mj_id: str):
     )
     try:
         async with aiohttp.ClientSession(
-                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
         ) as session:
             response = await session.get(f"{API_URL}/message/{mj_id}")
             data = await response.json()
@@ -115,7 +115,7 @@ async def process_image_generation(message: Message, mj_id: str, prompt_data):
 
 
 async def download_and_send_image(
-        message: Message, image_url: str, buttons: list, user_id: int, reply_to_id: int
+    message: Message, image_url: str, buttons: list, user_id: int, reply_to_id: int
 ):
     async with aiohttp.ClientSession() as session:
         response = await session.get(image_url)
@@ -138,7 +138,7 @@ async def task_action(message: Message, mj_id, action):
         f"➜ task action for {message.from_user.id} with message_id: {mj_id} and action: {action}"
     )
     async with aiohttp.ClientSession(
-            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+        timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
     ) as session:
         response = await session.post(
             f"{API_URL}/button/", data={"messageId": mj_id, "button": action}

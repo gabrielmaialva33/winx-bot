@@ -6,10 +6,10 @@ from pyrogram.types import (
     Message,
 )
 
+from config import BANNED_USERS
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.lexica_api import image_generation
 from WinxMusic.helpers.misc import ImageModels, get_text
-from config import BANNED_USERS
 
 # --------------------------------------------------------------------------------------
 # Image AI
@@ -57,7 +57,7 @@ def generate_buttons(user_id):
         )
         for model in ImageModels
     ]
-    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex("^draw.(.*)"))
