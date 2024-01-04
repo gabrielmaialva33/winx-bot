@@ -17,30 +17,11 @@ from config import BANNED_USERS
 )
 async def animate(_client, message: Message):
     file = await get_file(message)
-    prompt = await get_text(message)
-
-    frames_per_second = int(prompt.split(" ")[0]) if prompt else None
-    motion_bucket_id = int(prompt.split(" ")[1]) if prompt else None
 
     if file is None:
         return await message.reply_text(
             "💬 responda a uma mensagem com uma 🖼️ para animar ⬆️" "ex: !videofy"
         )
-
-    if frames_per_second < 5 or frames_per_second > 30:
-        return await message.reply_text(
-            "💬 frames por segundo deve estar entre 5 e 30 ⬆️"
-        )
-
-    if motion_bucket_id < 1 or motion_bucket_id > 255:
-        return await message.reply_text(
-            "💬 motion bucket id deve estar entre 1 e 255 ⬆️"
-        )
-
-    if frames_per_second is None:
-        frames_per_second = 6
-    if motion_bucket_id is None:
-        motion_bucket_id = 127
 
     msg = await message.reply_text("<code>⏳ animando... 💭</code>")
     try:
@@ -52,8 +33,8 @@ async def animate(_client, message: Message):
                 "input_image": open(file, "rb"),
                 "video_length": "25_frames_with_svd_xt",
                 "sizing_strategy": "maintain_aspect_ratio",
-                "motion_bucket_id": motion_bucket_id,
-                "frames_per_second": frames_per_second,
+                "motion_bucket_id": 127,
+                "frames_per_second": 6,
             },
         )
         if output is None:
