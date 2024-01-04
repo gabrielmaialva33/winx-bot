@@ -93,13 +93,9 @@ async def get_task_process(message: Message, mj_id: str):
 
 
 async def process_image_generation(message: Message, mj_id: str, prompt_data):
-    generating = await message.reply_text(MSG_GENERATING.format(0))
+    generating = await message.reply_text(MSG_GENERATING)
     while True:
         task_process = await get_task_process(message, mj_id)
-        progress = task_process.get("progress")
-        print(progress, "Progress")
-        if progress is not None and progress < 100:
-            await generating.edit_text(MSG_GENERATING.format(progress))
         if task_process and task_process["progress"] == 100:
             break
         await asyncio.sleep(10)
