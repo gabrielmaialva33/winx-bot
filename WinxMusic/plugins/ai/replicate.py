@@ -24,8 +24,7 @@ async def animate(_client, message: Message):
 
     if file is None:
         return await message.reply_text(
-            "💬 responda a uma mensagem com uma 🖼️ para animar ⬆️"
-            "ex: !videofy"
+            "💬 responda a uma mensagem com uma 🖼️ para animar ⬆️" "ex: !videofy"
         )
 
     if frames_per_second < 5 or frames_per_second > 30:
