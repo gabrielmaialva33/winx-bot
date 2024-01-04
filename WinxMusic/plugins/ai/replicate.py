@@ -167,3 +167,52 @@ async def musicgen(_, message: Message):
     )
 
     await msg.delete()
+
+
+@app.on_message(
+    filters.command(["3d"], prefixes=["!", "/"])
+    & filters.group
+    & ~BANNED_USERS
+    & AUTHORIZED_CHATS
+)
+async def generate_3d(_, message: Message):
+    file = await get_file(message)
+    if file is None:
+        return await message.reply_text(
+            "💬 ➜ responda a uma mensagem com uma 🖼️ para 🔍 gerar uma imagem 3D ⬆️"
+        )
+
+    msg = await message.reply_text("<code>➜ ⏳gerando 3d... 💭</code>")
+    try:
+        telegra_file = await telegra_upload(file)
+        if telegra_file is None:
+            return await msg.edit("➜ ❌ erro ao enviar imagem para o telegra.ph 😕")
+
+        file_name = telegra_file[0]["src"].split("/")[-1]
+        file_url = f"https://telegra.ph/file/{file_name}"
+
+        output = replicate.run(
+            "adirik/dreamgaussian:44d1361ed7b4e46754c70de0d91334e79a1bc8bbe3e7ec18835691629de25305",
+            input={
+                "image": file_url,
+                "elevation": 0,
+                "num_steps": 500,
+                "image_size": 256,
+                "num_point_samples": 5000,
+                "num_refinement_steps": 50
+            }
+        )
+        if output is None:
+            return await msg.edit("➜ ❌ erro ao gerar imagem 3D 😕")
+
+        mp4 = output[1]
+        if mp4 is None:
+            return await msg.edit("➜ ❌ erro ao gerar imagem 3D 😕")
+
+        await message.reply_video(
+            video=mp4,
+            caption=f"<code>➜ 🖼️ imagem 3D gerada com sucesso ⬆️</code>",
+        )
+        await msg.delete()
+    except Exception as e:
+        await msg.edit(f"➜ ❌ erro ao 🔍 animar 😕: {e}")
