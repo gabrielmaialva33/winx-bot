@@ -10,19 +10,20 @@ from WinxMusic.helpers.misc import get_text
 from WinxMusic.misc import AUTHORIZED_CHATS
 
 API_URL = "https://api.mymidjourney.ai/api/v1/midjourney"
-API_TIMEOUT = 60
+API_TIMEOUT = 120
 HEADERS = {"Accept": "application/json", "Authorization": f"Bearer {MIDJOURNEY_KEY}"}
 MSG_PROMPT_MISSING = "🚨Você não me deu um prompt para gerar imagem!"
 MSG_PROMPT_NOT_ALLOWED = "⚠️Não foi você quem enviou o prompt"
 MSG_ERROR = "⚠️Algo deu errado, tente novamente mais tarde."
 MSG_GENERATING = "🔍"
-# MSG_GENERATING = "🎨desenhando... {}"
+# MSG_GENERATING = "<code>🎨 {} desenhando... 🎨</code>"
+CAPTION = "<b>🎨 Gerado por:</b> <a href='https://t.me/clubdaswinxcanal'>Winx</a> (<b>Beta</b>)"
 
 prompt_db = {}
 
 
 @app.on_message(
-    filters.command(["mid"], prefixes=["!", "/"])
+    filters.command(["mid", "mymidjourney", "gerar"], prefixes=["!", "/"])
     & filters.group
     & ~BANNED_USERS
     & AUTHORIZED_CHATS
@@ -37,6 +38,7 @@ async def generate_image(_client, message: Message):
         "prompt": prompt,
         "reply_to_id": message.id,
         "md_id": None,
+        "md_original_id": None,
         "user_id": user.id,
     }
     prompt_db[user.id] = prompt_data
@@ -50,43 +52,54 @@ async def generate_image(_client, message: Message):
 
 async def create_task_process(message: Message, prompt_data):
     LOGGER(__name__).info(
-        f"creating task process for {message.from_user.id} with prompt: {prompt_data['prompt']}"
+        f"➜ creating task process for {message.from_user.id} with prompt: {prompt_data['prompt']}"
     )
-    async with aiohttp.ClientSession(
-        timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
-    ) as session:
-        response = await session.post(
-            f"{API_URL}/imagine/", data={"prompt": prompt_data["prompt"]}
-        )
-        data = await response.json()
-        if not data.get("success"):
-            await message.edit_text(MSG_ERROR)
-            return None
+    try:
+        async with aiohttp.ClientSession(
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+        ) as session:
+            response = await session.post(
+                f"{API_URL}/imagine/", data={"prompt": prompt_data["prompt"]}
+            )
+            data = await response.json()
+            if not data.get("success"):
+                await message.edit_text(MSG_ERROR)
+                return None
 
-        prompt_data["md_id"] = data["messageId"]
-        prompt_db[message.from_user.id] = prompt_data
+            prompt_data["md_id"] = data.get("messageId", None)
+            prompt_data["md_original_id"] = data.get("originalMessageId", None)
+            prompt_db[message.from_user.id] = prompt_data
 
-        return data["messageId"]
+            return data.get("messageId", None)
+    except Exception as e:
+        LOGGER(__name__).error(str(e))
+        return None
 
 
 async def get_task_process(message: Message, mj_id: str):
     LOGGER(__name__).info(
-        f"getting task process for {message.from_user.id} with message_id: {mj_id}"
+        f"➜ getting task process for {message.from_user.id} with message_id: {mj_id}"
     )
-    async with aiohttp.ClientSession(
-        timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
-    ) as session:
-        response = await session.get(f"{API_URL}/message/{mj_id}")
-        data = await response.json()
-        return data
+    try:
+        async with aiohttp.ClientSession(
+                timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+        ) as session:
+            response = await session.get(f"{API_URL}/message/{mj_id}")
+            data = await response.json()
+            return data
+    except Exception as e:
+        LOGGER(__name__).error(str(e))
+        return None
 
 
 async def process_image_generation(message: Message, mj_id: str, prompt_data):
-    generating = await message.reply_text(MSG_GENERATING)
-
+    generating = await message.reply_text(MSG_GENERATING.format(0))
     while True:
         task_process = await get_task_process(message, mj_id)
-        print(task_process, "Task Process")
+        progress = task_process.get("progress")
+        print(progress, "Progress")
+        if progress is not None and progress < 100:
+            await generating.edit_text(MSG_GENERATING.format(progress))
         if task_process and task_process["progress"] == 100:
             break
         await asyncio.sleep(10)
@@ -101,14 +114,13 @@ async def process_image_generation(message: Message, mj_id: str, prompt_data):
     await download_and_send_image(
         message, image_url, buttons, prompt_data["user_id"], prompt_data["reply_to_id"]
     )
+
     await generating.delete()
 
 
 async def download_and_send_image(
-    message: Message, image_url: str, buttons: list, user_id: int, reply_to_id: int
+        message: Message, image_url: str, buttons: list, user_id: int, reply_to_id: int
 ):
-    print(user_id, "User ID")
-    print(reply_to_id, "Reply To ID")
     async with aiohttp.ClientSession() as session:
         response = await session.get(image_url)
         image_data = await response.read()
@@ -121,15 +133,16 @@ async def download_and_send_image(
         photo=image_path,
         reply_to_message_id=reply_to_id,
         reply_markup=buttons_markup(buttons, user_id),
+        caption=f"{CAPTION}\n\n<b>🔗➜ Link da imagem:</b> <a href='{image_url}'>Clique aqui</a>",
     )
 
 
 async def task_action(message: Message, mj_id, action):
     LOGGER(__name__).info(
-        f"task action for {message.from_user.id} with message_id: {mj_id} and action: {action}"
+        f"➜ task action for {message.from_user.id} with message_id: {mj_id} and action: {action}"
     )
     async with aiohttp.ClientSession(
-        timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
+            timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS
     ) as session:
         response = await session.post(
             f"{API_URL}/button/", data={"messageId": mj_id, "button": action}
@@ -208,10 +221,6 @@ async def callback_query_handler(_, callback_query):
     action = data[0]
     user_id = int(data[1])
 
-    print(action, "Action")
-    print(user_id, "User ID")
-    print(prompt_db, "Prompt DB")
-
     if callback_query.from_user.id != user_id:
         return await callback_query.answer(MSG_PROMPT_NOT_ALLOWED, show_alert=True)
 
@@ -222,7 +231,7 @@ async def callback_query_handler(_, callback_query):
     if task and task["success"]:
         await callback_query.message.delete()
         new_mj_id = task["messageId"]
-        print(new_mj_id, "New MJ ID")
+        prompt_db[user_id]["md_id"] = new_mj_id
         await process_image_generation(
             callback_query.message, new_mj_id, prompt_db[user_id]
         )
