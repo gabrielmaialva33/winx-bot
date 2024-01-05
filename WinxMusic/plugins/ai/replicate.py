@@ -3,8 +3,8 @@ from pyrogram import filters
 from pyrogram.types import Message
 
 from config import BANNED_USERS
-from WinxMusic import app, LOGGER
-from WinxMusic.helpers.misc import get_file, get_text
+from WinxMusic import LOGGER, app
+from WinxMusic.helpers.misc import get_file
 from WinxMusic.misc import AUTHORIZED_CHATS
 
 
@@ -80,8 +80,8 @@ async def animating(_client, message: Message):
                 "num_inference_steps": 50,
                 "num_animation_frames": 25,
                 "gif_frames_per_second": 20,
-                "num_interpolation_steps": 5
-            }
+                "num_interpolation_steps": 5,
+            },
         )
         if output is None:
             return await msg.edit("❌ erro ao animar imagem 😕")
@@ -195,6 +195,7 @@ async def animating(_client, message: Message):
 # ------------------------------------------------------------------------------------
 # Utils
 # ------------------------------------------------------------------------------------
+
 
 def extract_prompt_ab(message: Message):
     prompt_a = message.text.split("-")[0].split(" ", 1)[1]
