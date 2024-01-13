@@ -72,5 +72,5 @@ ChatModels = {
     "bard|LLM": 20,
     "Mistral|LLM": 21,
     "Gemini-Pro|PaLM 2": 23,
-    "Gemini-Vision|PaLM 2": 24
+    "Gemini-Vision|PaLM 2": 24,
 }
