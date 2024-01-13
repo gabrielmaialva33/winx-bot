@@ -52,7 +52,7 @@ async def generate_image(_client, message: Message):
 
 async def create_task_process(message: Message, prompt_data):
     LOGGER(__name__).info(
-        f"➜ creating task process for {message.from_user.id} with prompt: {prompt_data['prompt']}"
+        f"creating task process for {message.from_user.id} with prompt: {prompt_data['prompt']}"
     )
     try:
         async with aiohttp.ClientSession(
@@ -78,7 +78,7 @@ async def create_task_process(message: Message, prompt_data):
 
 async def get_task_process(message: Message, mj_id: str):
     LOGGER(__name__).info(
-        f"➜ getting task process for {message.from_user.id} with message_id: {mj_id}"
+        f"getting task process for {message.from_user.id} with message_id: {mj_id}"
     )
     try:
         async with aiohttp.ClientSession(
@@ -96,7 +96,8 @@ async def process_image_generation(message: Message, mj_id: str, prompt_data):
     generating = await message.reply_text(MSG_GENERATING)
     while True:
         task_process = await get_task_process(message, mj_id)
-        if task_process and task_process["progress"] == 100:
+        LOGGER(__name__).info(f"task_process: {task_process}")
+        if task_process and task_process.get("progress", 0) == 100:
             break
         await asyncio.sleep(10)
 
@@ -135,7 +136,7 @@ async def download_and_send_image(
 
 async def task_action(message: Message, mj_id, action):
     LOGGER(__name__).info(
-        f"➜ task action for {message.from_user.id} with message_id: {mj_id} and action: {action}"
+        f"task action for {message.from_user.id} with message_id: {mj_id} and action: {action}"
     )
     async with aiohttp.ClientSession(
         timeout=aiohttp.ClientTimeout(total=API_TIMEOUT), headers=HEADERS

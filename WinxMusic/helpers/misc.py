@@ -50,7 +50,6 @@ ImageModels = {
     "Meina Mix|SD": 2,
     "AnyLora|SD": 3,
     "AnyThingV4|SD": 4,
-    "Bing|Dall-E": 6,
     "Goofball Mix|SD": 7,
     "MeinaHentai|SD": 8,
     "DarkSushi Mix|SD": 9,
@@ -64,12 +63,14 @@ ImageModels = {
 }
 
 ChatModels = {
-    "PaLM": 1,
-    "GPT": 5,
-    "GPT (Premium)": 19,
-    "Llama 2|8B": 18,
-    "Llama 2|16B": 14,
-    "Bard|LLM": 20,
+    "PaLM|Text": 0,
+    "PaLM|Chat": 1,
+    "GPT|3": 5,
+    "GPT|4": 19,
+    "Llama 2|7b-8": 18,
+    "Llama 2|7b-16": 14,
+    "bard|LLM": 20,
     "Mistral|LLM": 21,
-    "PaLM 2": 23,
+    "Gemini-Pro|PaLM 2": 23,
+    "Gemini-Vision|PaLM 2": 24
 }
