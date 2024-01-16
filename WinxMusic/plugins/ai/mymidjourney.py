@@ -100,7 +100,9 @@ async def process_image_generation(message: Message, mj_id: str, prompt_data):
 
         if task_process and task_process.get("progress", 0):
             print(task_process["progress"], "%")
-            await generating.edit_text(f"<code>🎨 desenhando... progresso: {task_process['progress']}%</code>")
+            await generating.edit_text(
+                f"<code>🎨 desenhando... progresso: {task_process['progress']}%</code>"
+            )
 
         if task_process and task_process.get("progress", 0) == 100:
             break
