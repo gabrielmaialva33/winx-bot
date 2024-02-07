@@ -3,6 +3,7 @@ import os
 from datetime import datetime, timedelta
 from typing import Union
 
+import pytgcalls.types
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls
@@ -11,7 +12,6 @@ from pytgcalls.exceptions import (
     NoActiveGroupCall,
     TelegramServerError,
 )
-import pytgcalls.types
 from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pytgcalls.types.raw import AudioParameters, VideoParameters
 from pytgcalls.types.stream import StreamAudioEnded
@@ -266,14 +266,20 @@ class Call(PyTgCalls):
         stream = (
             AudioVideoPiped(
                 out,
-                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(
+                    pytgcalls.types.AudioQuality.HIGH
+                ),
+                video_parameters=VideoParameters.from_quality(
+                    pytgcalls.types.VideoQuality.SD_480p
+                ),
                 additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["streamtype"] == "video"
             else AudioPiped(
                 out,
-                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                audio_parameters=AudioParameters.from_quality(
+                    pytgcalls.types.AudioQuality.HIGH
+                ),
                 additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
         )
@@ -317,13 +323,19 @@ class Call(PyTgCalls):
         if video:
             stream = AudioVideoPiped(
                 link,
-                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(
+                    pytgcalls.types.AudioQuality.HIGH
+                ),
+                video_parameters=VideoParameters.from_quality(
+                    pytgcalls.types.VideoQuality.SD_480p
+                ),
             )
         else:
             stream = AudioPiped(
                 link,
-                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                audio_parameters=AudioParameters.from_quality(
+                    pytgcalls.types.AudioQuality.HIGH
+                ),
             )
         await assistant.change_stream(
             chat_id,
@@ -335,14 +347,20 @@ class Call(PyTgCalls):
         stream = (
             AudioVideoPiped(
                 file_path,
-                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(
+                    pytgcalls.types.AudioQuality.HIGH
+                ),
+                video_parameters=VideoParameters.from_quality(
+                    pytgcalls.types.VideoQuality.SD_480p
+                ),
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
             else AudioPiped(
                 file_path,
-                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                audio_parameters=AudioParameters.from_quality(
+                    pytgcalls.types.AudioQuality.HIGH
+                ),
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
         )
@@ -371,20 +389,30 @@ class Call(PyTgCalls):
         if video:
             stream = AudioVideoPiped(
                 link,
-                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(
+                    pytgcalls.types.AudioQuality.HIGH
+                ),
+                video_parameters=VideoParameters.from_quality(
+                    pytgcalls.types.VideoQuality.SD_480p
+                ),
             )
         else:
             stream = (
                 AudioVideoPiped(
                     link,
-                    audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
-                    video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
+                    audio_parameters=AudioParameters.from_quality(
+                        pytgcalls.types.AudioQuality.HIGH
+                    ),
+                    video_parameters=VideoParameters.from_quality(
+                        pytgcalls.types.VideoQuality.SD_480p
+                    ),
                 )
                 if video
                 else AudioPiped(
                     link,
-                    audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                    audio_parameters=AudioParameters.from_quality(
+                        pytgcalls.types.AudioQuality.HIGH
+                    ),
                 )
             )
         try:
@@ -608,9 +636,11 @@ class Call(PyTgCalls):
                     button = stream_markup(_, chat_id)
                     run = await app.send_photo(
                         chat_id=original_chat_id,
-                        photo=config.TELEGRAM_AUDIO_URL
-                        if str(streamtype) == "audio"
-                        else config.TELEGRAM_VIDEO_URL,
+                        photo=(
+                            config.TELEGRAM_AUDIO_URL
+                            if str(streamtype) == "audio"
+                            else config.TELEGRAM_VIDEO_URL
+                        ),
                         caption=_["stream_1"].format(
                             config.SUPPORT_CHAT, title[:23], check[0]["dur"], user
                         ),

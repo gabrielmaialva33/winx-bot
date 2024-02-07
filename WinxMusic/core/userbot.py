@@ -142,7 +142,9 @@ class Userbot(Client):
             await self.three.join_chat("@cinewinxcoments")
 
             try:
-                await self.three.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.three.send_message(
+                    config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄"
+                )
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 3 has failed to access the log Group. Make sure that you have added your "
@@ -238,7 +240,9 @@ class Userbot(Client):
             await self.seven.join_chat("@cinewinxcoments")
 
             try:
-                await self.seven.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.seven.send_message(
+                    config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄"
+                )
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 7 has failed to access the log Group. Make sure that you have added your "
@@ -262,7 +266,9 @@ class Userbot(Client):
             await self.eight.join_chat("@cinewinxcoments")
 
             try:
-                await self.eight.send_message(config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄")
+                await self.eight.send_message(
+                    config.LOGGER_ID, "𝗔𝘀𝘀𝗶𝘀𝘁𝗲𝗻𝘁𝗲 𝗜𝗻𝗶𝗰𝗶𝗮𝗱𝗮 🪄"
+                )
             except:
                 LOGGER(__name__).error(
                     "Assistant Account 8 has failed to access the log Group. Make sure that you have added your "
