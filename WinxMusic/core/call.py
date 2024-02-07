@@ -11,14 +11,9 @@ from pytgcalls.exceptions import (
     NoActiveGroupCall,
     TelegramServerError,
 )
-from pytgcalls.types import (
-    AudioParameters,
-    AudioQuality,
-    Update,
-    VideoParameters,
-    VideoQuality,
-)
-from pytgcalls.types.input_stream import AudioPiped, AudioVideoPiped
+import pytgcalls.types
+from pytgcalls.types import AudioPiped, AudioVideoPiped
+from pytgcalls.types.raw import AudioParameters, VideoParameters
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
@@ -271,14 +266,14 @@ class Call(PyTgCalls):
         stream = (
             AudioVideoPiped(
                 out,
-                audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
                 additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["streamtype"] == "video"
             else AudioPiped(
                 out,
-                audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
+                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
                 additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
         )
@@ -322,13 +317,13 @@ class Call(PyTgCalls):
         if video:
             stream = AudioVideoPiped(
                 link,
-                audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
             )
         else:
             stream = AudioPiped(
                 link,
-                audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
+                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
             )
         await assistant.change_stream(
             chat_id,
@@ -340,14 +335,14 @@ class Call(PyTgCalls):
         stream = (
             AudioVideoPiped(
                 file_path,
-                audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
             else AudioPiped(
                 file_path,
-                audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
+                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
         )
@@ -376,20 +371,20 @@ class Call(PyTgCalls):
         if video:
             stream = AudioVideoPiped(
                 link,
-                audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
-                video_parameters=VideoParameters.from_quality(VideoQuality.SD_480p),
+                audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
             )
         else:
             stream = (
                 AudioVideoPiped(
                     link,
-                    audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
-                    video_parameters=VideoParameters.from_quality(VideoQuality.SD_480p),
+                    audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
+                    video_parameters=VideoParameters.from_quality(pytgcalls.types.VideoQuality.SD_480p),
                 )
                 if video
                 else AudioPiped(
                     link,
-                    audio_parameters=AudioParameters.from_quality(AudioQuality.HIGH),
+                    audio_parameters=AudioParameters.from_quality(pytgcalls.types.AudioQuality.HIGH),
                 )
             )
         try:
@@ -461,17 +456,17 @@ class Call(PyTgCalls):
                     stream = AudioVideoPiped(
                         link,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                         video_parameters=VideoParameters.from_quality(
-                            VideoQuality.SD_480p
+                            pytgcalls.types.VideoQuality.SD_480p
                         ),
                     )
                 else:
                     stream = AudioPiped(
                         link,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                     )
                 try:
@@ -513,17 +508,17 @@ class Call(PyTgCalls):
                     stream = AudioVideoPiped(
                         file_path,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                         video_parameters=VideoParameters.from_quality(
-                            VideoQuality.SD_480p
+                            pytgcalls.types.VideoQuality.SD_480p
                         ),
                     )
                 else:
                     stream = AudioPiped(
                         file_path,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                     )
                 try:
@@ -554,17 +549,17 @@ class Call(PyTgCalls):
                     AudioVideoPiped(
                         videoid,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                         video_parameters=VideoParameters.from_quality(
-                            VideoQuality.SD_480p
+                            pytgcalls.types.VideoQuality.SD_480p
                         ),
                     )
                     if str(streamtype) == "video"
                     else AudioPiped(
                         videoid,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                     )
                 )
@@ -589,17 +584,17 @@ class Call(PyTgCalls):
                     stream = AudioVideoPiped(
                         queued,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                         video_parameters=VideoParameters.from_quality(
-                            VideoQuality.SD_480p
+                            pytgcalls.types.VideoQuality.SD_480p
                         ),
                     )
                 else:
                     stream = AudioPiped(
                         queued,
                         audio_parameters=AudioParameters.from_quality(
-                            AudioQuality.HIGH
+                            pytgcalls.types.AudioQuality.HIGH
                         ),
                     )
                 try:
@@ -743,7 +738,7 @@ class Call(PyTgCalls):
         @self.eight.on_stream_end()
         @self.nine.on_stream_end()
         @self.ten.on_stream_end()
-        async def stream_end_handler(client, update: Update):
+        async def stream_end_handler(client, update: pytgcalls.types.Update):
             if not isinstance(update, StreamAudioEnded):
                 return
             await self.change_stream(client, update.chat_id)
