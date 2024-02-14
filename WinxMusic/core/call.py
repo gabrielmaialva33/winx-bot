@@ -10,7 +10,6 @@ from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
-    TelegramServerError,
 )
 from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pytgcalls.types.raw import AudioParameters, VideoParameters
@@ -424,8 +423,8 @@ class Call(PyTgCalls):
             raise AssistantErr(_["call_8"])
         except AlreadyJoinedError:
             raise AssistantErr(_["call_9"])
-        except TelegramServerError:
-            raise AssistantErr(_["call_10"])
+        # except TelegramServerError:
+        #     raise AssistantErr(_["call_10"])
         await add_active_chat(chat_id)
         await music_on(chat_id)
         if video:
