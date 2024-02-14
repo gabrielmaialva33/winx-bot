@@ -1,4 +1,5 @@
 from pyrogram import filters
+
 from WinxMusic.utils.admin_check import admin_check
 
 USE_AS_BOT = True
@@ -7,8 +8,8 @@ USE_AS_BOT = True
 def f_sudo_filter(filt, client, message):
     return bool(
         (
-                (message.from_user and message.from_user.id in SUDO_USERS)
-                or (message.sender_chat and message.sender_chat.id in SUDO_USERS)
+            (message.from_user and message.from_user.id in SUDO_USERS)
+            or (message.sender_chat and message.sender_chat.id in SUDO_USERS)
         )
         and
         # t, lt, fl 2013
@@ -43,8 +44,8 @@ f_onw_fliter = filters.create(func=onw_filter, name="OnwFilter")
 async def admin_filter_f(filt, client, message):
     return (
         # t, lt, fl 2013
-            not message.edit_date
-            and await admin_check(message)
+        not message.edit_date
+        and await admin_check(message)
     )
 
 

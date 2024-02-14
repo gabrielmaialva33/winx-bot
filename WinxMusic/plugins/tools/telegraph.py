@@ -1,26 +1,25 @@
-from telegraph import upload_file
-from pyrogram import filters
 import base64
+
 import httpx
-import os
-from WinxMusic import app
-import pyrogram
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from uuid import uuid4
 from pyrogram import filters
-from pyrogram import Client
-from WinxMusic.utils.inline import close_markup
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from telegraph import upload_file
+
+from WinxMusic import app
 
 
 @app.on_message(filters.reply & filters.command(["tgm", "telegraph"]))
 async def upscale_image(client, message):
     try:
         if not message.reply_to_message or not message.reply_to_message.photo:
-            await message.reply_text("𝐩𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐫𝐞𝐬𝐩𝐨𝐧𝐝𝐚 𝐚 𝐮𝐦𝐚 𝐢𝐦𝐚𝐠𝐞𝐦 𝐩𝐚𝐫𝐚 𝐜𝐫𝐢𝐚𝐫 𝐬𝐞𝐮 𝐥𝐢𝐧𝐤 𝐧𝐨 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡.")
+            await message.reply_text(
+                "𝐩𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐫𝐞𝐬𝐩𝐨𝐧𝐝𝐚 𝐚 𝐮𝐦𝐚 𝐢𝐦𝐚𝐠𝐞𝐦 𝐩𝐚𝐫𝐚 𝐜𝐫𝐢𝐚𝐫 𝐬𝐞𝐮 𝐥𝐢𝐧𝐤 𝐧𝐨 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡."
+            )
             return
 
         sent_message = await message.reply_text(
-            "ᴏᴋ, ᴀɢᴜᴀʀᴅᴇ ᴜᴍ ᴘᴏᴜᴄᴏ ᴄʀɪᴀɴᴅᴏ ᴏ ʟɪɴᴋ ᴅᴏ ᴛᴇʟᴇɢʀᴀᴘʜ ᴅᴀ sᴜᴀ ɪᴍᴀɢᴇᴍ ғᴏʀɴᴇᴄɪᴅᴀ ᴇᴍ ᴀʟᴛᴀ ᴅᴇғɪɴɪçãᴏ...")
+            "ᴏᴋ, ᴀɢᴜᴀʀᴅᴇ ᴜᴍ ᴘᴏᴜᴄᴏ ᴄʀɪᴀɴᴅᴏ ᴏ ʟɪɴᴋ ᴅᴏ ᴛᴇʟᴇɢʀᴀᴘʜ ᴅᴀ sᴜᴀ ɪᴍᴀɢᴇᴍ ғᴏʀɴᴇᴄɪᴅᴀ ᴇᴍ ᴀʟᴛᴀ ᴅᴇғɪɴɪçãᴏ..."
+        )
 
         image = message.reply_to_message.photo.file_id
         file_path = await client.download_media(image)
@@ -52,8 +51,8 @@ async def upscale_image(client, message):
             message.chat.id,
             photo="upscaled_image.png",
             caption=f"**➲ 𝐀𝐪𝐮𝐢 𝐞𝐬𝐭𝐚́ 𝐨 𝐬𝐞𝐮 𝐥𝐢𝐧𝐤 𝐝𝐨 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡 𝐩𝐚𝐫𝐚 𝐚 𝐟𝐨𝐭𝐨 𝐞𝐦 "
-                    f"𝐇𝐃.**\n\n**๏ 𝐕𝐨𝐜𝐞̂ 𝐩𝐨𝐝𝐞 𝐜𝐨𝐩𝐢𝐚𝐫 𝐜𝐥𝐢𝐜𝐚𝐧𝐝𝐨 𝐚𝐪𝐮𝐢: **\n\n"
-                    f"**‣**  `{button_url}`\n\n**๏ 𝐏𝐨𝐫 @{app.username}**",
+            f"𝐇𝐃.**\n\n**๏ 𝐕𝐨𝐜𝐞̂ 𝐩𝐨𝐝𝐞 𝐜𝐨𝐩𝐢𝐚𝐫 𝐜𝐥𝐢𝐜𝐚𝐧𝐝𝐨 𝐚𝐪𝐮𝐢: **\n\n"
+            f"**‣**  `{button_url}`\n\n**๏ 𝐏𝐨𝐫 @{app.username}**",
             reply_markup=reply_markup,
         )
 
@@ -62,4 +61,6 @@ async def upscale_image(client, message):
 
     except Exception as e:
         print(f"𝐅𝐚𝐥𝐡𝐚 𝐚𝐨 𝐚𝐦𝐩𝐥𝐢𝐚𝐫 𝐚 𝐢𝐦𝐚𝐠𝐞𝐦: {e}")
-        await message.reply_text("𝐅𝐚𝐥𝐡𝐚 𝐚𝐨 𝐚𝐦𝐩𝐥𝐢𝐚𝐫 𝐚 𝐢𝐦𝐚𝐠𝐞𝐦. 𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐭𝐞𝐧𝐭𝐞 𝐧𝐨𝐯𝐚𝐦𝐞𝐧𝐭𝐞 𝐦𝐚𝐢𝐬 𝐭𝐚𝐫𝐝𝐞")
+        await message.reply_text(
+            "𝐅𝐚𝐥𝐡𝐚 𝐚𝐨 𝐚𝐦𝐩𝐥𝐢𝐚𝐫 𝐚 𝐢𝐦𝐚𝐠𝐞𝐦. 𝐏𝐨𝐫 𝐟𝐚𝐯𝐨𝐫, 𝐭𝐞𝐧𝐭𝐞 𝐧𝐨𝐯𝐚𝐦𝐞𝐧𝐭𝐞 𝐦𝐚𝐢𝐬 𝐭𝐚𝐫𝐝𝐞"
+        )
