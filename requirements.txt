@@ -22,7 +22,7 @@ ntgcalls
 openai
 pillow
 psutil
-py-tgcalls==1.2.4
+py-tgcalls==1.2.3
 pykeyboard
 git+https://github.com/KurimuzonAkuma/pyrogram@dev
 python-dotenv
