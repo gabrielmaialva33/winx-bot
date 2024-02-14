@@ -1,7 +1,11 @@
 aiofiles
 aiohttp
 asyncio
+apscheduler
 beautifulsoup4
+bard
+pornhub-api
+deepai
 dnspython
 ffmpeg-python
 git+https://github.com/AsmSafone/SafoneAPI
@@ -12,6 +16,7 @@ gpytranslate
 gradio_client
 hachoir
 heroku3
+httpx
 motor
 ntgcalls
 openai
@@ -26,6 +31,7 @@ requests
 replicate
 speedtest-cli
 spotipy
+telegraph
 tgcrypto
 unidecode
 urllib3

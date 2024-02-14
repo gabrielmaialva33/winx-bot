@@ -91,6 +91,7 @@ STRING8 = getenv("STRING_SESSION8", None)
 STRING9 = getenv("STRING_SESSION9", None)
 STRING10 = getenv("STRING_SESSION10", None)
 
+
 BANNED_USERS = filters.user()
 
 adminlist = {}
@@ -98,6 +99,11 @@ lyrical = {}
 votemode = {}
 autoclean = []
 confirmer = {}
+chatstats = {}
+userstats = {}
+clean = {}
+
+autoclean = []
 
 # Images
 START_IMG_URL = getenv(
