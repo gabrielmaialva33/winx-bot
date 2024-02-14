@@ -326,7 +326,9 @@ def smug(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/smug").json()
         url = api["results"][0]["url"]
-        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} 𝗦𝗲 𝗮𝗰𝗵𝗮 🤔💭")
+        m.reply_animation(
+            animation=url, caption=f"{m.from_user.first_name} 𝗦𝗲 𝗮𝗰𝗵𝗮 🤔💭"
+        )
 
 
 # --------------------------------------------------------------------------------- #
@@ -427,7 +429,9 @@ def think(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/think").json()
         url = api["results"][0]["url"]
-        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} 𝗣𝗲𝗻𝘀𝗮 🤔💭🧠")
+        m.reply_animation(
+            animation=url, caption=f"{m.from_user.first_name} 𝗣𝗲𝗻𝘀𝗮 🤔💭🧠"
+        )
 
 
 # --------------------------------------------------------------------------------- #
@@ -483,7 +487,9 @@ def punch(_, m: Message):
     else:
         api = requests.get("https://nekos.best/api/v2/punch").json()
         url = api["results"][0]["url"]
-        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} ಠ‿ಠ 𝗦𝗼𝗰𝗮 👊")
+        m.reply_animation(
+            animation=url, caption=f"{m.from_user.first_name} ಠ‿ಠ 𝗦𝗼𝗰𝗮 👊"
+        )
 
 
 # --------------------------------------------------------------------------------- #
@@ -596,7 +602,9 @@ def hug(_, m: Message):
     else:
         api = requests.get("https://waifu.pics/api/sfw/hug").json()
         url = api["url"]
-        m.reply_animation(animation=url, caption=f"{m.from_user.first_name} 𝗯𝗿𝗮𝗰𝗲𝘀 🤗👐")
+        m.reply_animation(
+            animation=url, caption=f"{m.from_user.first_name} 𝗯𝗿𝗮𝗰𝗲𝘀 🤗👐"
+        )
 
 
 # --------------------------------------------------------------------------------- #
