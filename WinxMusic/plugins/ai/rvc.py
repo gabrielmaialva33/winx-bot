@@ -15,7 +15,7 @@ REPLY_AUDIO_MESSAGE = "👋 Olá winxer 🤖\n💡 Exemplo: - !{} [responder a u
 ERROR_MESSAGE = "❌ erro: {} 💬"
 INFERRED_AUDIO_CAPTION = "🎙️𝗔𝘂𝗱𝗶𝗼 𝗶𝗻𝗳𝗲𝗿𝗶𝗱𝗼 𝗽𝗼𝗿 {} 🤖"
 
-API_URL = "https://juuxn-simplervc.hf.space/--replicas/8j26w/"
+API_URL = "https://juuxn-simplervc.hf.space/--replicas/v8rha/"
 
 MODEL_URLS = {"lule": "https://huggingface.co/juuxn/RVCModels/resolve/main/Lula.zip"}
 
