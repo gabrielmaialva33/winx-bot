@@ -2,25 +2,31 @@ from lexica import AsyncClient, languageModels
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
+from config import BANNED_USERS
+from strings import get_string
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_text
 from WinxMusic.utils import get_lang
-from config import BANNED_USERS
-from strings import get_string
 
 main_prompt = "Você é a AI do Clube das Winx(Grupo Telegram). Ao responder, por favor, chame o usuário pelo nome. {0}"
 prompt_db = {}
-models = {getattr(languageModels, attr).get("name"): getattr(languageModels, attr).get("modelId")
-          for attr in dir(languageModels)
-          if not attr.startswith("__") and isinstance(getattr(languageModels, attr), dict)}
+models = {
+    getattr(languageModels, attr)
+    .get("name"): getattr(languageModels, attr)
+    .get("modelId")
+    for attr in dir(languageModels)
+    if not attr.startswith("__") and isinstance(getattr(languageModels, attr), dict)
+}
 
 
 def build_model_mapping():
     mapping = {}
     for attr_name in dir(languageModels):
-        if not attr_name.startswith("__") and isinstance(getattr(languageModels, attr_name), dict):
+        if not attr_name.startswith("__") and isinstance(
+            getattr(languageModels, attr_name), dict
+        ):
             model_attr = getattr(languageModels, attr_name)
-            mapping[model_attr['name']] = model_attr
+            mapping[model_attr["name"]] = model_attr
     return mapping
 
 
@@ -40,7 +46,11 @@ async def llm(_client, message: Message):
         return await message.reply_text(_["llm_1"])
 
     user = message.from_user
-    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id, "user_name": user.first_name}
+    prompt_db[user.id] = {
+        "prompt": prompt,
+        "reply_to_id": message.id,
+        "user_name": user.first_name,
+    }
     buttons = generate_text_buttons(user.id)
 
     await message.reply_text(
@@ -57,7 +67,7 @@ def generate_text_buttons(user_id):
         for model, model_id in models.items()
     ]
 
-    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex(r"^llm_") & ~BANNED_USERS)
@@ -84,8 +94,9 @@ async def llm_callback(_client, callback_query):
             return await callback_query.message.reply_text(_["llm_4"])
 
         response_text = response["content"]
-        await callback_query.message.reply_text(response_text,
-                                                reply_to_message_id=prompt_db[user_id]["reply_to_id"])
+        await callback_query.message.reply_text(
+            response_text, reply_to_message_id=prompt_db[user_id]["reply_to_id"]
+        )
     except Exception as e:
         LOGGER(__name__).warning(str(e))
         await callback_query.message.reply_text(_["llm_4"])
