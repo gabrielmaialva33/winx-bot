@@ -3,10 +3,10 @@ import os
 from pyrogram import filters
 from pyrogram.types import Message
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.helpers.lexica_api import upscale_image
 from WinxMusic.helpers.misc import get_file
-from config import BANNED_USERS
 
 
 @app.on_message(
@@ -40,4 +40,3 @@ async def upscale(_, message: Message):
             os.remove(file)
         if os.path.exists(upscaled):
             os.remove(upscaled)
-
