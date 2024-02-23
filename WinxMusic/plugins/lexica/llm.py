@@ -2,16 +2,29 @@ from lexica import AsyncClient, languageModels
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from WinxMusic.utils import get_lang
-from config import BANNED_USERS
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_text
+from WinxMusic.utils import get_lang
+from config import BANNED_USERS
 from strings import get_string
 
+main_prompt = "Você é a AI do Clube das Winx(Grupo Telegram). Ao responder, por favor, chame o usuário pelo nome. {0}"
 prompt_db = {}
 models = {getattr(languageModels, attr).get("name"): getattr(languageModels, attr).get("modelId")
           for attr in dir(languageModels)
           if not attr.startswith("__") and isinstance(getattr(languageModels, attr), dict)}
+
+
+def build_model_mapping():
+    mapping = {}
+    for attr_name in dir(languageModels):
+        if not attr_name.startswith("__") and isinstance(getattr(languageModels, attr_name), dict):
+            model_attr = getattr(languageModels, attr_name)
+            mapping[model_attr['name']] = model_attr
+    return mapping
+
+
+model_mapping = build_model_mapping()
 
 
 @app.on_message(
@@ -27,7 +40,7 @@ async def llm(_client, message: Message):
         return await message.reply_text(_["llm_1"])
 
     user = message.from_user
-    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id, "user": user}
+    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id, "user_name": user.first_name}
     buttons = generate_text_buttons(user.id)
 
     await message.reply_text(
@@ -36,20 +49,10 @@ async def llm(_client, message: Message):
     )
 
 
-# class languageModels(object):
-#     bard = {"modelId":20,"name":"Bard"}
-#     palm = {"modelId":0,"name":"PaLM"}
-#     palm2 = {"modelId":1,"name":"PaLM 2"}
-#     mistral = {"modelId":21,"name":"LLAMA 2"}
-#     llama = {"modelId":18,"name":"LLAMA"}
-#     gpt = {"modelId":5,"name":"ChatGPT"}
-#     gemini = {"modelId":23,"name":"Gemini-Pro"}
-#     geminiVision = {"modelId":24,"name":"Gemini-Pro-Vision"}
-#     openhermes = {"modelId":27,"name":"OpenHermes"}
 def generate_text_buttons(user_id):
     buttons = [
         InlineKeyboardButton(
-            text=model, callback_data=f"llm_{user_id}_{model_id}"
+            text=model, callback_data=f"llm_{user_id}_{model_id}_{model}"
         )
         for model, model_id in models.items()
     ]
@@ -65,41 +68,36 @@ async def llm_callback(_client, callback_query):
 
     data = callback_query.data.split("_")
     user_id = int(data[1])
-    model_name = data[2]
+    model_id = data[2]
+    model_object = model_mapping.get(data[3])
 
     prompt = prompt_db[user_id]["prompt"]
     client = AsyncClient()
 
+    prepare_prompt = main_prompt.format(prompt_db[user_id]["user_name"]) + prompt
+
     if callback_query.from_user.id != user_id:
         return await callback_query.answer(_["llm_3"], show_alert=True)
 
-    model_attr = None
-    for attr in dir(languageModels):
-        if attr.startswith("__"):
-            continue
-        model_info = getattr(languageModels, attr)
-        if model_info.get("name") == model_name:  # Compara o nome do modelo
-            model_attr = model_info
-            break
+    print(f"Prepare Prompt: {prepare_prompt}")
+    print(f"Prompt: {prompt}")
+    print(f"Model ID: {model_id}")
+    print(f"Models: {models}")
+    print(f"User ID: {user_id}")
+    print(f"User Name: {prompt_db[user_id]['user_name']}")
+    print(f"Reply to: {prompt_db[user_id]['reply_to_id']}")
+    print(f"Model object: {model_object}")
 
-    if not model_attr:
-        LOGGER(__name__).warning(f"Model not found: {model_name}")
-        return await callback_query.message.edit_text(_["llm_4"])
+    try:
+        response = await client.ChatCompletion(prepare_prompt, model_object)
+        if response["code"] != 2:
+            return await callback_query.message.reply_text(_["llm_4"])
 
-    # try:
-        response = await client.ChatCompletion(prompt, model_attr)
-        if response is None:
-            return await callback_query.edit_message_text(_["llm_4"])
-
-        text = f"🌟<b>Modelo:</b> <code>{model_name}</code>🌟\n\n 💬<b>Resposta:</b> <i>{response}</i>💬"
-        await callback_query.message.reply_text(
-            text,
-            reply_to_message_id=prompt_db[user_id]["reply_to_id"],
-            parse_mode="html",
-        )
-    # except Exception as e:
-    #     LOGGER(__name__).warning(str(e))
-    #     return await callback_query.message.edit_text(_["llm_4"])
-    # finally:
-    #     await client.close()
-
+        response_text = response["content"]
+        await callback_query.message.reply_text(response_text,
+                                                reply_to_message_id=prompt_db[user_id]["reply_to_id"])
+    except Exception as e:
+        LOGGER(__name__).warning(str(e))
+        await callback_query.message.reply_text(_["llm_4"])
+    finally:
+        await callback_query.message.delete()
