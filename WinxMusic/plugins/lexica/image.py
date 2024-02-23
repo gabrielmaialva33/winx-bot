@@ -30,7 +30,7 @@ prompt_db = {}
 
 
 @app.on_message(
-    filters.command(["draw", "desenhar", "desenhe"], prefixes=["/", "!"])
+    filters.command(["draw", "img", "gerar"], prefixes=["/", "!"])
     & filters.group
     & ~BANNED_USERS
 )
