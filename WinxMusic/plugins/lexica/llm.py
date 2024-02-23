@@ -68,7 +68,6 @@ async def llm_callback(_client, callback_query):
 
     data = callback_query.data.split("_")
     user_id = int(data[1])
-    model_id = data[2]
     model_object = model_mapping.get(data[3])
 
     prompt = prompt_db[user_id]["prompt"]
@@ -78,15 +77,6 @@ async def llm_callback(_client, callback_query):
 
     if callback_query.from_user.id != user_id:
         return await callback_query.answer(_["llm_3"], show_alert=True)
-
-    print(f"Prepare Prompt: {prepare_prompt}")
-    print(f"Prompt: {prompt}")
-    print(f"Model ID: {model_id}")
-    print(f"Models: {models}")
-    print(f"User ID: {user_id}")
-    print(f"User Name: {prompt_db[user_id]['user_name']}")
-    print(f"Reply to: {prompt_db[user_id]['reply_to_id']}")
-    print(f"Model object: {model_object}")
 
     try:
         response = await client.ChatCompletion(prepare_prompt, model_object)
