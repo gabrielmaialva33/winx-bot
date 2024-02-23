@@ -91,3 +91,61 @@ async def llm_callback(_client, callback_query):
         await callback_query.message.reply_text(_["llm_4"])
     finally:
         await callback_query.message.delete()
+
+
+@app.on_message(
+    filters.command(["gpt"], prefixes=["/", "!"]) & filters.group & ~BANNED_USERS
+)
+async def gpt(_client, message: Message):
+    chat_id = message.chat.id
+    language = await get_lang(chat_id)
+    _ = get_string(language)
+
+    prompt = await get_text(message)
+    if prompt is None:
+        return await message.reply_text(_["llm_1"])
+
+    user = message.from_user
+    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id, "user_name": user.first_name}
+
+    try:
+        client = AsyncClient()
+        response = await client.ChatCompletion(prompt, languageModels.gpt)
+        if response["code"] != 2:
+            return await message.reply_text(_["llm_4"])
+
+        response_text = response["content"]
+
+        await message.reply_text(response_text, reply_to_message_id=prompt_db[user.id]["reply_to_id"])
+    except Exception as e:
+        LOGGER(__name__).warning(str(e))
+        await message.reply_text(_["llm_4"])
+
+
+@app.on_message(
+    filters.command(["bard"], prefixes=["/", "!"]) & filters.group & ~BANNED_USERS
+)
+async def bard(_client, message: Message):
+    chat_id = message.chat.id
+    language = await get_lang(chat_id)
+    _ = get_string(language)
+
+    prompt = await get_text(message)
+    if prompt is None:
+        return await message.reply_text(_["llm_1"])
+
+    user = message.from_user
+    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id, "user_name": user.first_name}
+
+    try:
+        client = AsyncClient()
+        response = await client.ChatCompletion(prompt, languageModels.bard)
+        if response["code"] != 2:
+            return await message.reply_text(_["llm_4"])
+
+        response_text = response["content"]
+
+        await message.reply_text(response_text, reply_to_message_id=prompt_db[user.id]["reply_to_id"])
+    except Exception as e:
+        LOGGER(__name__).warning(str(e))
+        await message.reply_text(_["llm_4"])
