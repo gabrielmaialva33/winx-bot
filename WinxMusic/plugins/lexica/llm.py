@@ -2,16 +2,20 @@ from lexica import AsyncClient, languageModels
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
-from WinxMusic.utils import get_lang
 from config import BANNED_USERS
+from strings import get_string
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_text
-from strings import get_string
+from WinxMusic.utils import get_lang
 
 prompt_db = {}
-models = {getattr(languageModels, attr).get("name"): getattr(languageModels, attr).get("modelId")
-          for attr in dir(languageModels)
-          if not attr.startswith("__") and isinstance(getattr(languageModels, attr), dict)}
+models = {
+    getattr(languageModels, attr)
+    .get("name"): getattr(languageModels, attr)
+    .get("modelId")
+    for attr in dir(languageModels)
+    if not attr.startswith("__") and isinstance(getattr(languageModels, attr), dict)
+}
 
 
 @app.on_message(
@@ -48,13 +52,11 @@ async def llm(_client, message: Message):
 #     openhermes = {"modelId":27,"name":"OpenHermes"}
 def generate_text_buttons(user_id):
     buttons = [
-        InlineKeyboardButton(
-            text=model, callback_data=f"llm_{user_id}_{model_id}"
-        )
+        InlineKeyboardButton(text=model, callback_data=f"llm_{user_id}_{model_id}")
         for model, model_id in models.items()
     ]
 
-    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex(r"^llm_") & ~BANNED_USERS)
@@ -86,7 +88,7 @@ async def llm_callback(_client, callback_query):
         LOGGER(__name__).warning(f"Model not found: {model_name}")
         return await callback_query.message.edit_text(_["llm_4"])
 
-    # try:
+        # try:
         response = await client.ChatCompletion(prompt, model_attr)
         if response is None:
             return await callback_query.edit_message_text(_["llm_4"])
@@ -102,4 +104,3 @@ async def llm_callback(_client, callback_query):
     #     return await callback_query.message.edit_text(_["llm_4"])
     # finally:
     #     await client.close()
-
