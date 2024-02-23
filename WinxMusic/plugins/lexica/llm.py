@@ -117,7 +117,11 @@ async def gpt(_client, message: Message):
         return await message.reply_text(_["llm_1"])
 
     user = message.from_user
-    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id, "user_name": user.first_name}
+    prompt_db[user.id] = {
+        "prompt": prompt,
+        "reply_to_id": message.id,
+        "user_name": user.first_name,
+    }
 
     try:
         client = AsyncClient()
@@ -127,7 +131,9 @@ async def gpt(_client, message: Message):
 
         response_text = response["content"]
 
-        await message.reply_text(response_text, reply_to_message_id=prompt_db[user.id]["reply_to_id"])
+        await message.reply_text(
+            response_text, reply_to_message_id=prompt_db[user.id]["reply_to_id"]
+        )
     except Exception as e:
         LOGGER(__name__).warning(str(e))
         await message.reply_text(_["llm_4"])
@@ -146,7 +152,11 @@ async def bard(_client, message: Message):
         return await message.reply_text(_["llm_1"])
 
     user = message.from_user
-    prompt_db[user.id] = {"prompt": prompt, "reply_to_id": message.id, "user_name": user.first_name}
+    prompt_db[user.id] = {
+        "prompt": prompt,
+        "reply_to_id": message.id,
+        "user_name": user.first_name,
+    }
 
     try:
         client = AsyncClient()
@@ -156,7 +166,9 @@ async def bard(_client, message: Message):
 
         response_text = response["content"]
 
-        await message.reply_text(response_text, reply_to_message_id=prompt_db[user.id]["reply_to_id"])
+        await message.reply_text(
+            response_text, reply_to_message_id=prompt_db[user.id]["reply_to_id"]
+        )
     except Exception as e:
         LOGGER(__name__).warning(str(e))
         await message.reply_text(_["llm_4"])
