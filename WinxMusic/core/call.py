@@ -7,10 +7,7 @@ import pytgcalls.types
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls
-from pytgcalls.exceptions import (
-    AlreadyJoinedError,
-    NoActiveGroupCall,
-)
+from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
 from pytgcalls.types import AudioPiped, AudioVideoPiped
 from pytgcalls.types.raw import AudioParameters, VideoParameters
 from pytgcalls.types.stream import StreamAudioEnded
