@@ -8,7 +8,7 @@ from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_text
 from WinxMusic.utils import get_lang
 
-main_prompt = "Você é a AI do Clube das Winx(Grupo Telegram). Ao responder, por favor, chame o usuário pelo nome. {0}"
+main_prompt = "Você é a AI do Clube das Winx. Ao responder, por favor, chame o usuário pelo nome. {0}"
 prompt_db = {}
 models = {
     getattr(languageModels, attr)
@@ -95,7 +95,8 @@ async def llm_callback(_client, callback_query):
 
         response_text = response["content"]
         await callback_query.message.reply_text(
-            response_text, reply_to_message_id=prompt_db[user_id]["reply_to_id"]
+            f"<b>🤖modelo:</b> <code>{data[3]}</code>\n\n<i>{response_text}</i>",
+            reply_to_message_id=prompt_db[user_id]["reply_to_id"]
         )
     except Exception as e:
         LOGGER(__name__).warning(str(e))
@@ -122,10 +123,11 @@ async def gpt(_client, message: Message):
         "reply_to_id": message.id,
         "user_name": user.first_name,
     }
+    prepare_prompt = main_prompt.format(prompt_db[user.id]["user_name"]) + prompt
 
     try:
         client = AsyncClient()
-        response = await client.ChatCompletion(prompt, languageModels.gpt)
+        response = await client.ChatCompletion(prepare_prompt, languageModels.gpt)
         if response["code"] != 2:
             return await message.reply_text(_["llm_4"])
 
@@ -157,10 +159,11 @@ async def bard(_client, message: Message):
         "reply_to_id": message.id,
         "user_name": user.first_name,
     }
+    prepare_prompt = main_prompt.format(prompt_db[user.id]["user_name"]) + prompt
 
     try:
         client = AsyncClient()
-        response = await client.ChatCompletion(prompt, languageModels.bard)
+        response = await client.ChatCompletion(prepare_prompt, languageModels.bard)
         if response["code"] != 2:
             return await message.reply_text(_["llm_4"])
 
