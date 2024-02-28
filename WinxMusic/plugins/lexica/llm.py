@@ -96,7 +96,7 @@ async def llm_callback(_client, callback_query):
         response_text = response["content"]
         await callback_query.message.reply_text(
             f"<b>🤖modelo:</b> <code>{data[3]}</code>\n\n<i>{response_text}</i>",
-            reply_to_message_id=prompt_db[user_id]["reply_to_id"]
+            reply_to_message_id=prompt_db[user_id]["reply_to_id"],
         )
     except Exception as e:
         LOGGER(__name__).warning(str(e))
