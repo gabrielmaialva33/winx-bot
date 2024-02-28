@@ -11,11 +11,8 @@ async def nekobin(data, extension=None):
         async with httpx.AsyncClient() as req:
             res = req.post(
                 url=NEKOBIN,
-                json={
-                    "content": data,
-                    "title": "data",
-                    "author": "SDWaifuRobot"
-                })
+                json={"content": data, "title": "data", "author": "SDWaifuRobot"},
+            )
     except Exception as e:
         return {"error": str(e)}
     if res.ok:

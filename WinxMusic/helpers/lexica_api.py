@@ -14,18 +14,18 @@ async def lexica_image_generation(model, prompt):
     try:
         client = AsyncClient()
         output = await client.generate(model, prompt, "")
-        if output['code'] != 1:
+        if output["code"] != 1:
             return 2
-        elif output['code'] == 69:
-            return output['code']
-        task_id, request_id = output['task_id'], output['request_id']
+        elif output["code"] == 69:
+            return output["code"]
+        task_id, request_id = output["task_id"], output["request_id"]
         await asyncio.sleep(20)
         tries = 0
         image_url = None
         resp = await client.getImages(task_id, request_id)
         while True:
-            if resp['code'] == 2:
-                image_url = resp['img_urls']
+            if resp["code"] == 2:
+                image_url = resp["img_urls"]
                 break
             if tries > 15:
                 break
@@ -59,8 +59,8 @@ async def lexica_chat_completion(prompt, model) -> tuple | str:
     output = await client.ChatCompletion(prompt, modelInfo)
     await client.close()
     if model == "bard":
-        return output['content'], output['images']
-    return output['content']
+        return output["content"], output["images"]
+    return output["content"]
 
 
 async def lexica_gemini_vision(prompt, model, images) -> tuple | str:
@@ -69,18 +69,13 @@ async def lexica_gemini_vision(prompt, model, images) -> tuple | str:
         with open(image, "rb") as imageFile:
             data = base64.b64encode(imageFile.read()).decode("utf-8")
             mime_type, _ = mimetypes.guess_type(image)
-            image_info.append({
-                "data": data,
-                "mime_type": mime_type
-            })
+            image_info.append({"data": data, "mime_type": mime_type})
         os.remove(image)
-    payload = {
-        "images": image_info
-    }
+    payload = {"images": image_info}
     model_info = getattr(languageModels, model)
     client = AsyncClient()
     output = await client.ChatCompletion(prompt, model_info, json=payload)
-    return output['content']['parts'][0]['text']
+    return output["content"]["parts"][0]["text"]
 
 
 async def lexica_reverse_image_search(img_url, search_engine) -> dict:
@@ -105,6 +100,7 @@ async def lexica_download_media(platform, url) -> dict:
 
 
 # ------------------------------------------------- #
+
 
 async def image_generation(model, prompt):
     """

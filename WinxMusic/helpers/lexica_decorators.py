@@ -1,9 +1,12 @@
+import re
+import sys
+import traceback
 from functools import wraps
-import traceback, sys, re
+from urllib.parse import urlsplit
 
 from config import LOGGER_ID
+
 from .lexica_miscs import evaluate_content
-from urllib.parse import urlsplit
 
 media_pattern = r"\b(https?://(?:(.*?)\.)?(?:instagram\.com|www\.instagram\.com|t\.co|twitter\.com|x\.com|pin\.it|pinterest\.com|in\.pinterest\.com)(?:[^\s]*))\b"
 
@@ -38,7 +41,7 @@ def identify_platform(func):
     @wraps(func)
     async def wrapper(client, message, *args, **kwargs):
         url = re.findall(media_pattern, message.text)[0][0]
-        platform = urlsplit(url).netloc.split('.')[-2]
+        platform = urlsplit(url).netloc.split(".")[-2]
         message.platform = "pinterest" if platform == "pin" else platform
         message.url = url
         await func(client, message, *args, **kwargs)

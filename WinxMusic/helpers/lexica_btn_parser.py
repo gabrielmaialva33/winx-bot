@@ -17,10 +17,7 @@ class EqInlineKeyboardButton(InlineKeyboardButton):
 def paginate_models(page_n: int, models: list, user_id) -> list:
     modules = sorted(
         [
-            EqInlineKeyboardButton(
-                x['name'],
-                callback_data=f"d.{x['id']}.{user_id}"
-            )
+            EqInlineKeyboardButton(x["name"], callback_data=f"d.{x['id']}.{user_id}")
             for x in models
         ]
     )
@@ -47,24 +44,17 @@ def paginate_models(page_n: int, models: list, user_id) -> list:
 
     # can only have a certain amount of buttons side by side
     if len(pairs) > COLUMN_SIZE:
-        pairs = pairs[
-                modulo_page * COLUMN_SIZE: COLUMN_SIZE * (modulo_page + 1)
-                ] + [
-                    (
-                        EqInlineKeyboardButton(
-                            "⬅️",
-                            callback_data=f"d.left.{modulo_page}.{user_id}"
-                        ),
-                        EqInlineKeyboardButton(
-                            "Cancel",
-                            callback_data=f"d.-1.{user_id}"
-                        ),
-                        EqInlineKeyboardButton(
-                            "➡️",
-                            callback_data=f"d.right.{modulo_page}.{user_id}"
-                        ),
-                    )
-                ]
+        pairs = pairs[modulo_page * COLUMN_SIZE : COLUMN_SIZE * (modulo_page + 1)] + [
+            (
+                EqInlineKeyboardButton(
+                    "⬅️", callback_data=f"d.left.{modulo_page}.{user_id}"
+                ),
+                EqInlineKeyboardButton("Cancel", callback_data=f"d.-1.{user_id}"),
+                EqInlineKeyboardButton(
+                    "➡️", callback_data=f"d.right.{modulo_page}.{user_id}"
+                ),
+            )
+        ]
     else:
         pairs += [[EqInlineKeyboardButton("Cancel", callback_data=f"d.-1.{user_id}")]]
 

@@ -16,11 +16,21 @@ async def evaluate_content(text):
 async def get_file(message):
     if not message.reply_to_message:
         return None
-    if message.reply_to_message.document is False or message.reply_to_message.photo is False:
+    if (
+        message.reply_to_message.document is False
+        or message.reply_to_message.photo is False
+    ):
         return None
-    if message.reply_to_message.document and message.reply_to_message.document.mime_type in ['image/png', 'image/jpg',
-                                                                                             'image/jpeg'] or message.reply_to_message.photo:
-        if message.reply_to_message.document and message.reply_to_message.document.file_size > 5242880:
+    if (
+        message.reply_to_message.document
+        and message.reply_to_message.document.mime_type
+        in ["image/png", "image/jpg", "image/jpeg"]
+        or message.reply_to_message.photo
+    ):
+        if (
+            message.reply_to_message.document
+            and message.reply_to_message.document.file_size > 5242880
+        ):
             return 1
         image = await message.reply_to_message.download()
         return image
@@ -44,21 +54,31 @@ def get_text(message):
 
 def get_media(message):
     """Extract Media"""
-    media = message.media if message.media else message.reply_to_message.media if message.reply_to_message else None
+    media = (
+        message.media
+        if message.media
+        else message.reply_to_message.media if message.reply_to_message else None
+    )
     if message.media:
         if message.photo:
             media = message.photo
-        elif message.document and message.document.mime_type in ['image/png', 'image/jpg',
-                                                                 'image/jpeg'] and message.document.file_size < 5242880:
+        elif (
+            message.document
+            and message.document.mime_type in ["image/png", "image/jpg", "image/jpeg"]
+            and message.document.file_size < 5242880
+        ):
             media = message.document
         else:
             media = None
     elif message.reply_to_message and message.reply_to_message.media:
         if message.reply_to_message.photo:
             media = message.reply_to_message.photo
-        elif message.reply_to_message.document and message.reply_to_message.document.mime_type in ['image/png',
-                                                                                                   'image/jpg',
-                                                                                                   'image/jpeg'] and message.reply_to_message.document.file_size < 5242880:
+        elif (
+            message.reply_to_message.document
+            and message.reply_to_message.document.mime_type
+            in ["image/png", "image/jpg", "image/jpeg"]
+            and message.reply_to_message.document.file_size < 5242880
+        ):
             media = message.reply_to_message.document
         else:
             media = None
@@ -79,7 +99,7 @@ def get_image_content(url):
         response = client.get(clean_url(url))
         if response.status_code != 200:
             return None
-        imageType = response.headers['content-type'].split("/")[1]
+        imageType = response.headers["content-type"].split("/")[1]
         if imageType == "gif":
             return None
         return response.content
@@ -94,6 +114,6 @@ def get_content_type(url):
         response = client.head(url)
         if response.status_code != 200:
             return None
-        return response.headers['content-type'].split("/")[0]
+        return response.headers["content-type"].split("/")[0]
     except (TimeoutError, httpx.ReadTimeout, httpx.ReadError):
         return None

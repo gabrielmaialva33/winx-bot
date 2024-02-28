@@ -2,11 +2,11 @@ from lexica import AsyncClient, languageModels
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
+from config import BANNED_USERS
+from strings import get_string
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_text
 from WinxMusic.utils import get_lang
-from config import BANNED_USERS
-from strings import get_string
 
 main_prompt = "Você é a AI do Clube das Winx. Ao responder, por favor, chame o usuário pelo nome. {0}"
 prompt_db = {}
@@ -23,7 +23,7 @@ def build_model_mapping():
     mapping = {}
     for attr_name in dir(languageModels):
         if not attr_name.startswith("__") and isinstance(
-                getattr(languageModels, attr_name), dict
+            getattr(languageModels, attr_name), dict
         ):
             model_attr = getattr(languageModels, attr_name)
             mapping[model_attr["name"]] = model_attr
@@ -67,7 +67,7 @@ def generate_text_buttons(user_id):
         for model, model_id in models.items()
     ]
 
-    return [buttons[i: i + 2] for i in range(0, len(buttons), 2)]
+    return [buttons[i : i + 2] for i in range(0, len(buttons), 2)]
 
 
 @app.on_callback_query(filters.regex(r"^llm_") & ~BANNED_USERS)
