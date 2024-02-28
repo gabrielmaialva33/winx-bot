@@ -16,7 +16,7 @@ gpytranslate
 gradio_client
 hachoir
 heroku3
-httpx
+httpx[http2]
 motor
 ntgcalls
 openai
