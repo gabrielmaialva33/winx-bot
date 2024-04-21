@@ -8,7 +8,7 @@ from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
-from pytgcalls.types import AudioPiped, AudioVideoPiped
+from pytgcalls.types import MediaStream
 from pytgcalls.types.raw import AudioParameters, VideoParameters
 from pytgcalls.types.stream import StreamAudioEnded
 
@@ -260,7 +260,7 @@ class Call(PyTgCalls):
         played, con_seconds = speed_converter(playing[0]["played"], speed)
         duration = seconds_to_min(dur)
         stream = (
-            AudioVideoPiped(
+            MediaStream(
                 out,
                 audio_parameters=AudioParameters.from_quality(
                     pytgcalls.types.AudioQuality.HIGH
@@ -271,7 +271,7 @@ class Call(PyTgCalls):
                 additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["streamtype"] == "video"
-            else AudioPiped(
+            else MediaStream(
                 out,
                 audio_parameters=AudioParameters.from_quality(
                     pytgcalls.types.AudioQuality.HIGH
@@ -317,7 +317,7 @@ class Call(PyTgCalls):
     ):
         assistant = await group_assistant(self, chat_id)
         if video:
-            stream = AudioVideoPiped(
+            stream = MediaStream(
                 link,
                 audio_parameters=AudioParameters.from_quality(
                     pytgcalls.types.AudioQuality.HIGH
@@ -327,7 +327,7 @@ class Call(PyTgCalls):
                 ),
             )
         else:
-            stream = AudioPiped(
+            stream = MediaStream(
                 link,
                 audio_parameters=AudioParameters.from_quality(
                     pytgcalls.types.AudioQuality.HIGH
@@ -341,7 +341,7 @@ class Call(PyTgCalls):
     async def seek_stream(self, chat_id, file_path, to_seek, duration, mode):
         assistant = await group_assistant(self, chat_id)
         stream = (
-            AudioVideoPiped(
+            MediaStream(
                 file_path,
                 audio_parameters=AudioParameters.from_quality(
                     pytgcalls.types.AudioQuality.HIGH
@@ -352,7 +352,7 @@ class Call(PyTgCalls):
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
-            else AudioPiped(
+            else MediaStream(
                 file_path,
                 audio_parameters=AudioParameters.from_quality(
                     pytgcalls.types.AudioQuality.HIGH
@@ -366,7 +366,7 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, config.LOGGER_ID)
         await assistant.join_group_call(
             config.LOGGER_ID,
-            AudioVideoPiped(link),
+            MediaStream(link),
         )
         await asyncio.sleep(0.2)
         await assistant.leave_group_call(config.LOGGER_ID)
@@ -383,7 +383,7 @@ class Call(PyTgCalls):
         language = await get_lang(chat_id)
         _ = get_string(language)
         if video:
-            stream = AudioVideoPiped(
+            stream = MediaStream(
                 link,
                 audio_parameters=AudioParameters.from_quality(
                     pytgcalls.types.AudioQuality.HIGH
@@ -394,7 +394,7 @@ class Call(PyTgCalls):
             )
         else:
             stream = (
-                AudioVideoPiped(
+                MediaStream(
                     link,
                     audio_parameters=AudioParameters.from_quality(
                         pytgcalls.types.AudioQuality.HIGH
@@ -404,7 +404,7 @@ class Call(PyTgCalls):
                     ),
                 )
                 if video
-                else AudioPiped(
+                else MediaStream(
                     link,
                     audio_parameters=AudioParameters.from_quality(
                         pytgcalls.types.AudioQuality.HIGH
@@ -477,7 +477,7 @@ class Call(PyTgCalls):
                         text=_["call_6"],
                     )
                 if video:
-                    stream = AudioVideoPiped(
+                    stream = MediaStream(
                         link,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
@@ -487,7 +487,7 @@ class Call(PyTgCalls):
                         ),
                     )
                 else:
-                    stream = AudioPiped(
+                    stream = MediaStream(
                         link,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
@@ -529,7 +529,7 @@ class Call(PyTgCalls):
                         _["call_6"], disable_web_page_preview=True
                     )
                 if video:
-                    stream = AudioVideoPiped(
+                    stream = MediaStream(
                         file_path,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
@@ -539,7 +539,7 @@ class Call(PyTgCalls):
                         ),
                     )
                 else:
-                    stream = AudioPiped(
+                    stream = MediaStream(
                         file_path,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
@@ -570,7 +570,7 @@ class Call(PyTgCalls):
                 db[chat_id][0]["markup"] = "stream"
             elif "index_" in queued:
                 stream = (
-                    AudioVideoPiped(
+                    MediaStream(
                         videoid,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
@@ -580,7 +580,7 @@ class Call(PyTgCalls):
                         ),
                     )
                     if str(streamtype) == "video"
-                    else AudioPiped(
+                    else MediaStream(
                         videoid,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
@@ -605,7 +605,7 @@ class Call(PyTgCalls):
                 db[chat_id][0]["markup"] = "tg"
             else:
                 if video:
-                    stream = AudioVideoPiped(
+                    stream = MediaStream(
                         queued,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
@@ -615,7 +615,7 @@ class Call(PyTgCalls):
                         ),
                     )
                 else:
-                    stream = AudioPiped(
+                    stream = MediaStream(
                         queued,
                         audio_parameters=AudioParameters.from_quality(
                             pytgcalls.types.AudioQuality.HIGH
