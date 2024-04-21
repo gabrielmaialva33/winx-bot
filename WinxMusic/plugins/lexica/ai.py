@@ -40,6 +40,6 @@ async def ask_about_image(_: Client, m: t.Message, media_files: list, prompt: st
         )
         images.append(image)
     output = await lexica_gemini_vision(
-        prompt if prompt else "o que é isso?", "geminiVision", images
+        prompt if prompt else "o que é isso? descreva o maximo que conseguir da img", "geminiVision", images
     )
     await m.reply_text(output)
