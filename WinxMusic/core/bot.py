@@ -3,7 +3,6 @@ from pyrogram.enums import ChatMemberStatus, ParseMode
 from pyrogram.types import BotCommand
 
 import config
-
 from ..logging import LOGGER
 
 
@@ -43,7 +42,7 @@ class Winx(Client):
             await self.send_message(
                 chat_id=config.LOGGER_ID,
                 text=f"🚀<u><b>➜ {self.mention} Bot iniciado:</b></u>🚀\n\n"
-                f"ID: <code>{self.id}</code>\nNome: {self.name}\nUsuário: @{self.username}",
+                     f"ID: <code>{self.id}</code>\nNome: {self.name}\nUsuário: @{self.username}",
             )
         except (errors.ChannelInvalid, errors.PeerIdInvalid):
             LOGGER(__name__).error(

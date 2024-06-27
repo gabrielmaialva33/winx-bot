@@ -171,8 +171,8 @@ async def mentionall(client, message):
         is_admin = False
     else:
         if participant.status in (
-            ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.OWNER,
+                ChatMemberStatus.ADMINISTRATOR,
+                ChatMemberStatus.OWNER,
         ):
             is_admin = True
     if not is_admin:
@@ -241,8 +241,8 @@ async def mention_allvc(client, message):
         is_admin = False
     else:
         if participant.status in (
-            ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.OWNER,
+                ChatMemberStatus.ADMINISTRATOR,
+                ChatMemberStatus.OWNER,
         ):
             is_admin = True
     if not is_admin:
@@ -300,8 +300,8 @@ async def cancel_spam(client, message):
         is_admin = False
     else:
         if participant.status in (
-            ChatMemberStatus.ADMINISTRATOR,
-            ChatMemberStatus.OWNER,
+                ChatMemberStatus.ADMINISTRATOR,
+                ChatMemberStatus.OWNER,
         ):
             is_admin = True
     if not is_admin:

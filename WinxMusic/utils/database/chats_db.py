@@ -1,4 +1,4 @@
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, Union
 
 from WinxMusic.core.mongo import mongodb
 
@@ -32,4 +32,3 @@ async def remove_served_chat(chat_id: int):
 
 async def get_chat(chat_id: int) -> Union[Dict[str, Any], None]:
     return await chats_db.find_one({"chat_id": chat_id})
-

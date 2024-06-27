@@ -2,11 +2,11 @@ from lexica import Client as ApiClient
 from pyrogram import Client, filters
 from pyrogram import types as t
 
-from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.helpers.lexica_api import lexica_image_generation
 from WinxMusic.helpers.lexica_btn_parser import paginate_models
 from WinxMusic.helpers.lexica_miscs import get_text
+from config import BANNED_USERS
 
 Database = {}
 Models = ApiClient().models["models"]["image"]

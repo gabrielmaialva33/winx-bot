@@ -6,16 +6,15 @@ from typing import Union
 import pytgcalls.types
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
-from pytgcalls import PyTgCalls
+from pytgcalls import PyTgCalls, filters
 from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
-from pytgcalls.types import MediaStream
-from pytgcalls.types.raw import AudioParameters, VideoParameters
+from pytgcalls.types import MediaStream, ChatUpdate, GroupCallParticipant, Update
 from pytgcalls.types.stream import StreamAudioEnded
 
 import config
-from strings import get_string
 from WinxMusic import LOGGER, YouTube, app
 from WinxMusic.misc import db
+from WinxMusic.utils import get_audio_bitrate, get_video_bitrate
 from WinxMusic.utils.database import (
     add_active_chat,
     add_active_video_chat,
@@ -33,9 +32,11 @@ from WinxMusic.utils.formatters import check_duration, seconds_to_min, speed_con
 from WinxMusic.utils.inline.play import stream_markup
 from WinxMusic.utils.stream.autoclear import auto_clean
 from WinxMusic.utils.thumbnails import get_thumb
+from strings import get_string
 
 autoend = {}
 counter = {}
+AUTO_END_TIME = 1
 
 
 async def _clear_(chat_id):
@@ -159,59 +160,59 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         try:
             await _clear_(chat_id)
-            await assistant.leave_group_call(chat_id)
+            await assistant.leave_call(chat_id)
         except:
             pass
 
     async def stop_stream_force(self, chat_id: int):
         try:
             if config.STRING1:
-                await self.one.leave_group_call(chat_id)
+                await self.one.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING2:
-                await self.two.leave_group_call(chat_id)
+                await self.two.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING3:
-                await self.three.leave_group_call(chat_id)
+                await self.three.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING4:
-                await self.four.leave_group_call(chat_id)
+                await self.four.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING5:
-                await self.five.leave_group_call(chat_id)
+                await self.five.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING6:
-                await self.six.leave_group_call(chat_id)
+                await self.six.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING7:
-                await self.seven.leave_group_call(chat_id)
+                await self.seven.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING8:
-                await self.eight.leave_group_call(chat_id)
+                await self.eight.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING9:
-                await self.nine.leave_group_call(chat_id)
+                await self.nine.leave_call(chat_id)
         except:
             pass
         try:
             if config.STRING10:
-                await self.ten.leave_group_call(chat_id)
+                await self.ten.leave_call(chat_id)
         except:
             pass
         try:
@@ -259,23 +260,19 @@ class Call(PyTgCalls):
         dur = int(dur)
         played, con_seconds = speed_converter(playing[0]["played"], speed)
         duration = seconds_to_min(dur)
+        audio_stream_quality = await get_audio_bitrate(chat_id)
+        video_stream_quality = await get_video_bitrate(chat_id)
         stream = (
             MediaStream(
                 out,
-                audio_parameters=AudioParameters.from_quality(
-                    pytgcalls.types.AudioQuality.HIGH
-                ),
-                video_parameters=VideoParameters.from_quality(
-                    pytgcalls.types.VideoQuality.SD_480p
-                ),
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
                 additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
             if playing[0]["streamtype"] == "video"
             else MediaStream(
                 out,
-                audio_parameters=AudioParameters.from_quality(
-                    pytgcalls.types.AudioQuality.HIGH
-                ),
+                audio_parameters=audio_stream_quality,
                 additional_ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
         )
@@ -304,34 +301,30 @@ class Call(PyTgCalls):
         await remove_active_video_chat(chat_id)
         await remove_active_chat(chat_id)
         try:
-            await assistant.leave_group_call(chat_id)
+            await assistant.leave_call(chat_id)
         except:
             pass
 
     async def skip_stream(
-        self,
-        chat_id: int,
-        link: str,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            link: str,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
+        audio_stream_quality = await get_audio_bitrate(chat_id)
+        video_stream_quality = await get_video_bitrate(chat_id)
         if video:
             stream = MediaStream(
                 link,
-                audio_parameters=AudioParameters.from_quality(
-                    pytgcalls.types.AudioQuality.HIGH
-                ),
-                video_parameters=VideoParameters.from_quality(
-                    pytgcalls.types.VideoQuality.SD_480p
-                ),
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
             )
         else:
             stream = MediaStream(
                 link,
-                audio_parameters=AudioParameters.from_quality(
-                    pytgcalls.types.AudioQuality.HIGH
-                ),
+                audio_parameters=audio_stream_quality,
             )
         await assistant.change_stream(
             chat_id,
@@ -340,23 +333,19 @@ class Call(PyTgCalls):
 
     async def seek_stream(self, chat_id, file_path, to_seek, duration, mode):
         assistant = await group_assistant(self, chat_id)
+        audio_stream_quality = await get_audio_bitrate(chat_id)
+        video_stream_quality = await get_video_bitrate(chat_id)
         stream = (
             MediaStream(
                 file_path,
-                audio_parameters=AudioParameters.from_quality(
-                    pytgcalls.types.AudioQuality.HIGH
-                ),
-                video_parameters=VideoParameters.from_quality(
-                    pytgcalls.types.VideoQuality.SD_480p
-                ),
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
             if mode == "video"
             else MediaStream(
                 file_path,
-                audio_parameters=AudioParameters.from_quality(
-                    pytgcalls.types.AudioQuality.HIGH
-                ),
+                audio_parameters=audio_stream_quality,
                 additional_ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
         )
@@ -364,55 +353,47 @@ class Call(PyTgCalls):
 
     async def stream_call(self, link):
         assistant = await group_assistant(self, config.LOGGER_ID)
-        await assistant.join_group_call(
+        await assistant.play(
             config.LOGGER_ID,
             MediaStream(link),
         )
         await asyncio.sleep(0.2)
-        await assistant.leave_group_call(config.LOGGER_ID)
+        await assistant.leave_call(config.LOGGER_ID)
 
     async def join_call(
-        self,
-        chat_id: int,
-        original_chat_id: int,
-        link,
-        video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
+            self,
+            chat_id: int,
+            original_chat_id: int,
+            link,
+            video: Union[bool, str] = None,
+            image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         language = await get_lang(chat_id)
+        audio_stream_quality = await get_audio_bitrate(chat_id)
+        video_stream_quality = await get_video_bitrate(chat_id)
         _ = get_string(language)
         if video:
             stream = MediaStream(
                 link,
-                audio_parameters=AudioParameters.from_quality(
-                    pytgcalls.types.AudioQuality.HIGH
-                ),
-                video_parameters=VideoParameters.from_quality(
-                    pytgcalls.types.VideoQuality.SD_480p
-                ),
+                audio_parameters=audio_stream_quality,
+                video_parameters=video_stream_quality,
             )
         else:
             stream = (
                 MediaStream(
                     link,
-                    audio_parameters=AudioParameters.from_quality(
-                        pytgcalls.types.AudioQuality.HIGH
-                    ),
-                    video_parameters=VideoParameters.from_quality(
-                        pytgcalls.types.VideoQuality.SD_480p
-                    ),
+                    audio_parameters=audio_stream_quality,
+                    video_parameters=video_stream_quality,
                 )
                 if video
                 else MediaStream(
                     link,
-                    audio_parameters=AudioParameters.from_quality(
-                        pytgcalls.types.AudioQuality.HIGH
-                    ),
+                    audio_parameters=audio_stream_quality,
                 )
             )
         try:
-            await assistant.join_group_call(
+            await assistant.play(
                 chat_id,
                 stream,
             )
@@ -445,11 +426,11 @@ class Call(PyTgCalls):
             await auto_clean(popped)
             if not check:
                 await _clear_(chat_id)
-                return await client.leave_group_call(chat_id)
+                return await client.leave_call(chat_id)
         except:
             try:
                 await _clear_(chat_id)
-                return await client.leave_group_call(chat_id)
+                return await client.leave_call(chat_id)
             except:
                 return
         else:
@@ -463,6 +444,8 @@ class Call(PyTgCalls):
             videoid = check[0]["vidid"]
             db[chat_id][0]["played"] = 0
             exis = (check[0]).get("old_dur")
+            audio_stream_quality = await get_audio_bitrate(chat_id)
+            video_stream_quality = await get_video_bitrate(chat_id)
             if exis:
                 db[chat_id][0]["dur"] = exis
                 db[chat_id][0]["seconds"] = check[0]["old_second"]
@@ -479,19 +462,13 @@ class Call(PyTgCalls):
                 if video:
                     stream = MediaStream(
                         link,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
-                        video_parameters=VideoParameters.from_quality(
-                            pytgcalls.types.VideoQuality.SD_480p
-                        ),
+                        audio_parameters=audio_stream_quality,
+                        video_parameters=video_stream_quality,
                     )
                 else:
                     stream = MediaStream(
                         link,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
+                        audio_parameters=audio_stream_quality,
                     )
                 try:
                     await client.change_stream(chat_id, stream)
@@ -531,19 +508,13 @@ class Call(PyTgCalls):
                 if video:
                     stream = MediaStream(
                         file_path,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
-                        video_parameters=VideoParameters.from_quality(
-                            pytgcalls.types.VideoQuality.SD_480p
-                        ),
+                        audio_parameters=audio_stream_quality,
+                        video_parameters=video_stream_quality,
                     )
                 else:
                     stream = MediaStream(
                         file_path,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
+                        audio_parameters=audio_stream_quality,
                     )
                 try:
                     await client.change_stream(chat_id, stream)
@@ -572,19 +543,13 @@ class Call(PyTgCalls):
                 stream = (
                     MediaStream(
                         videoid,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
-                        video_parameters=VideoParameters.from_quality(
-                            pytgcalls.types.VideoQuality.SD_480p
-                        ),
+                        audio_parameters=audio_stream_quality,
+                        video_parameters=video_stream_quality,
                     )
                     if str(streamtype) == "video"
                     else MediaStream(
                         videoid,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
+                        audio_parameters=audio_stream_quality,
                     )
                 )
                 try:
@@ -607,19 +572,13 @@ class Call(PyTgCalls):
                 if video:
                     stream = MediaStream(
                         queued,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
-                        video_parameters=VideoParameters.from_quality(
-                            pytgcalls.types.VideoQuality.SD_480p
-                        ),
+                        audio_parameters=audio_stream_quality,
+                        video_parameters=video_stream_quality,
                     )
                 else:
                     stream = MediaStream(
                         queued,
-                        audio_parameters=AudioParameters.from_quality(
-                            pytgcalls.types.AudioQuality.HIGH
-                        ),
+                        audio_parameters=audio_stream_quality,
                     )
                 try:
                     await client.change_stream(chat_id, stream)
@@ -721,53 +680,127 @@ class Call(PyTgCalls):
             await self.ten.start()
 
     async def decorators(self):
-        @self.one.on_kicked()
-        @self.two.on_kicked()
-        @self.three.on_kicked()
-        @self.four.on_kicked()
-        @self.five.on_kicked()
-        @self.six.on_kicked()
-        @self.seven.on_kicked()
-        @self.eight.on_kicked()
-        @self.nine.on_kicked()
-        @self.ten.on_kicked()
-        @self.one.on_closed_voice_chat()
-        @self.two.on_closed_voice_chat()
-        @self.three.on_closed_voice_chat()
-        @self.four.on_closed_voice_chat()
-        @self.five.on_closed_voice_chat()
-        @self.six.on_closed_voice_chat()
-        @self.seven.on_closed_voice_chat()
-        @self.eight.on_closed_voice_chat()
-        @self.nine.on_closed_voice_chat()
-        @self.ten.on_closed_voice_chat()
-        @self.one.on_left()
-        @self.two.on_left()
-        @self.three.on_left()
-        @self.four.on_left()
-        @self.five.on_left()
-        @self.six.on_left()
-        @self.seven.on_left()
-        @self.eight.on_left()
-        @self.nine.on_left()
-        @self.ten.on_left()
+        # @self.one.on_kicked()
+        # @self.two.on_kicked()
+        # @self.three.on_kicked()
+        # @self.four.on_kicked()
+        # @self.five.on_kicked()
+        # @self.six.on_kicked()
+        # @self.seven.on_kicked()
+        # @self.eight.on_kicked()
+        # @self.nine.on_kicked()
+        # @self.ten.on_kicked()
+        # @self.one.on_closed_voice_chat()
+        # @self.two.on_closed_voice_chat()
+        # @self.three.on_closed_voice_chat()
+        # @self.four.on_closed_voice_chat()
+        # @self.five.on_closed_voice_chat()
+        # @self.six.on_closed_voice_chat()
+        # @self.seven.on_closed_voice_chat()
+        # @self.eight.on_closed_voice_chat()
+        # @self.nine.on_closed_voice_chat()
+        # @self.ten.on_closed_voice_chat()
+        # @self.one.on_left()
+        # @self.two.on_left()
+        # @self.three.on_left()
+        # @self.four.on_left()
+        # @self.five.on_left()
+        # @self.six.on_left()
+        # @self.seven.on_left()
+        # @self.eight.on_left()
+        # @self.nine.on_left()
+        # @self.ten.on_left()
+        @self.one.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.two.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.three.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.four.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.five.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.six.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.seven.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.eight.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.nine.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.ten.on_update(filters.chat_update(ChatUpdate.Status.LEFT_CALL))
+        @self.one.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.two.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.three.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.four.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.five.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.six.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.seven.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.eight.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.nine.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.ten.on_update(filters.chat_update(ChatUpdate.Status.CLOSED_VOICE_CHAT))
+        @self.one.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.two.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.three.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.four.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.five.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.six.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.seven.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.eight.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.nine.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
+        @self.ten.on_update(filters.chat_update(ChatUpdate.Status.KICKED))
         async def stream_services_handler(_, chat_id: int):
             await self.stop_stream(chat_id)
 
-        @self.one.on_stream_end()
-        @self.two.on_stream_end()
-        @self.three.on_stream_end()
-        @self.four.on_stream_end()
-        @self.five.on_stream_end()
-        @self.six.on_stream_end()
-        @self.seven.on_stream_end()
-        @self.eight.on_stream_end()
-        @self.nine.on_stream_end()
-        @self.ten.on_stream_end()
+        # @self.one.on_stream_end()
+        # @self.two.on_stream_end()
+        # @self.three.on_stream_end()
+        # @self.four.on_stream_end()
+        # @self.five.on_stream_end()
+        # @self.six.on_stream_end()
+        # @self.seven.on_stream_end()
+        # @self.eight.on_stream_end()
+        # @self.nine.on_stream_end()
+        # @self.ten.on_stream_end()
+        @self.one.on_update(filters.stream_end)
+        @self.two.on_update(filters.stream_end)
+        @self.three.on_update(filters.stream_end)
+        @self.four.on_update(filters.stream_end)
+        @self.five.on_update(filters.stream_end)
+        @self.six.on_update(filters.stream_end)
+        @self.seven.on_update(filters.stream_end)
+        @self.eight.on_update(filters.stream_end)
+        @self.nine.on_update(filters.stream_end)
+        @self.ten.on_update(filters.stream_end)
         async def stream_end_handler(client, update: pytgcalls.types.Update):
             if not isinstance(update, StreamAudioEnded):
                 return
             await self.change_stream(client, update.chat_id)
+
+        @self.one.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.two.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.three.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.four.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        @self.five.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
+        async def participants_change_handler(client, update: Update):
+            if not isinstance(
+                    update, GroupCallParticipant.Action.JOINED
+            ) and not isinstance(update, GroupCallParticipant.Action.LEFT):
+                return
+            chat_id = update.chat_id
+            users = counter.get(chat_id)
+            if not users:
+                try:
+                    got = len(await client.get_participants(chat_id))
+                except:
+                    return
+                counter[chat_id] = got
+                if got == 1:
+                    autoend[chat_id] = datetime.now() + timedelta(minutes=AUTO_END_TIME)
+                    return
+                autoend[chat_id] = {}
+            else:
+                final = (
+                    users + 1
+                    if isinstance(update, GroupCallParticipant.Action.JOINED)
+                    else users - 1
+                )
+                counter[chat_id] = final
+                if final == 1:
+                    autoend[chat_id] = datetime.now() + timedelta(minutes=AUTO_END_TIME)
+                    return
+                autoend[chat_id] = {}
 
 
 Winx = Call()

@@ -35,9 +35,9 @@ async def search_images(_: Client, m: t.Message):
         await m.reply_media_group(media, quote=True)
         await reply.delete()
     except (
-        errors.ExternalUrlInvalid,
-        errors.WebpageCurlFailed,
-        errors.WebpageMediaEmpty,
+            errors.ExternalUrlInvalid,
+            errors.WebpageCurlFailed,
+            errors.WebpageMediaEmpty,
     ) as e:
         print(e)
         return await reply.edit("Ran into an error.")

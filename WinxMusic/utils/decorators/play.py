@@ -9,14 +9,6 @@ from pyrogram.errors import (
 )
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import (
-    PLAYLIST_IMG_URL,
-    PRIVATE_BOT_MODE,
-    QUEUE_LIMIT,
-    SUPPORT_CHAT,
-    adminlist,
-)
-from strings import get_string
 from WinxMusic import YouTube, app
 from WinxMusic.misc import SUDOERS, db
 from WinxMusic.utils.database import (
@@ -30,6 +22,14 @@ from WinxMusic.utils.database import (
     is_served_private_chat,
 )
 from WinxMusic.utils.inline import botplaylist_markup
+from config import (
+    PLAYLIST_IMG_URL,
+    PRIVATE_BOT_MODE,
+    QUEUE_LIMIT,
+    SUPPORT_CHAT,
+    adminlist,
+)
+from strings import get_string
 
 links = {}
 
@@ -71,8 +71,8 @@ def PlayWrapper(command):
             if len(check) > QUEUE_LIMIT:
                 return await message.reply_text(
                     text=f"𝗣𝗮𝗿𝗲𝗰𝗲 𝗾𝘂𝗲 𝘃𝗼𝗰ê 𝗲𝘀𝘁á 𝗲𝘀𝘁á 𝗳𝗮𝘇𝗲𝗻𝗱𝗼 𝗷𝗮𝗳á {QUEUE_LIMIT} 𝗺ú𝘀𝗶𝗰𝗮𝘀 𝗻𝗮 "
-                    f"𝗳𝗶𝗹𝗮. 𝗣𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮 𝗳𝗶𝗻𝗮𝗹𝗶𝘇𝗮𝗿 𝗽𝗮𝗿𝗮 "
-                    f"𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗿 𝗲𝘀𝘁𝗮 𝘂𝘁𝗶𝗹𝗶𝘇𝗮𝗿 𝗲𝗹𝗮𝘀 𝘂𝘁𝗶𝗹𝗶𝘇𝗮𝗿 /𝗲𝗻𝗱. 🕒",
+                         f"𝗳𝗶𝗹𝗮. 𝗣𝗼𝗿 𝗳𝗮𝘃𝗼𝗿, 𝗮𝗴𝘂𝗮𝗿𝗱𝗲 𝗮 𝗳𝗶𝗻𝗮𝗹𝗶𝘇𝗮𝗿 𝗽𝗮𝗿𝗮 "
+                         f"𝘁𝗲𝗿𝗺𝗶𝗻𝗮𝗿 𝗲𝘀𝘁𝗮 𝘂𝘁𝗶𝗹𝗶𝘇𝗮𝗿 𝗲𝗹𝗮𝘀 𝘂𝘁𝗶𝗹𝗶𝘇𝗮𝗿 /𝗲𝗻𝗱. 🕒",
                     disable_web_page_preview=True,
                 )
         try:
@@ -150,8 +150,8 @@ def PlayWrapper(command):
                 except ChatAdminRequired:
                     return await message.reply_text(_["call_1"])
                 if (
-                    get.status == ChatMemberStatus.BANNED
-                    or get.status == ChatMemberStatus.RESTRICTED
+                        get.status == ChatMemberStatus.BANNED
+                        or get.status == ChatMemberStatus.RESTRICTED
                 ):
                     return await message.reply_text(
                         _["call_2"].format(

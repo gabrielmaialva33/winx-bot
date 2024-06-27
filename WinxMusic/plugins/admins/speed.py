@@ -1,7 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS, adminlist
 from WinxMusic import app
 from WinxMusic.core.call import Winx
 from WinxMusic.misc import SUDOERS, db
@@ -9,6 +8,7 @@ from WinxMusic.utils import AdminRightsCheck
 from WinxMusic.utils.database import is_active_chat, is_nonadmin_chat
 from WinxMusic.utils.decorators.language import languageCB
 from WinxMusic.utils.inline import close_markup, speed_markup
+from config import BANNED_USERS, adminlist
 
 checker = []
 

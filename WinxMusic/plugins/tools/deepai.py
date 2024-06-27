@@ -5,6 +5,8 @@ from pyrogram.enums import ChatAction
 from WinxMusic import app
 
 api_key = "64102a85-4dbd-4d42-af48-16fe1f31f452"
+
+
 # api_key = "995e3267-53f1-496e-82e3-39754eab99dc"
 
 
@@ -83,6 +85,5 @@ async def deepchat(app: app, message):
             await message.reply_text(f"{answer_text}")
     except Exception as e:
         await message.reply_text(f"ᴇʀʀᴏʀ: {e}")
-
 
 ##

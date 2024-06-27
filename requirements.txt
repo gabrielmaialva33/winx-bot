@@ -10,7 +10,7 @@ dnspython
 ffmpeg-python
 git+https://github.com/AsmSafone/SafoneAPI
 #git+https://github.com/Qewertyy/LexicaAPI
-lexica-api==1.5.6
+lexica-api
 git+https://github.com/yt-dlp/yt-dlp
 #safoneapi
 #lexica-api
@@ -22,12 +22,12 @@ hachoir
 heroku3
 httpx[http2]
 motor
-ntgcalls==1.1.0
+ntgcalls
 openai
 pillow
 psutil
 #git+https://github.com/pytgcalls/pytgcalls
-py-tgcalls==1.2.2
+py-tgcalls
 pykeyboard
 #pyrogram
 https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip

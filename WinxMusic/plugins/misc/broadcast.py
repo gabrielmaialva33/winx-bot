@@ -12,7 +12,6 @@ from pyrogram.errors import (
     UserIsBlocked,
 )
 
-from config import OWNER_ID, adminlist
 from WinxMusic import app
 from WinxMusic.misc import SUDOERS
 from WinxMusic.utils.database import (
@@ -25,6 +24,7 @@ from WinxMusic.utils.database import (
 )
 from WinxMusic.utils.decorators.language import language
 from WinxMusic.utils.formatters import alpha_to_int
+from config import OWNER_ID, adminlist
 
 IS_BROADCASTING = False
 
@@ -255,7 +255,7 @@ async def auto_clean():
                 if chat_id not in adminlist:
                     adminlist[chat_id] = []
                     async for user in app.get_chat_members(
-                        chat_id, filter=ChatMembersFilter.ADMINISTRATORS
+                            chat_id, filter=ChatMembersFilter.ADMINISTRATORS
                     ):
                         if user.privileges.can_manage_video_chats:
                             adminlist[chat_id].append(user.user.id)

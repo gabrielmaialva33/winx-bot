@@ -17,19 +17,19 @@ async def get_file(message):
     if not message.reply_to_message:
         return None
     if (
-        message.reply_to_message.document is False
-        or message.reply_to_message.photo is False
+            message.reply_to_message.document is False
+            or message.reply_to_message.photo is False
     ):
         return None
     if (
-        message.reply_to_message.document
-        and message.reply_to_message.document.mime_type
-        in ["image/png", "image/jpg", "image/jpeg"]
-        or message.reply_to_message.photo
+            message.reply_to_message.document
+            and message.reply_to_message.document.mime_type
+            in ["image/png", "image/jpg", "image/jpeg"]
+            or message.reply_to_message.photo
     ):
         if (
-            message.reply_to_message.document
-            and message.reply_to_message.document.file_size > 5242880
+                message.reply_to_message.document
+                and message.reply_to_message.document.file_size > 5242880
         ):
             return 1
         image = await message.reply_to_message.download()
@@ -63,9 +63,9 @@ def get_media(message):
         if message.photo:
             media = message.photo
         elif (
-            message.document
-            and message.document.mime_type in ["image/png", "image/jpg", "image/jpeg"]
-            and message.document.file_size < 5242880
+                message.document
+                and message.document.mime_type in ["image/png", "image/jpg", "image/jpeg"]
+                and message.document.file_size < 5242880
         ):
             media = message.document
         else:
@@ -74,10 +74,10 @@ def get_media(message):
         if message.reply_to_message.photo:
             media = message.reply_to_message.photo
         elif (
-            message.reply_to_message.document
-            and message.reply_to_message.document.mime_type
-            in ["image/png", "image/jpg", "image/jpeg"]
-            and message.reply_to_message.document.file_size < 5242880
+                message.reply_to_message.document
+                and message.reply_to_message.document.mime_type
+                in ["image/png", "image/jpg", "image/jpeg"]
+                and message.reply_to_message.document.file_size < 5242880
         ):
             media = message.reply_to_message.document
         else:

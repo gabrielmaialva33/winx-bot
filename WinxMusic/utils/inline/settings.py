@@ -74,10 +74,10 @@ def auth_users_markup(_, status: Union[bool, str] = None):
 
 
 def playmode_users_markup(
-    _,
-    Direct: Union[bool, str] = None,
-    Group: Union[bool, str] = None,
-    Playtype: Union[bool, str] = None,
+        _,
+        Direct: Union[bool, str] = None,
+        Group: Union[bool, str] = None,
+        Playtype: Union[bool, str] = None,
 ):
     buttons = [
         [

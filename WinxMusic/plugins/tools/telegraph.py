@@ -51,8 +51,8 @@ async def upscale_image(client, message):
             message.chat.id,
             photo="upscaled_image.png",
             caption=f"**➲ 𝐀𝐪𝐮𝐢 𝐞𝐬𝐭𝐚́ 𝐨 𝐬𝐞𝐮 𝐥𝐢𝐧𝐤 𝐝𝐨 𝐓𝐞𝐥𝐞𝐠𝐫𝐚𝐩𝐡 𝐩𝐚𝐫𝐚 𝐚 𝐟𝐨𝐭𝐨 𝐞𝐦 "
-            f"𝐇𝐃.**\n\n**๏ 𝐕𝐨𝐜𝐞̂ 𝐩𝐨𝐝𝐞 𝐜𝐨𝐩𝐢𝐚𝐫 𝐜𝐥𝐢𝐜𝐚𝐧𝐝𝐨 𝐚𝐪𝐮𝐢: **\n\n"
-            f"**‣**  `{button_url}`\n\n**๏ 𝐏𝐨𝐫 @{app.username}**",
+                    f"𝐇𝐃.**\n\n**๏ 𝐕𝐨𝐜𝐞̂ 𝐩𝐨𝐝𝐞 𝐜𝐨𝐩𝐢𝐚𝐫 𝐜𝐥𝐢𝐜𝐚𝐧𝐝𝐨 𝐚𝐪𝐮𝐢: **\n\n"
+                    f"**‣**  `{button_url}`\n\n**๏ 𝐏𝐨𝐫 @{app.username}**",
             reply_markup=reply_markup,
         )
 

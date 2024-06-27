@@ -1,6 +1,9 @@
 from typing import Any, Dict, List, Union
 
+from pytgcalls.types import AudioQuality, VideoQuality
+
 from WinxMusic.core.mongo import mongodb
+from config import PRIVATE_BOT_MODE
 
 authdb = mongodb.adminauth
 authuserdb = mongodb.authuser
@@ -34,6 +37,9 @@ pause = {}
 playmode = {}
 playtype = {}
 skipmode = {}
+
+audio = {}
+video = {}
 
 
 async def is_skipmode(chat_id: int) -> bool:
@@ -598,3 +604,38 @@ async def impo_on(chat_id: int) -> bool:
 
 async def impo_off(chat_id: int):
     await impdb.delete_one({"chat_id_toggle": chat_id})
+
+
+async def get_audio_bitrate(chat_id: int) -> AudioQuality:
+    mode = audio.get(chat_id)
+    if not mode:
+        return AudioQuality.MEDIUM
+    if str(mode) == "STUDIO":
+        return AudioQuality.STUDIO
+    elif str(mode) == "HIGH":
+        return AudioQuality.HIGH
+    elif str(mode) == "MEDIUM":
+        return AudioQuality.MEDIUM
+    elif str(mode) == "LOW":
+        return AudioQuality.LOW
+
+
+async def get_video_bitrate(chat_id: int) -> VideoQuality:
+    mode = video.get(chat_id)
+    if not mode:
+        if PRIVATE_BOT_MODE == str(True):
+            return VideoQuality.SD_480p
+        else:
+            return VideoQuality.SD_480p
+    if str(mode) == "UHD_4K":
+        return VideoQuality.UHD_4K
+    elif str(mode) == "QHD_2K":
+        return VideoQuality.QHD_2K
+    elif str(mode) == "FHD_1080p":
+        return VideoQuality.FHD_1080p
+    elif str(mode) == "HD_720p":
+        return VideoQuality.HD_720p
+    elif str(mode) == "SD_480p":
+        return VideoQuality.SD_480p
+    elif str(mode) == "SD_360p":
+        return VideoQuality.SD_360p

@@ -28,9 +28,9 @@ async def chk_usr(_, message: Message):
     )
     msg = ""
     if (
-        usernamebefore != message.from_user.username
-        or first_name != message.from_user.first_name
-        or lastname_before != message.from_user.last_name
+            usernamebefore != message.from_user.username
+            or first_name != message.from_user.first_name
+            or lastname_before != message.from_user.last_name
     ):
         msg += f"""
 🔹 𝗜𝗠𝗣𝗢𝗦𝗧𝗢𝗥 𝗗𝗘𝗧𝗘𝗖𝗧𝗔𝗗𝗢 👀:
