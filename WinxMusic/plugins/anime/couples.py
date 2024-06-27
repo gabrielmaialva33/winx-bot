@@ -3,9 +3,9 @@ from datetime import datetime, timedelta
 
 from pyrogram import filters
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.utils.database import get_couple, save_couple
-from config import BANNED_USERS
 
 COUPLE_COMMAND = ["couple", "casal", "winxers"]
 PHOTO_URL = "https://telegra.ph/file/908be770f3a34834379f1.png"

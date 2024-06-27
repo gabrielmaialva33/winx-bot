@@ -5,6 +5,7 @@ from functools import wraps
 from urllib.parse import urlsplit
 
 from config import LOGGER_ID
+
 from .lexica_miscs import evaluate_content
 
 media_pattern = r"\b(https?://(?:(.*?)\.)?(?:instagram\.com|www\.instagram\.com|t\.co|twitter\.com|x\.com|pin\.it|pinterest\.com|in\.pinterest\.com)(?:[^\s]*))\b"

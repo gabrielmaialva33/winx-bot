@@ -3,11 +3,11 @@ import traceback
 from pyrogram import Client, filters
 from pyrogram import types as t
 
+from config import BANNED_USERS
 from WinxMusic import app
 from WinxMusic.helpers.lexica_api import lexica_reverse_image_search
 from WinxMusic.helpers.lexica_miscs import get_file
 from WinxMusic.helpers.telegraph import GraphClient, upload_to_telegraph
-from config import BANNED_USERS
 
 
 @app.on_message(

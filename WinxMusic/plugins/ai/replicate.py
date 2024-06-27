@@ -1,11 +1,11 @@
+import replicate
 from pyrogram import filters
 from pyrogram.types import Message
 
-import replicate
+from config import BANNED_USERS
 from WinxMusic import LOGGER, app
 from WinxMusic.helpers.misc import get_file
 from WinxMusic.misc import AUTHORIZED_CHATS
-from config import BANNED_USERS
 
 
 @app.on_message(

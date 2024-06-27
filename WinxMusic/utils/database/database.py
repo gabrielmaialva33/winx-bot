@@ -2,8 +2,8 @@ from typing import Any, Dict, List, Union
 
 from pytgcalls.types import AudioQuality, VideoQuality
 
-from WinxMusic.core.mongo import mongodb
 from config import PRIVATE_BOT_MODE
+from WinxMusic.core.mongo import mongodb
 
 authdb = mongodb.adminauth
 authuserdb = mongodb.authuser

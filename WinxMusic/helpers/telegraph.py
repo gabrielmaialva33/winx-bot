@@ -21,7 +21,7 @@ class GraphClient:
         }
 
     def create_account(
-            self,
+        self,
     ):
         url = self.baseUrl + "createAccount"
         data = {

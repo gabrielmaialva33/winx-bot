@@ -4,8 +4,8 @@ import requests
 from pyrogram import filters
 from pyrogram.types import Message
 
-from WinxMusic import app
 from config import BANNED_USERS
+from WinxMusic import app
 
 WIFU_COMMAND = ["wifu", "waifu"]
 API_ENDPOINT = "https://waifu.pics/api/sfw/waifu"
