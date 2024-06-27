@@ -635,25 +635,25 @@ class Call(PyTgCalls):
     async def ping(self):
         pings = []
         if config.STRING1:
-            pings.append(await self.one.ping)
+            pings.append(self.one.ping)
         if config.STRING2:
-            pings.append(await self.two.ping)
+            pings.append(self.two.ping)
         if config.STRING3:
-            pings.append(await self.three.ping)
+            pings.append(self.three.ping)
         if config.STRING4:
-            pings.append(await self.four.ping)
+            pings.append(self.four.ping)
         if config.STRING5:
-            pings.append(await self.five.ping)
+            pings.append(self.five.ping)
         if config.STRING6:
-            pings.append(await self.six.ping)
+            pings.append(self.six.ping)
         if config.STRING7:
-            pings.append(await self.seven.ping)
+            pings.append(self.seven.ping)
         if config.STRING8:
-            pings.append(await self.eight.ping)
+            pings.append(self.eight.ping)
         if config.STRING9:
-            pings.append(await self.nine.ping)
+            pings.append(self.nine.ping)
         if config.STRING10:
-            pings.append(await self.ten.ping)
+            pings.append(self.ten.ping)
         return str(round(sum(pings) / len(pings), 3))
 
     async def start(self):
