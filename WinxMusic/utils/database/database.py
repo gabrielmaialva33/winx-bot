@@ -609,9 +609,9 @@ async def impo_off(chat_id: int):
 async def get_audio_bitrate(chat_id: int) -> AudioQuality:
     mode = audio.get(chat_id)
     if not mode:
-        return AudioQuality.STUDIO
+        return AudioQuality.MEDIUM
     if str(mode) == "STUDIO":
-        return AudioQuality.STUDIO
+        return AudioQuality.MEDIUM
     elif str(mode) == "HIGH":
         return AudioQuality.HIGH
     elif str(mode) == "MEDIUM":
@@ -624,7 +624,7 @@ async def get_video_bitrate(chat_id: int) -> VideoQuality:
     mode = video.get(chat_id)
     if not mode:
         if PRIVATE_BOT_MODE == str(True):
-            return VideoQuality.UHD_4K
+            return VideoQuality.HD_720p
         else:
             return VideoQuality.HD_720p
     if str(mode) == "UHD_4K":
