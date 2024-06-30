@@ -7,7 +7,11 @@ from typing import Union
 import pytgcalls.types
 from ntgcalls import TelegramServerError
 from pyrogram import Client
-from pyrogram.errors import ChatAdminRequired, UserNotParticipant, UserAlreadyParticipant
+from pyrogram.errors import (
+    ChatAdminRequired,
+    UserAlreadyParticipant,
+    UserNotParticipant,
+)
 from pyrogram.types import InlineKeyboardMarkup
 from pytgcalls import PyTgCalls, filters
 from pytgcalls.exceptions import AlreadyJoinedError, NoActiveGroupCall
@@ -18,7 +22,7 @@ import config
 from strings import get_string
 from WinxMusic import LOGGER, YouTube, app
 from WinxMusic.misc import db
-from WinxMusic.utils import get_audio_bitrate, get_video_bitrate, get_assistant
+from WinxMusic.utils import get_assistant, get_audio_bitrate, get_video_bitrate
 from WinxMusic.utils.database import (
     add_active_chat,
     add_active_video_chat,
@@ -326,11 +330,11 @@ class Call(PyTgCalls):
             pass
 
     async def skip_stream(
-            self,
-            chat_id: int,
-            link: str,
-            video: Union[bool, str] = None,
-            image: Union[bool, str] = None,
+        self,
+        chat_id: int,
+        link: str,
+        video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -439,12 +443,12 @@ class Call(PyTgCalls):
                     raise AssistantErr(_["call_3"].format(e))
 
     async def join_call(
-            self,
-            chat_id: int,
-            original_chat_id: int,
-            link,
-            video: Union[bool, str] = None,
-            image: Union[bool, str] = None,
+        self,
+        chat_id: int,
+        original_chat_id: int,
+        link,
+        video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
@@ -851,7 +855,7 @@ class Call(PyTgCalls):
         @self.five.on_update(filters.chat_update(GroupCallParticipant.Action.UPDATED))
         async def participants_change_handler(client, update: Update):
             if not isinstance(
-                    update, GroupCallParticipant.Action.JOINED
+                update, GroupCallParticipant.Action.JOINED
             ) and not isinstance(update, GroupCallParticipant.Action.LEFT):
                 return
             chat_id = update.chat_id
