@@ -626,7 +626,7 @@ async def get_video_bitrate(chat_id: int) -> VideoQuality:
         if PRIVATE_BOT_MODE == str(True):
             return VideoQuality.UHD_4K
         else:
-            return VideoQuality.UHD_4K
+            return VideoQuality.HD_720p
     if str(mode) == "UHD_4K":
         return VideoQuality.UHD_4K
     elif str(mode) == "QHD_2K":
