@@ -90,7 +90,7 @@ class Userbot(Client):
             await self.one.join_chat("@winxbotx")
             await self.one.join_chat("@winxmusicsupport")
             await self.one.join_chat("@cinewinx")
-            await self.one.join_chat("@@clubdaswinxcanall")
+            await self.one.join_chat("@canalclubdaswinx")
             await self.one.join_chat("@cinewinxcoments")
 
             try:
@@ -114,7 +114,7 @@ class Userbot(Client):
             await self.two.join_chat("@winxbotx")
             await self.two.join_chat("@winxmusicsupport")
             await self.two.join_chat("@cinewinx")
-            await self.two.join_chat("@@clubdaswinxcanall")
+            await self.two.join_chat("@canalclubdaswinx")
             await self.two.join_chat("@cinewinxcoments")
 
             try:
@@ -138,7 +138,7 @@ class Userbot(Client):
             await self.three.join_chat("@winxbotx")
             await self.three.join_chat("@winxmusicsupport")
             await self.three.join_chat("@cinewinx")
-            await self.three.join_chat("@@clubdaswinxcanall")
+            await self.three.join_chat("@canalclubdaswinx")
             await self.three.join_chat("@cinewinxcoments")
 
             try:
@@ -164,7 +164,7 @@ class Userbot(Client):
             await self.four.join_chat("@winxbotx")
             await self.four.join_chat("@winxmusicsupport")
             await self.four.join_chat("@cinewinx")
-            await self.four.join_chat("@@clubdaswinxcanall")
+            await self.four.join_chat("@canalclubdaswinx")
             await self.four.join_chat("@cinewinxcoments")
 
             try:
@@ -188,7 +188,7 @@ class Userbot(Client):
             await self.five.join_chat("@winxbotx")
             await self.five.join_chat("@winxmusicsupport")
             await self.five.join_chat("@cinewinx")
-            await self.five.join_chat("@@clubdaswinxcanall")
+            await self.five.join_chat("@canalclubdaswinx")
             await self.five.join_chat("@cinewinxcoments")
 
             try:
@@ -212,7 +212,7 @@ class Userbot(Client):
             await self.six.join_chat("@winxbotx")
             await self.six.join_chat("@winxmusicsupport")
             await self.six.join_chat("@cinewinx")
-            await self.six.join_chat("@@clubdaswinxcanall")
+            await self.six.join_chat("@canalclubdaswinx")
             await self.six.join_chat("@cinewinxcoments")
 
             try:
@@ -236,7 +236,7 @@ class Userbot(Client):
             await self.seven.join_chat("@winxbotx")
             await self.seven.join_chat("@winxmusicsupport")
             await self.seven.join_chat("@cinewinx")
-            await self.seven.join_chat("@@clubdaswinxcanall")
+            await self.seven.join_chat("@canalclubdaswinx")
             await self.seven.join_chat("@cinewinxcoments")
 
             try:
@@ -262,7 +262,7 @@ class Userbot(Client):
             await self.eight.join_chat("@winxbotx")
             await self.eight.join_chat("@winxmusicsupport")
             await self.eight.join_chat("@cinewinx")
-            await self.eight.join_chat("@@clubdaswinxcanall")
+            await self.eight.join_chat("@canalclubdaswinx")
             await self.eight.join_chat("@cinewinxcoments")
 
             try:
@@ -288,7 +288,7 @@ class Userbot(Client):
             await self.nine.join_chat("@winxbotx")
             await self.nine.join_chat("@winxmusicsupport")
             await self.nine.join_chat("@cinewinx")
-            await self.nine.join_chat("@@clubdaswinxcanall")
+            await self.nine.join_chat("@canalclubdaswinx")
             await self.nine.join_chat("@cinewinxcoments")
 
             try:
@@ -312,7 +312,7 @@ class Userbot(Client):
             await self.ten.join_chat("@winxbotx")
             await self.ten.join_chat("@winxmusicsupport")
             await self.ten.join_chat("@cinewinx")
-            await self.ten.join_chat("@@clubdaswinxcanall")
+            await self.ten.join_chat("@canalclubdaswinx")
             await self.ten.join_chat("@cinewinxcoments")
 
             try:

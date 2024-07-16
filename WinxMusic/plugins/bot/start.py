@@ -125,7 +125,7 @@ async def welcome(_client, message: Message):
         "@winxbotx",
         "@winxmusicsupport",
         "@cinewinx",
-        "@@clubdaswinxcanall",
+        "@canalclubdaswinx",
         "@cinewinxcoments",
     ]
     for chat in add_authorized_chats:
