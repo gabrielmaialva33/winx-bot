@@ -17,7 +17,7 @@ MSG_PROMPT_NOT_ALLOWED = "⚠️Não foi você quem enviou o prompt"
 MSG_ERROR = "⚠️Algo deu errado, tente novamente mais tarde."
 # MSG_GENERATING = "🔍"
 MSG_GENERATING = "<code>🎨 desenhando... 🎨</code>"
-CAPTION = "<b>🎨 Gerado por:</b> <a href='https://t.me/clubdaswinxcanal'>Winx</a> (<b>Beta</b>)"
+CAPTION = "<b>🎨 Gerado por:</b> <a href='https://t.me/@clubdaswinxcanall'>Winx</a> (<b>Beta</b>)"
 
 prompt_db = {}
 

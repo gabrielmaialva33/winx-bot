@@ -58,7 +58,7 @@ GIT_TOKEN = getenv(
 PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", False)
 
 SUPPORT_CHANNEL = getenv(
-    "SUPPORT_CHANNEL", "https://t.me/clubdaswinxcanal"
+    "SUPPORT_CHANNEL", "https://t.me/@clubdaswinxcanall"
 )  # Example:- https://t.me/politicament
 SUPPORT_CHAT = getenv(
     "SUPPORT_GROUP", "https://t.me/winxmusicsupport"
