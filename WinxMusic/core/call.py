@@ -286,8 +286,8 @@ class Call(PyTgCalls):
         duration = seconds_to_min(dur)
         audio_stream_quality = await get_audio_bitrate(chat_id)
         video_stream_quality = await get_video_bitrate(chat_id)
-        print('audio_stream_quality', audio_stream_quality)
-        print('video_stream_quality', video_stream_quality)
+        print("audio_stream_quality", audio_stream_quality)
+        print("video_stream_quality", video_stream_quality)
         stream = (
             MediaStream(
                 out,
@@ -341,8 +341,8 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
         video_stream_quality = await get_video_bitrate(chat_id)
-        print('audio_stream_quality', audio_stream_quality)
-        print('video_stream_quality', video_stream_quality)
+        print("audio_stream_quality", audio_stream_quality)
+        print("video_stream_quality", video_stream_quality)
         if video:
             stream = MediaStream(
                 link,
@@ -363,8 +363,8 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
         video_stream_quality = await get_video_bitrate(chat_id)
-        print('audio_stream_quality', audio_stream_quality)
-        print('video_stream_quality', video_stream_quality)
+        print("audio_stream_quality", audio_stream_quality)
+        print("video_stream_quality", video_stream_quality)
         stream = (
             MediaStream(
                 file_path,
@@ -459,8 +459,8 @@ class Call(PyTgCalls):
         assistant = await group_assistant(self, chat_id)
         audio_stream_quality = await get_audio_bitrate(chat_id)
         video_stream_quality = await get_video_bitrate(chat_id)
-        print('audio_stream_quality', audio_stream_quality)
-        print('video_stream_quality', video_stream_quality)
+        print("audio_stream_quality", audio_stream_quality)
+        print("video_stream_quality", video_stream_quality)
         language = await get_lang(chat_id)
         _ = get_string(language)
         if video:
@@ -555,8 +555,8 @@ class Call(PyTgCalls):
             exis = (check[0]).get("old_dur")
             audio_stream_quality = await get_audio_bitrate(chat_id)
             video_stream_quality = await get_video_bitrate(chat_id)
-            print('audio_stream_quality', audio_stream_quality)
-            print('video_stream_quality', video_stream_quality)
+            print("audio_stream_quality", audio_stream_quality)
+            print("video_stream_quality", video_stream_quality)
             if exis:
                 db[chat_id][0]["dur"] = exis
                 db[chat_id][0]["seconds"] = check[0]["old_second"]
