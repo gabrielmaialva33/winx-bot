@@ -13,3 +13,4 @@ unknown_errors.txt
 *.env
 venv/
 .venv/
+data
