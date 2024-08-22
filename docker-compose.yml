@@ -1,5 +1,5 @@
 services:
-  bot:
+  winx:
     build:
       context: .
       dockerfile: Dockerfile
@@ -46,6 +46,7 @@ services:
 
   warp:
     image: caomingjun/warp
+    container_name: warp
     restart: unless-stopped
     ports:
       - '1080:1080'
