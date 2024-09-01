@@ -8,13 +8,7 @@ pornhub-api
 deepai
 dnspython
 ffmpeg-python
-git+https://github.com/AsmSafone/SafoneAPI
-#git+https://github.com/Qewertyy/LexicaAPI
-lexica-api==1.5.6
-git+https://github.com/yt-dlp/yt-dlp
-#safoneapi
-#lexica-api
-#yt-dlp
+lexica-api
 gitpython
 gpytranslate
 gradio_client
@@ -22,15 +16,12 @@ hachoir
 heroku3
 httpx[http2]
 motor
+py-tgcalls==1.2.9
 ntgcalls==1.1.2
 openai
-pillow
+pillow==9.5.0
 psutil
-#git+https://github.com/pytgcalls/pytgcalls
-py-tgcalls==1.2.9
 pykeyboard
-#pyrogram
-https://github.com/KurimuzonAkuma/pyrogram/archive/dev.zip
 python-dotenv
 pyyaml
 requests
@@ -41,8 +32,9 @@ telegraph
 tgcrypto
 unidecode
 urllib3
-#youtube-search
-#youtube-search-python
+git+https://github.com/AsmSafone/SafoneAPI
+git+https://github.com/KurimuzonAkuma/pyrogram@dev
+git+https://github.com/yt-dlp/yt-dlp
 git+https://github.com/alexmercerind/youtube-search-python@main
 git+https://github.com/joetats/youtube_search@master
 
