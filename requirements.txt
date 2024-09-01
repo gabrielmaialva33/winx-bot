@@ -19,7 +19,7 @@ motor
 py-tgcalls==1.2.9
 ntgcalls==1.1.2
 openai
-pillow==9.5.0
+pillow
 psutil
 pykeyboard
 python-dotenv
